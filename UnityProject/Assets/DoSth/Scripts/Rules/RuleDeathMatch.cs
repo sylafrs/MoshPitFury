@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RuleDeathMatch : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+public class RuleDeathMatch : Rule {
 	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public override bool IsFinished
+	{
+		get { return this.Manager.AlivePlayers.Count <= 1; }
 	}
 }

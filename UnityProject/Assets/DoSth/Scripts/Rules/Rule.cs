@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Rule : MonoBehaviour {
+public abstract class Rule 
+{
+	protected GameManager Manager;
 
-	// Use this for initialization
-	void Start () {
-	
+	public virtual void Start(GameManager manager)
+	{
+		this.Manager = manager;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public abstract bool IsFinished
+	{
+		get;
 	}
 }
