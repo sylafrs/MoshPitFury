@@ -15,7 +15,12 @@ public class Player : MonoBehaviour {
 		this.renderer.material.color = Color.green;
 	}
 
-	void OnDeath()
+	void OnDeathTrigger()
+	{
+		Death();
+	}
+
+	void Death()
 	{
 		Manager.SendMessage("OnPlayerDeath", this);
 		this.renderer.material.color = Color.red;
@@ -23,6 +28,6 @@ public class Player : MonoBehaviour {
 
 	void OnMouseDown()
 	{
-		this.OnDeath();
+		this.Death();
 	}
 }
