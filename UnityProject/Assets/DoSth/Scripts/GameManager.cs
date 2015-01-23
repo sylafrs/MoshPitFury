@@ -18,15 +18,19 @@ public class GameManager : MonoBehaviour
 
 	public void StartGame()
 	{
+		Debug.Log("start game");
+
 		UsedRule		= ExistingRules[0]; // à gérer plus tard.
 		Players			= GameObject.FindObjectsOfType<Player>();
 		AlivePlayers	= new List<Player>(Players);
 		
-		UsedRule.Start(this);
+		UsedRule.StartGame(this);
 	}
 
 	void OnPlayerDeath(Player p)
 	{
+		Debug.Log(p.name + " is dead");
+
 		if (AlivePlayers.Contains(p))
 			AlivePlayers.Remove(p);
 	}

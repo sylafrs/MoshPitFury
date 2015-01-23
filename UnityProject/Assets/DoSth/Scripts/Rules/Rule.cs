@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Rule 
+public abstract class Rule : MonoBehaviour
 {
 	protected GameManager Manager;
 
-	public virtual void Start(GameManager manager)
+	public virtual void StartGame(GameManager manager)
 	{
 		this.Manager = manager;
 	}
