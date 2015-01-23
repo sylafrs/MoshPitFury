@@ -11,11 +11,18 @@ public class GameManager : MonoBehaviour
 
 	private Player[] Players;
 
+	private void Start()
+	{
+		StartGame();
+	}
+
 	public void StartGame()
 	{
 		UsedRule		= ExistingRules[0]; // à gérer plus tard.
 		Players			= GameObject.FindObjectsOfType<Player>();
 		AlivePlayers	= new List<Player>(Players);
+		
+		UsedRule.Start(this);
 	}
 
 	void OnPlayerDeath(Player p)

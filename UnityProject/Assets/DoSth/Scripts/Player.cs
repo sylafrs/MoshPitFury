@@ -13,4 +13,9 @@ public class Player : MonoBehaviour {
 	{
 		Manager.SendMessage("OnPlayerDeath", this);
 	}
+
+	void OnMouseDown()
+	{
+		this.OnDeath();
+	}
 }
