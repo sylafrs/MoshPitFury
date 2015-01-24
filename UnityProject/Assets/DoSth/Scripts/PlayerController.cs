@@ -102,6 +102,16 @@ public class PlayerController : MonoBehaviour
 		return dir.normalized;
 	}
 
+	void OnPlayerPlaced()
+	{
+		this.Speed = Vector3.zero;
+		if (!this.rigidbody.isKinematic)
+		{
+			this.rigidbody.velocity = Vector3.zero;
+			this.rigidbody.angularVelocity = Vector3.zero;
+		}
+	}
+
 	void UpdateSpeed()
 	{
 		Vector3 perfectSpeed;
@@ -116,11 +126,18 @@ public class PlayerController : MonoBehaviour
 		
 		this.Speed = Vector3.Lerp(this.Speed, perfectSpeed, Time.deltaTime * (this.isDashing ? AccelerationDash : Acceleration));
 		this.Speed.y = this.rigidbody.velocity.y;
-		this.rigidbody.velocity = this.Speed;
-		
-		if(this.Speed != Vector3.zero)
+
+		if (this.Speed.sqrMagnitude < 0.01f)
+		{
+			this.Speed = Vector3.zero;
+		}
+		else
+		{
+			this.player.OnMove();
 			this.transform.forward = this.Speed.normalized;
-		
+		}
+
+		this.rigidbody.velocity = this.Speed;
 		this.rigidbody.angularVelocity = Vector3.zero;
 	}
 	

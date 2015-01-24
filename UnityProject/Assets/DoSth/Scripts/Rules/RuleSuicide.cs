@@ -19,8 +19,7 @@ public class RuleSuicide : Rule
 	{
 		Winner = null;
 	}
-
-	public override void OnPlayerDeath(Player p)
+	void OnPlayerDeath(Player p)
 	{
 		Winner = p;
 	}

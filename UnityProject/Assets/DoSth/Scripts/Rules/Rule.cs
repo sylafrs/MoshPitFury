@@ -37,10 +37,9 @@ public abstract class Rule : MonoBehaviour
 		this.Manager = null;
 	}
 
-	public abstract bool IsFinished
+	public virtual bool IsFinished
 	{
-		get;
+		get { return this.Manager.RoundTimer > this.Duration || this.Manager.AlivePlayers.Count == 0; }
 	}
 
-	public virtual void OnPlayerDeath(Player p) { }
 }

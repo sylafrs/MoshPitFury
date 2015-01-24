@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 	private GameObject Level;
 
 	public Rule[] ExistingRules;
+	private List<Rule> NotPlayedRules;
+
 	public Transform[] SpawnPoints;
 
 	public Rule UsedRule { get; private set; }
@@ -39,7 +41,13 @@ public class GameManager : MonoBehaviour
 	{
 		Debug.Log("start game");
 				
-		UsedRule		= ExistingRules[Random.Range(0, ExistingRules.Length)]; // à gérer plus tard.
+		if(NotPlayedRules == null || NotPlayedRules.Count == 0)
+			NotPlayedRules = new List<Rule>(this.ExistingRules);
+
+		UsedRule		= NotPlayedRules[Random.Range(0, NotPlayedRules.Count)];
+
+		NotPlayedRules.Remove(UsedRule);
+
 		AlivePlayers	= new List<Player>(Players);
 
 		UsedRule.Prepare(this);
@@ -48,6 +56,7 @@ public class GameManager : MonoBehaviour
 		{
 			p.transform.position = this.SpawnPoints[p.Id - 1].position;
 			p.transform.forward = this.SpawnPoints[p.Id - 1].forward;
+			p.SendMessage("OnPlayerPlaced");
 
 			p.Prepare();
 			p.JumpsTo(this.UsedRule.GetPlayerSpawnPoint(p), 2);
@@ -68,6 +77,7 @@ public class GameManager : MonoBehaviour
 		{
 			p.transform.position = UsedRule.GetPlayerSpawnPoint(p).position;
 			p.transform.forward = UsedRule.GetPlayerSpawnPoint(p).forward;
+			p.SendMessage("OnPlayerPlaced");
 			p.StartGame();
 		}
 	}
@@ -77,10 +87,22 @@ public class GameManager : MonoBehaviour
 		Debug.Log(p.name + " is dead");
 
 		if (this.UsedRule != null)
-			this.UsedRule.OnPlayerDeath(p);
+			this.UsedRule.SendMessage("OnPlayerDeath", p, SendMessageOptions.DontRequireReceiver);
 
 		if (AlivePlayers.Contains(p))
 			AlivePlayers.Remove(p);
+	}
+
+	void OnPlayerStayInBeerArea(Player p)
+	{
+		if (this.UsedRule != null)
+			this.UsedRule.SendMessage("OnPlayerStayInBeerArea", p, SendMessageOptions.DontRequireReceiver);
+	}
+
+	void OnPlayerMove(Player p)
+	{
+		if (this.UsedRule != null)
+			this.UsedRule.SendMessage("OnPlayerMove", p, SendMessageOptions.DontRequireReceiver);
 	}
 
 	void Update()

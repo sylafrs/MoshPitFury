@@ -96,7 +96,12 @@ public class Player : MonoBehaviour {
 		Death();
 	}
 
-	void Death()
+	void OnBeerAreaStay()
+	{
+		Manager.SendMessage("OnPlayerStayInBeerArea", this);
+	}
+
+	public void Death()
 	{
 		this.gameObject.SetActive(false);
 		Manager.SendMessage("OnPlayerDeath", this);
@@ -107,5 +112,10 @@ public class Player : MonoBehaviour {
 	void OnMouseDown()
 	{
 		this.Death();
+	}
+
+	public void OnMove()
+	{
+		Manager.SendMessage("OnPlayerMove", this);
 	}
 }
