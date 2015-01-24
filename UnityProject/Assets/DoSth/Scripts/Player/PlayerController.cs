@@ -22,9 +22,7 @@ public class PlayerController : MonoBehaviour
 	public float	DashDuration;
 	public float	DashCooldown;
 	private float	DashTimer;
-
-	private bool	isDashing = false;
-	
+		
 	private Vector3 Speed;
 	public float BumpPower = 2;
 
@@ -99,12 +97,12 @@ public class PlayerController : MonoBehaviour
 			DashTimer -= Time.deltaTime;
 		
 		// On dashe.
-		if(this.isDashing)
+		if(this.player.IsDashing)
 		{
 			// Fin du dash
 			if(this.DashTimer <= 0)
 			{
-				this.isDashing = false;
+				this.player.IsDashing = false;
 				this.DashTimer = this.DashCooldown;
 
 				if (this.Speed.sqrMagnitude > MaxSpeed * MaxSpeed)
@@ -118,10 +116,10 @@ public class PlayerController : MonoBehaviour
 			// Fin du cooldown
 			if (DashTimer <= 0)
 			{
-				this.isDashing = this.AButton;
+				this.player.IsDashing = this.AButton;
 
 				// Nouveau dash.
-				if(this.isDashing)
+				if(this.player.IsDashing)
 					this.DashTimer = this.DashDuration;
 			}
 		}
@@ -151,7 +149,7 @@ public class PlayerController : MonoBehaviour
 		Vector3 perfectSpeed;
 		if (player.CanMove)
 		{
-			if (isDashing)
+			if (this.player.IsDashing)
 			{
 				perfectSpeed = this.Speed.normalized * MaxSpeedDash;
 			}
@@ -165,16 +163,17 @@ public class PlayerController : MonoBehaviour
 			perfectSpeed = Vector3.zero;
 		}
 		
-		this.Speed = Vector3.Lerp(this.Speed, perfectSpeed, Time.deltaTime * (this.isDashing ? AccelerationDash : Acceleration));
+		this.Speed = Vector3.Lerp(this.Speed, perfectSpeed, Time.deltaTime * (this.player.IsDashing ? AccelerationDash : Acceleration));
 		this.Speed.y = this.rigidbody.velocity.y;
 
 		if (this.Speed.sqrMagnitude < 0.01f)
 		{
+			this.player.gameObject.SendMessage("OnIdle");
 			this.Speed = Vector3.zero;
 		}
 		else
 		{
-			this.player.OnMove();
+			this.player.gameObject.SendMessage("OnMove");
 			this.transform.forward = this.Speed.normalized;
 		}
 
@@ -201,19 +200,36 @@ public class PlayerController : MonoBehaviour
 		{
 			Vector3 prevSpeed = this.Speed;
 
-			if (other.isDashing)
+			if (other.player.IsDashing)
 			{
+				PushData push = new PushData();
+				push.Collision = collision;
+				push.Pushed = this.player;
+				push.Pusher = other.player;
+
 				this.Speed += collision.relativeVelocity.normalized * (BumpPower * other.Speed.magnitude);
-				this.gameObject.SendMessage("OnPushed", other, SendMessageOptions.DontRequireReceiver);
-				other.gameObject.SendMessage("OnPush", this, SendMessageOptions.DontRequireReceiver);
+				this.gameObject.SendMessage("OnPushed", push, SendMessageOptions.DontRequireReceiver);
+				other.gameObject.SendMessage("OnPush", push, SendMessageOptions.DontRequireReceiver);
 			}
 
-			if (this.isDashing)
+			if (this.player.IsDashing)
 			{
+				PushData push = new PushData();
+				push.Collision = collision;
+				push.Pushed = other.player;
+				push.Pusher = this.player;
+
 				other.Speed -= collision.relativeVelocity.normalized * (BumpPower * prevSpeed.magnitude);
-				this.gameObject.SendMessage("OnPush", other, SendMessageOptions.DontRequireReceiver);
-				other.gameObject.SendMessage("OnPushed", this, SendMessageOptions.DontRequireReceiver);
+				this.gameObject.SendMessage("OnPush", push, SendMessageOptions.DontRequireReceiver);
+				other.gameObject.SendMessage("OnPushed", push, SendMessageOptions.DontRequireReceiver);
 			}
 		}		
 	}
+}
+
+public class PushData
+{
+	public Player Pushed;
+	public Player Pusher;
+	public Collision Collision;
 }
