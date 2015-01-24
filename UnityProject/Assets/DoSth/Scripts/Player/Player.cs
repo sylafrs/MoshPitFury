@@ -9,6 +9,9 @@ public class Player : MonoBehaviour {
 	public bool HasStarted;
 	private GameManager Manager;
 
+	[HideInInspector]
+	public bool IsDashing = false;
+
 	public bool CanMove = false;
 	public Color MainColor;
 	public ProjectorLookAt projector;
@@ -114,7 +117,7 @@ public class Player : MonoBehaviour {
 		IsDead = true;
 	}
 	
-	public void OnMove()
+	private void OnMove()
 	{
 		Manager.OnPlayerMove(this);
 	}
