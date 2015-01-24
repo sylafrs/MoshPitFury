@@ -1,32 +1,33 @@
 fileFormatVersion: 2
-guid: f83b88f3700323341a896abd2ef1fe0b
+guid: cfc95e785b1eb2f4f8791810cbd949fd
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: body_jnt
-    100002: bodyRoot_jnt
-    100004: HB_00
-    100006: head_jnt
-    100008: L_arm_jnt
-    100010: L_leg_jnt
-    100012: //RootNode
-    100014: R_arm_jnt
-    100016: R_leg_jnt
-    100018: root_jnt
-    400000: body_jnt
-    400002: bodyRoot_jnt
-    400004: HB_00
-    400006: head_jnt
-    400008: L_arm_jnt
-    400010: L_leg_jnt
-    400012: //RootNode
-    400014: R_arm_jnt
-    400016: R_leg_jnt
-    400018: root_jnt
-    4300000: HB_00
-    7400000: Take 001
+    100000: //RootNode
+    100002: RIG:body_jnt
+    100004: RIG:bodyRoot_jnt
+    100006: RIG:HB_00
+    100008: RIG:head_jnt
+    100010: RIG:L_arm_jnt
+    100012: RIG:L_leg_jnt
+    100014: RIG:R_arm_jnt
+    100016: RIG:R_leg_jnt
+    100018: RIG:root_jnt
+    400000: //RootNode
+    400002: RIG:body_jnt
+    400004: RIG:bodyRoot_jnt
+    400006: RIG:HB_00
+    400008: RIG:head_jnt
+    400010: RIG:L_arm_jnt
+    400012: RIG:L_leg_jnt
+    400014: RIG:R_arm_jnt
+    400016: RIG:R_leg_jnt
+    400018: RIG:root_jnt
+    4300000: RIG:HB_00
+    7400000: NPC_Headbang
     9500000: //RootNode
-    13700000: HB_00
+    11100000: //RootNode
+    13700000: RIG:HB_00
   materials:
     importMaterials: 1
     materialName: 0
@@ -36,17 +37,63 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: NPC_Headbang
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 13
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: RIG:HB_00
+        weight: 1
+      - path: RIG:root_jnt
+        weight: 1
+      - path: RIG:root_jnt/RIG:bodyRoot_jnt
+        weight: 1
+      - path: RIG:root_jnt/RIG:bodyRoot_jnt/RIG:body_jnt
+        weight: 1
+      - path: RIG:root_jnt/RIG:bodyRoot_jnt/RIG:body_jnt/RIG:head_jnt
+        weight: 1
+      - path: RIG:root_jnt/RIG:bodyRoot_jnt/RIG:body_jnt/RIG:L_arm_jnt
+        weight: 1
+      - path: RIG:root_jnt/RIG:bodyRoot_jnt/RIG:body_jnt/RIG:R_arm_jnt
+        weight: 1
+      - path: RIG:root_jnt/RIG:bodyRoot_jnt/RIG:L_leg_jnt
+        weight: 1
+      - path: RIG:root_jnt/RIG:bodyRoot_jnt/RIG:R_leg_jnt
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .00999999978
+    globalScale: .100000001
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -76,7 +123,7 @@ ModelImporter:
     armStretch: .0500000007
     legStretch: .0500000007
     feetSpacing: 0
-    rootMotionBoneName: 
+    rootMotionBoneName: RIG:root_jnt
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
   additionalBone: 0
