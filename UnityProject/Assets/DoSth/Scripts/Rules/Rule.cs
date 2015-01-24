@@ -5,6 +5,7 @@ public abstract class Rule : MonoBehaviour
 {
 	protected GameManager Manager;
 	public Transform[] SpawnPoints;
+	public float Duration = 10;
 
 	public abstract string Name
 	{
@@ -17,6 +18,11 @@ public abstract class Rule : MonoBehaviour
 		{
 			return this.Manager != null;
 		}
+	}
+
+	public virtual Transform GetPlayerSpawnPoint(Player p)
+	{
+		return this.SpawnPoints[p.Id - 1];
 	}
 
 	public virtual void Prepare(GameManager manager) { }

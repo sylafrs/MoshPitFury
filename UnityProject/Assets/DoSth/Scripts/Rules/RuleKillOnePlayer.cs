@@ -3,23 +3,40 @@ using System.Collections;
 
 public class RuleKillOnePlayer : Rule {
 
-	private int PlayerToKill;
+	private Player PlayerToKill;
 
 	public override void Prepare(GameManager manager)
 	{
-		this.PlayerToKill = Random.Range(1, manager.AlivePlayers.Count + 1);
+		this.PlayerToKill = manager.Players[Random.Range(0, manager.Players.Length)];
+	}
+
+	public override Transform GetPlayerSpawnPoint(Player p)
+	{
+		//return base.GetPlayerSpawnPoint(p);
+
+		if(p == PlayerToKill)
+		{
+			return this.SpawnPoints[0];
+		}
+
+		if(p.Id < PlayerToKill.Id)
+		{
+			return this.SpawnPoints[p.Id];
+		}
+
+		return this.SpawnPoints[p.Id - 1];
 	}
 
 	public override bool IsFinished
 	{
 		get 
 		{
-			return this.Manager.IsPlayerAlive(PlayerToKill);
+			return this.Manager.RoundTimer > this.Duration || this.PlayerToKill.IsDead;
 		}
 	}
 
 	public override string Name
 	{
-		get { return "KILL PLAYER " + PlayerToKill; }
+		get { return "KILL PLAYER " + PlayerToKill.Id; }
 	}
 }

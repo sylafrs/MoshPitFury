@@ -10,6 +10,6 @@ public class RuleSuicide : Rule {
 	
 	public override bool IsFinished
 	{
-		get { return Input.GetKeyDown(KeyCode.Space); }
+		get { return this.Manager.RoundTimer > this.Duration; }
 	}
 }

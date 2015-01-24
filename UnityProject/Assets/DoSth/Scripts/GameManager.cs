@@ -12,19 +12,21 @@ public class GameManager : MonoBehaviour
 	public Transform[] SpawnPoints;
 
 	public Rule UsedRule { get; private set; }
-
+	public float RoundTimer;
 
 	public List<Player> AlivePlayers { get; private set; }
 
-	private Player[] Players;
+	public Player[] Players { get; private set; }
 	private Text LabelStartTimer;
 	private Text LabelRuleName;
+	private Text LabelRoundTimer;
 
 	private void Awake()
 	{
 		Players = GameObject.FindObjectsOfType<Player>();
 		LabelStartTimer = GameObject.Find("TXT_start_cooldown").GetComponent<Text>();
 		LabelRuleName = GameObject.Find("TXT_rule_name").GetComponent<Text>();
+		LabelRoundTimer = GameObject.Find("TXT_round_timer").GetComponent<Text>();
 	}
 
 	private void Start()
@@ -48,7 +50,7 @@ public class GameManager : MonoBehaviour
 			p.transform.forward = this.SpawnPoints[p.Id - 1].forward;
 
 			p.Prepare();
-			p.JumpsTo(this.UsedRule.SpawnPoints[p.Id - 1], 2);
+			p.JumpsTo(this.UsedRule.GetPlayerSpawnPoint(p), 2);
 		}
 
 		yield return StartCoroutine(CountDown(3, 0.3f, 3));
@@ -57,13 +59,15 @@ public class GameManager : MonoBehaviour
 		LabelRuleName.text = UsedRule.Name;
 		yield return new WaitForSeconds(2);
 		LabelRuleName.enabled = false;
-	
+		this.LabelRoundTimer.enabled = true;
+
+		RoundTimer = 0;
 		UsedRule.StartGame(this);
 
 		foreach (Player p in AlivePlayers)
 		{
-			p.transform.position	= UsedRule.SpawnPoints[p.Id - 1].position;
-			p.transform.forward		= UsedRule.SpawnPoints[p.Id - 1].forward;
+			p.transform.position = UsedRule.GetPlayerSpawnPoint(p).position;
+			p.transform.forward = UsedRule.GetPlayerSpawnPoint(p).forward;
 			p.StartGame();
 		}
 	}
@@ -80,6 +84,9 @@ public class GameManager : MonoBehaviour
 	{
 		if(UsedRule != null && UsedRule.Started)
 		{
+			RoundTimer += Time.deltaTime;
+			this.LabelRoundTimer.text = Mathf.FloorToInt(UsedRule.Duration - RoundTimer).ToString();
+
 			if(UsedRule.IsFinished || Input.GetKeyDown(KeyCode.Space))
 			{
 				GameOver();
@@ -89,6 +96,7 @@ public class GameManager : MonoBehaviour
 
 	void GameOver()
 	{
+		this.LabelRoundTimer.enabled = false;
 		this.UsedRule.GameOver();
 		this.UsedRule = null;
 

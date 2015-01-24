@@ -41,14 +41,20 @@ public class PlayerController : MonoBehaviour
 
 			Vector3 padController = new Vector3
 			(
-				Input.GetAxisRaw("P" + player.Id + "_Vertical"),
+				Input.GetAxisRaw("P" + player.Id + "_Horizontal"),
 				0,
-				Input.GetAxisRaw("P" + player.Id + "_Horizontal")
+				-Input.GetAxisRaw("P" + player.Id + "_Vertical")
 			);
 
-			if (padController.sqrMagnitude < sqrDeadZone)
-				padController = Vector3.zero;
+			if (Mathf.Abs(padController.x) < 0.1f)
+				padController.x = 0;
 
+			if (Mathf.Abs(padController.z) < 0.1f)
+				padController.z = 0;
+
+			if (padController.sqrMagnitude < sqrDeadZone)
+				padController = Vector2.zero;
+			
 			return padController;
 		}
 	}
@@ -87,6 +93,15 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	Vector3 CameraRelatedDirection(Vector3 padDir)
+	{
+		Transform t = Camera.main.transform;
+
+		Vector3 dir = Quaternion.Euler(0, t.eulerAngles.y, 0) * padDir;
+		
+		return dir.normalized;
+	}
+
 	void UpdateSpeed()
 	{
 		Vector3 perfectSpeed;
@@ -96,7 +111,7 @@ public class PlayerController : MonoBehaviour
 		}
 		else
 		{
-			perfectSpeed = this.PadDirection.normalized * MaxSpeed;
+			perfectSpeed = CameraRelatedDirection(this.PadDirection) * MaxSpeed;
 		}
 		
 		this.Speed = Vector3.Lerp(this.Speed, perfectSpeed, Time.deltaTime * (this.isDashing ? AccelerationDash : Acceleration));
