@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour 
 {
+	public static GameManager instance;
+
 	public Rule[] ExistingRules;
 
 	public Rule UsedRule { get; private set; }
@@ -13,6 +15,7 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
+		instance = this;
 		StartGame();
 	}
 
