@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
 			p.JumpsTo(this.UsedRule.GetPlayerSpawnPoint(p), 2);
 		}
 
-		yield return StartCoroutine(CountDown(3, 0.3f, 3));
+		yield return StartCoroutine(CountDown(1.25f, 0.3f, 3));
 	
 		LabelRuleName.enabled = true;
 		LabelRuleName.text = UsedRule.Description;
@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
 	{
 		LabelStartTimer.enabled = true;
 		LabelStartTimer.text = "Ready?";
-		yield return new WaitForSeconds(duration * readyRatio);
+		yield return new WaitForSeconds(1.5f);
 
 		// On a duration * 0.7f pour seconds + 1 iteration.
 		// Donc une itération : duration * 0.7f * (1 / 1+iteration)
