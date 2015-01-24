@@ -7,4 +7,9 @@ public class RuleDeathMatch : Rule {
 	{
 		get { return this.Manager.AlivePlayers.Count <= 1; }
 	}
+
+	public override string Name
+	{
+		get { return "DEATHMATCH"; }
+	}
 }
