@@ -31,9 +31,6 @@ public class PlayerController : MonoBehaviour
 	private void UpdateState()
 	{
 		this.PadState = GamePad.GetState((PlayerIndex)(this.player.Id - 1));
-		Debug.Log(
-			((PlayerIndex)(this.player.Id - 1)).ToString() + " is " + 
-			(this.PadState.IsConnected ? "connected" : "disconnnected"));
 	}
 
 	private bool AButton
@@ -73,6 +70,27 @@ public class PlayerController : MonoBehaviour
 			
 			return padController;
 		}
+	}
+
+	void OnDeath()
+	{
+		if (PadState.IsConnected)
+			StartCoroutine(TimeVibration(3, 0.2f, 0.2f));
+
+	}
+	void OnDestroy()
+	{
+		if (PadState.IsConnected)
+			GamePad.SetVibration((PlayerIndex)(this.player.Id - 1), 0, 0);
+	}
+
+	IEnumerator TimeVibration(float time, float left, float right)
+	{
+		if (PadState.IsConnected)
+			GamePad.SetVibration((PlayerIndex)(this.player.Id - 1), left, right);
+		yield return new WaitForSeconds(time);
+		if (PadState.IsConnected)
+			GamePad.SetVibration((PlayerIndex)(this.player.Id - 1), 0, 0);
 	}
 
 	void UpdateDash()
