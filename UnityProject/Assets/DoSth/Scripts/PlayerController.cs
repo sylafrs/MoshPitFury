@@ -153,6 +153,7 @@ public class PlayerController : MonoBehaviour
 		{
 			if (isDashing)
 			{
+
 				perfectSpeed = this.Speed.normalized * MaxSpeedDash;
 			}
 			else
