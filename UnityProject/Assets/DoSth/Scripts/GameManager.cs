@@ -38,9 +38,7 @@ public class GameManager : MonoBehaviour
 	}
 
 	public IEnumerator StartGame()
-	{
-		Debug.Log("start game");
-				
+	{				
 		if(NotPlayedRules == null || NotPlayedRules.Count == 0)
 			NotPlayedRules = new List<Rule>(this.ExistingRules);
 
@@ -84,8 +82,6 @@ public class GameManager : MonoBehaviour
 
 	public void OnPlayerDeath(Player p)
 	{
-		Debug.Log(p.name + " is dead");
-
 		if (this.UsedRule != null)
 			this.UsedRule.OnPlayerDeath(p);
 
@@ -114,27 +110,30 @@ public class GameManager : MonoBehaviour
 
 			if(UsedRule.IsFinished || Input.GetKeyDown(KeyCode.Space))
 			{
-				Player [] winners = UsedRule.GetWinners();
-				foreach(Player p in winners)
-					this.OnPlayerWin(p);
-
-				GameOver();
+				this.LabelRoundTimer.enabled = false;
+				StartCoroutine(OnEndGame());
 			}
 		}
 	}
-
-	void OnPlayerWin(Player p)
+		
+	private IEnumerator OnEndGame()
 	{
-		p.OnPlayerWin();
-	}
+		Player[] winners = UsedRule.GetWinners();
 
-	
-
-	void GameOver()
-	{
-		this.LabelRoundTimer.enabled = false;
 		this.UsedRule.GameOver();
 		this.UsedRule = null;
+
+		List<Coroutine> coroutines = new List<Coroutine>();
+		
+		// On lance les coroutines
+		foreach (Player p in winners)
+			coroutines.Add(p.OnPlayerWin());
+		
+		// On les attend
+		foreach (Coroutine c in coroutines)
+			yield return c;
+
+		this.LabelRoundTimer.enabled = false;
 
 		StartCoroutine(StartGame());
 	}

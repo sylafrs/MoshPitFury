@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if(DashTimer > 0)
 			DashTimer -= Time.deltaTime;
-
+		
 		// On dashe.
 		if(this.isDashing)
 		{
@@ -115,13 +115,20 @@ public class PlayerController : MonoBehaviour
 	void UpdateSpeed()
 	{
 		Vector3 perfectSpeed;
-		if(isDashing)
+		if (player.CanMove)
 		{
-			perfectSpeed = this.Speed.normalized * MaxSpeedDash;
+			if (isDashing)
+			{
+				perfectSpeed = this.Speed.normalized * MaxSpeedDash;
+			}
+			else
+			{
+				perfectSpeed = CameraRelatedDirection(this.PadDirection) * MaxSpeed;
+			}
 		}
 		else
 		{
-			perfectSpeed = CameraRelatedDirection(this.PadDirection) * MaxSpeed;
+			perfectSpeed = Vector3.zero;
 		}
 		
 		this.Speed = Vector3.Lerp(this.Speed, perfectSpeed, Time.deltaTime * (this.isDashing ? AccelerationDash : Acceleration));
@@ -138,16 +145,19 @@ public class PlayerController : MonoBehaviour
 		}
 
 		this.rigidbody.velocity = this.Speed;
-		this.rigidbody.angularVelocity = Vector3.zero;
+		this.rigidbody.angularVelocity = Vector3.zero;		
 	}
 	
 	void Update ()
 	{
-		if (player.CanMove)
-		{
-			UpdateDash();
-			UpdateSpeed();
-		}
+		UpdateDash();
+		UpdateSpeed();
+	}
+
+	void OnBumped(BumperTrigger bumper)
+	{
+		Debug.Log("yup");
+		this.Speed += bumper.transform.forward * bumper.Power;
 	}
 		
 	public void OnCollisionEnter(Collision collision)
