@@ -66,6 +66,11 @@ public class PlayerController : MonoBehaviour
 			{
 				this.isDashing = false;
 				this.DashTimer = this.DashCooldown;
+
+				if (this.Speed.sqrMagnitude > MaxSpeed * MaxSpeed)
+				{
+					this.Speed = this.Speed.normalized * MaxSpeed;
+				}
 			}
 		}
 		else
@@ -111,13 +116,19 @@ public class PlayerController : MonoBehaviour
 		PlayerController other = collision.gameObject.GetComponent<PlayerController>();
 		if(other != null && this.player.Id < other.player.Id)
 		{
-			Debug.Log("BUMP");
-
 			Vector3 prevSpeed = this.Speed;
-			if(other.isDashing)
-				this.Speed	+= collision.relativeVelocity.normalized * (BumpPower * other.Speed.magnitude);
-			if(this.isDashing)
+
+			if (other.isDashing)
+			{
+				Debug.Log(this.player.Id + " is pushed");
+				this.Speed += collision.relativeVelocity.normalized * (BumpPower * other.Speed.magnitude);
+			}
+
+			if (this.isDashing)
+			{
+				Debug.Log(other.player.Id + " is pushed");
 				other.Speed -= collision.relativeVelocity.normalized * (BumpPower * prevSpeed.magnitude);
+			}
 		}		
 	}
 }
