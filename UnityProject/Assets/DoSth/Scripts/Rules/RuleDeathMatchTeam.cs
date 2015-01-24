@@ -25,13 +25,20 @@ public class RuleDeathMatchTeam : Rule {
 		bool teamADead = this.IsTeamDead(teamA);
 		bool teamBDead = this.IsTeamDead(teamB);
 
+		// Personne en vie
 		if (teamADead && teamBDead)
 			return new Player[0];
-
+		
+		// que B
 		if (teamADead)
 			return teamB.ToArray();
 
-		return teamA.ToArray();
+		// que A
+		if (teamBDead)
+			return teamA.ToArray();
+
+		// Tout le monde vivant
+		return new Player[0];
 	}
 
 	private string ListTeam(List<Player> team)

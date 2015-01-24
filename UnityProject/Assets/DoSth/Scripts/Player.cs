@@ -10,7 +10,6 @@ public class Player : MonoBehaviour {
 	private GameManager Manager;
 
 	public bool CanMove = false;
-	private bool hasWon = false;
 	public Color MainColor;
 	public ProjectorLookAt projector;
 	
@@ -84,10 +83,8 @@ public class Player : MonoBehaviour {
 
 	public void Prepare()
 	{
-		this.gameObject.SetActive(true);
 		HasStarted = false;
 		IsDead = false;
-		this.rigidbody.isKinematic = true;
 		this.CanMove = false;
 	}
 
@@ -95,27 +92,7 @@ public class Player : MonoBehaviour {
 	{
 		IsDead = false;
 		HasStarted = true;
-		this.rigidbody.isKinematic = false;
 		this.CanMove = true;
-	}
-
-	void OnGroundReached()
-	{
-		Vector3 v = this.transform.position;
-			
-		if (v.y > -0.1f)
-		{
-			this.rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
-			this.rigidbody.useGravity = false;
-			v.y = 0;
-			this.transform.position = v;
-		}
-	}
-
-	void OnGroundLost()
-	{
-		this.rigidbody.useGravity = true;
-		this.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 	}
 		
 	void OnDeathTrigger()
@@ -125,42 +102,25 @@ public class Player : MonoBehaviour {
 
 	void OnBeerAreaStay()
 	{
-		Manager.OnPlayerStayInBeerArea(this);
+		if(!IsDead)
+			Manager.OnPlayerStayInBeerArea(this);
 	}
 
 	public void Death()
 	{
-		this.gameObject.SetActive(false);
 		Manager.OnPlayerDeath(this);
 		this.CanMove = false;
 		IsDead = true;
 	}
-
-	void OnMouseDown()
-	{
-		this.Death();
-	}
-
+	
 	public void OnMove()
 	{
 		Manager.OnPlayerMove(this);
 	}
 
-	public void OnPlayerWin()
+	public Coroutine OnPlayerWin()
 	{
-		if(!this.gameObject.activeSelf)
-			hasWon = true;
-		else
-			StartCoroutine(ActiveProjector(3));
-	}
-
-	public void OnEnable()
-	{
-		if(hasWon)
-		{
-			hasWon = false;
-			StartCoroutine(ActiveProjector(3));
-		}
+		return StartCoroutine(ActiveProjector(3));
 	}
 
 	private IEnumerator ActiveProjector(float duration)
