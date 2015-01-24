@@ -107,8 +107,11 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
 	{
-		UpdateDash();
-		UpdateSpeed();
+		if (player.CanMove)
+		{
+			UpdateDash();
+			UpdateSpeed();
+		}
 	}
 		
 	public void OnCollisionEnter(Collision collision)

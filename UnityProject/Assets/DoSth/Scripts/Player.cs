@@ -7,14 +7,26 @@ public class Player : MonoBehaviour {
 	public int Id;
 	private GameManager Manager;
 
+	public bool CanMove = false;
+
 	void Start () 
 	{
 		Manager = GameObject.FindObjectOfType<GameManager>();
 	}
 
+	public void Prepare()
+	{
+		this.rigidbody.isKinematic = true;
+		this.renderer.enabled = false;
+		this.CanMove = false;
+	}
+
 	public void StartGame()
 	{
+		this.rigidbody.isKinematic = false;
 		this.renderer.material.color = Color.green;
+		this.renderer.enabled = true;
+		this.CanMove = true;
 	}
 
 	void OnDeathTrigger()
@@ -26,6 +38,7 @@ public class Player : MonoBehaviour {
 	{
 		Manager.SendMessage("OnPlayerDeath", this);
 		this.renderer.material.color = Color.red;
+		this.CanMove = false;
 	}
 
 	void OnMouseDown()

@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
 	public Rule UsedRule { get; private set; }
 
-	private GameObject CurrentLevel;
+	private Level CurrentLevel;
 
 	public List<Player> AlivePlayers { get; private set; }
 
@@ -41,8 +41,15 @@ public class GameManager : MonoBehaviour
 
 		UsedRule.Prepare(this);
 
+		foreach (Player p in AlivePlayers)
+		{
+			p.transform.position = Vector3.zero;
+			p.Prepare();
+		}
+
 		yield return StartCoroutine(CountDown(3));
-		CurrentLevel = Instantiate(UsedRule.UsedLevel.gameObject, new Vector3(0, -3f, 0), Quaternion.identity) as GameObject;
+		GameObject instance = GameObject.Instantiate(UsedRule.UsedLevel.gameObject, new Vector3(0, -3f, 0), Quaternion.identity) as GameObject;
+		CurrentLevel = instance.GetComponent<Level>();
 
 		LabelRuleName.enabled = true;
 		LabelRuleName.text = UsedRule.Name;
@@ -53,6 +60,7 @@ public class GameManager : MonoBehaviour
 
 		foreach (Player p in AlivePlayers)
 		{
+			p.transform.position = CurrentLevel.SpawnPoints[p.Id - 1].position;
 			p.StartGame();
 		}
 	}
@@ -80,7 +88,7 @@ public class GameManager : MonoBehaviour
 	{
 		this.UsedRule.GameOver();
 		this.UsedRule = null;
-		GameObject.Destroy(CurrentLevel);
+		GameObject.Destroy(CurrentLevel.gameObject);
 		StartCoroutine(StartGame());
 	}
 
