@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
+	[Range(1, 10)]
+	public int Id;
 	private GameManager Manager;
 
 	void Start () 
