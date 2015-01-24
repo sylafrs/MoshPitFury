@@ -8,7 +8,7 @@ public class RuleDeathMatch : Rule {
 		get { return this.Manager.RoundTimer > this.Duration || this.Manager.AlivePlayers.Count <= 1; }
 	}
 
-	public override string Name
+	public override string Description
 	{
 		get { return "DEATHMATCH"; }
 	}

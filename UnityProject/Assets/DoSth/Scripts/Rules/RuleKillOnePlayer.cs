@@ -35,7 +35,7 @@ public class RuleKillOnePlayer : Rule {
 		}
 	}
 
-	public override string Name
+	public override string Description
 	{
 		get { return "KILL PLAYER " + PlayerToKill.Id; }
 	}

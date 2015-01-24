@@ -57,6 +57,7 @@ public class Player : MonoBehaviour {
 
 	public void Prepare()
 	{
+		this.gameObject.SetActive(true);
 		HasStarted = false;
 		IsDead = false;
 		this.rigidbody.isKinematic = true;
@@ -97,6 +98,7 @@ public class Player : MonoBehaviour {
 
 	void Death()
 	{
+		this.gameObject.SetActive(false);
 		Manager.SendMessage("OnPlayerDeath", this);
 		this.CanMove = false;
 		IsDead = true;

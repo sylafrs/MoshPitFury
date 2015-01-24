@@ -117,6 +117,10 @@ public class PlayerController : MonoBehaviour
 		this.Speed = Vector3.Lerp(this.Speed, perfectSpeed, Time.deltaTime * (this.isDashing ? AccelerationDash : Acceleration));
 		this.Speed.y = this.rigidbody.velocity.y;
 		this.rigidbody.velocity = this.Speed;
+		
+		if(this.Speed != Vector3.zero)
+			this.transform.forward = this.Speed.normalized;
+		
 		this.rigidbody.angularVelocity = Vector3.zero;
 	}
 	

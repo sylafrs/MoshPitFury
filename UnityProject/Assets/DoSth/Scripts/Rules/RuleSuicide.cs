@@ -1,15 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RuleSuicide : Rule {
+public class RuleSuicide : Rule 
+{
+	private Player Winner = null;
 
-	public override string Name
+	public override string Description
 	{
-		get { return "GET TO THE END"; }
+		get { return "DIE."; }
 	}
 	
 	public override bool IsFinished
 	{
-		get { return this.Manager.RoundTimer > this.Duration; }
+		get { return Winner != null || this.Manager.RoundTimer > this.Duration; }
+	}
+
+	public override void Prepare(GameManager manager)
+	{
+		Winner = null;
+	}
+
+	public override void OnPlayerDeath(Player p)
+	{
+		Winner = p;
 	}
 }

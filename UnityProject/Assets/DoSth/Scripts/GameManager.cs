@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 	public Transform[] SpawnPoints;
 
 	public Rule UsedRule { get; private set; }
-	public float RoundTimer;
+	public float RoundTimer { get; private set; }
 
 	public List<Player> AlivePlayers { get; private set; }
 
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
 		yield return StartCoroutine(CountDown(3, 0.3f, 3));
 	
 		LabelRuleName.enabled = true;
-		LabelRuleName.text = UsedRule.Name;
+		LabelRuleName.text = UsedRule.Description;
 		yield return new WaitForSeconds(2);
 		LabelRuleName.enabled = false;
 		this.LabelRoundTimer.enabled = true;
@@ -75,6 +75,9 @@ public class GameManager : MonoBehaviour
 	void OnPlayerDeath(Player p)
 	{
 		Debug.Log(p.name + " is dead");
+
+		if (this.UsedRule != null)
+			this.UsedRule.OnPlayerDeath(p);
 
 		if (AlivePlayers.Contains(p))
 			AlivePlayers.Remove(p);
@@ -122,24 +125,5 @@ public class GameManager : MonoBehaviour
 		LabelStartTimer.text = "GO!";
 		yield return new WaitForSeconds(durationIteration);
 		LabelStartTimer.enabled = false;
-	}
-
-	public Player GetPlayerById(int id)
-	{
-		foreach(Player p in Players)
-		{
-			if (p.Id == id)
-				return p;
-		}
-
-		return null;
-	}
-
-	public bool IsPlayerAlive(int PlayerToKill)
-	{
-		Player p = GetPlayerById(PlayerToKill);
-		if (p == null)
-			return false;
-		return this.AlivePlayers.Contains(p);
 	}
 }

@@ -7,7 +7,7 @@ public abstract class Rule : MonoBehaviour
 	public Transform[] SpawnPoints;
 	public float Duration = 10;
 
-	public abstract string Name
+	public abstract string Description
 	{
 		get;
 	}
@@ -41,4 +41,6 @@ public abstract class Rule : MonoBehaviour
 	{
 		get;
 	}
+
+	public virtual void OnPlayerDeath(Player p) { }
 }
