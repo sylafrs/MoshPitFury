@@ -12,4 +12,12 @@ public class RuleDeathMatch : Rule {
 	{
 		get { return "DEATHMATCH"; }
 	}
+
+	public override Player[] GetWinners()
+	{
+		if (this.Manager.AlivePlayers.Count == 1)
+			return this.Manager.AlivePlayers.ToArray();
+
+		return new Player[0];
+	}
 }

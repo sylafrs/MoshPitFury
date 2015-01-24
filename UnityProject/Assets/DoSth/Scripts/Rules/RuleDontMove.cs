@@ -12,5 +12,9 @@ public class RuleDontMove : Rule
 	{
 		p.Death();
 	}
-	
+
+	public override Player[] GetWinners()
+	{
+		return this.Manager.AlivePlayers.ToArray();
+	}
 }

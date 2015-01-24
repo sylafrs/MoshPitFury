@@ -1,19 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class RuleKillOnePlayer : Rule {
 
 	private Player PlayerToKill;
+	private List<Player> Killers;
 
 	public override void Prepare(GameManager manager)
 	{
 		this.PlayerToKill = manager.Players[Random.Range(0, manager.Players.Length)];
+		this.Killers = new List<Player>(manager.Players);
+		this.Killers.Remove(this.PlayerToKill);
 	}
 
 	public override Transform GetPlayerSpawnPoint(Player p)
 	{
-		//return base.GetPlayerSpawnPoint(p);
-
 		if(p == PlayerToKill)
 		{
 			return this.SpawnPoints[0];
@@ -35,8 +37,18 @@ public class RuleKillOnePlayer : Rule {
 		}
 	}
 
+	public override Player[] GetWinners()
+	{
+		if(this.PlayerToKill.IsDead)
+		{
+			return this.Killers.ToArray();
+		}
+
+		return new Player[] { this.PlayerToKill };
+	}
+
 	public override string Description
 	{
-		get { return "KILL PLAYER " + PlayerToKill.Id; }
+		get { return "KILL PLAYER <color=" + PlayerToKill.MainColorHex + ">" + PlayerToKill.Id + "</color>"; }
 	}
 }

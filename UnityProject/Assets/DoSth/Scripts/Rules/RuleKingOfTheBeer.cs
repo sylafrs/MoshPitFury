@@ -33,4 +33,33 @@ public class RuleKingOfTheBeer : Rule {
 		base.GameOver();
 		GameObject.Destroy(Area);
 	}
+
+	public float GetMaxScore()
+	{
+		float max = 0;
+		
+		foreach(float t in this.Times.Values)
+		{
+			if (t > max)
+				max = t;
+		}
+
+		return max;
+	}
+
+	public override Player[] GetWinners()
+	{
+		List<Player> winners = new List<Player>();
+		float winningTime = GetMaxScore();
+
+		foreach(Player p in this.Manager.Players)
+		{
+			if(this.Times[p] >= winningTime)
+			{
+				winners.Add(p);
+			}
+		}
+
+		return winners.ToArray();
+	}
 }

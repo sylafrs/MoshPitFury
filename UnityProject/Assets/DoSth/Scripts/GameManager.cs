@@ -38,9 +38,7 @@ public class GameManager : MonoBehaviour
 	}
 
 	public IEnumerator StartGame()
-	{
-		Debug.Log("start game");
-				
+	{				
 		if(NotPlayedRules == null || NotPlayedRules.Count == 0)
 			NotPlayedRules = new List<Rule>(this.ExistingRules);
 
@@ -56,13 +54,13 @@ public class GameManager : MonoBehaviour
 		{
 			p.transform.position = this.SpawnPoints[p.Id - 1].position;
 			p.transform.forward = this.SpawnPoints[p.Id - 1].forward;
-			p.SendMessage("OnPlayerPlaced");
 
 			p.Prepare();
+			p.gameObject.SendMessage("OnPlayerPlaced");
 			p.JumpsTo(this.UsedRule.GetPlayerSpawnPoint(p), 2);
 		}
 
-		yield return StartCoroutine(CountDown(3, 0.3f, 3));
+		yield return StartCoroutine(CountDown(1.25f, 0.3f, 3));
 	
 		LabelRuleName.enabled = true;
 		LabelRuleName.text = UsedRule.Description;
@@ -84,8 +82,6 @@ public class GameManager : MonoBehaviour
 
 	public void OnPlayerDeath(Player p)
 	{
-		Debug.Log(p.name + " is dead");
-
 		if (this.UsedRule != null)
 			this.UsedRule.OnPlayerDeath(p);
 
@@ -114,16 +110,30 @@ public class GameManager : MonoBehaviour
 
 			if(UsedRule.IsFinished || Input.GetKeyDown(KeyCode.Space))
 			{
-				GameOver();
+				this.LabelRoundTimer.enabled = false;
+				StartCoroutine(OnEndGame());
 			}
 		}
 	}
-
-	void GameOver()
+		
+	private IEnumerator OnEndGame()
 	{
-		this.LabelRoundTimer.enabled = false;
+		Player[] winners = UsedRule.GetWinners();
+
 		this.UsedRule.GameOver();
 		this.UsedRule = null;
+
+		List<Coroutine> coroutines = new List<Coroutine>();
+		
+		// On lance les coroutines
+		foreach (Player p in winners)
+			coroutines.Add(p.OnPlayerWin());
+		
+		// On les attend
+		foreach (Coroutine c in coroutines)
+			yield return c;
+
+		this.LabelRoundTimer.enabled = false;
 
 		StartCoroutine(StartGame());
 	}
@@ -132,7 +142,7 @@ public class GameManager : MonoBehaviour
 	{
 		LabelStartTimer.enabled = true;
 		LabelStartTimer.text = "Ready?";
-		yield return new WaitForSeconds(duration * readyRatio);
+		yield return new WaitForSeconds(1.5f);
 
 		// On a duration * 0.7f pour seconds + 1 iteration.
 		// Donc une itération : duration * 0.7f * (1 / 1+iteration)

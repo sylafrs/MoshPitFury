@@ -10,6 +10,32 @@ public class Player : MonoBehaviour {
 	private GameManager Manager;
 
 	public bool CanMove = false;
+	public Color MainColor;
+	public ProjectorLookAt projector;
+	
+	public char GetHex (int d) 
+	{
+		string alpha = "0123456789ABCDEF";
+		return alpha[d];
+	}
+
+	public string MainColorHex {
+		get 
+		{
+			float red	=	MainColor.r * 255;
+			float green	=	MainColor.g * 255;
+			float blue	=	MainColor.b * 255;
+ 
+			char a = GetHex(Mathf.FloorToInt(red / 16));
+			char b = GetHex(Mathf.RoundToInt(red % 16));
+			char c = GetHex(Mathf.FloorToInt(green / 16));
+			char d = GetHex(Mathf.RoundToInt(green % 16));
+			char e = GetHex(Mathf.FloorToInt(blue / 16));
+			char f = GetHex(Mathf.RoundToInt(blue % 16));
+ 
+			return "#" + a + b + c + d + e + f;
+		}
+	}
 
 	void Start () 
 	{
@@ -57,10 +83,8 @@ public class Player : MonoBehaviour {
 
 	public void Prepare()
 	{
-		this.gameObject.SetActive(true);
 		HasStarted = false;
 		IsDead = false;
-		this.rigidbody.isKinematic = true;
 		this.CanMove = false;
 	}
 
@@ -68,27 +92,7 @@ public class Player : MonoBehaviour {
 	{
 		IsDead = false;
 		HasStarted = true;
-		this.rigidbody.isKinematic = false;
 		this.CanMove = true;
-	}
-
-	void OnGroundReached()
-	{
-		Vector3 v = this.transform.position;
-			
-		if (v.y > -0.1f)
-		{
-			this.rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
-			this.rigidbody.useGravity = false;
-			v.y = 0;
-			this.transform.position = v;
-		}
-	}
-
-	void OnGroundLost()
-	{
-		this.rigidbody.useGravity = true;
-		this.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 	}
 		
 	void OnDeathTrigger()
@@ -98,24 +102,32 @@ public class Player : MonoBehaviour {
 
 	void OnBeerAreaStay()
 	{
-		Manager.OnPlayerStayInBeerArea(this);
+		if(!IsDead)
+			Manager.OnPlayerStayInBeerArea(this);
 	}
 
 	public void Death()
 	{
-		this.gameObject.SetActive(false);
 		Manager.OnPlayerDeath(this);
 		this.CanMove = false;
 		IsDead = true;
 	}
-
-	void OnMouseDown()
-	{
-		this.Death();
-	}
-
+	
 	public void OnMove()
 	{
 		Manager.OnPlayerMove(this);
+	}
+
+	public Coroutine OnPlayerWin()
+	{
+		return StartCoroutine(ActiveProjector(3));
+	}
+
+	private IEnumerator ActiveProjector(float duration)
+	{
+		projector.target = transform;
+		projector.enabled = true;
+		yield return new WaitForSeconds(duration);
+		projector.enabled = false;
 	}
 }

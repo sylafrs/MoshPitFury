@@ -20,9 +20,30 @@ public class RuleDeathMatchTeam : Rule {
 		}
 	}
 
+	public override Player[] GetWinners()
+	{
+		bool teamADead = this.IsTeamDead(teamA);
+		bool teamBDead = this.IsTeamDead(teamB);
+
+		// Personne en vie
+		if (teamADead && teamBDead)
+			return new Player[0];
+		
+		// que B
+		if (teamADead)
+			return teamB.ToArray();
+
+		// que A
+		if (teamBDead)
+			return teamA.ToArray();
+
+		// Tout le monde vivant
+		return new Player[0];
+	}
+
 	private string ListTeam(List<Player> team)
 	{
-		string str = "";
+		string str = "Players ";
 
 		bool first = true;
 		foreach(Player p in team)
@@ -30,7 +51,7 @@ public class RuleDeathMatchTeam : Rule {
 			if (!first)
 				str += " / ";
 			first = false;
-			str += "Player " + p.Id;
+			str += "<color=" + p.MainColorHex + ">"+p.Id+"</color>";
 		}
 
 		return str;

@@ -15,6 +15,14 @@ public class RuleSuicide : Rule
 		get { return Winner != null || this.Manager.RoundTimer > this.Duration; }
 	}
 
+	public override Player[] GetWinners()
+	{
+		if (Winner == null)
+			return new Player[0];
+
+		return new Player[] { Winner };
+	}
+
 	public override void Prepare(GameManager manager)
 	{
 		Winner = null;
