@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 		UsedRule.Prepare(this);
 
 		yield return StartCoroutine(CountDown(3));
-		CurrentLevel = Instantiate(UsedRule.Level, new Vector3(0, -3f, 0), Quaternion.identity) as GameObject;
+		CurrentLevel = Instantiate(UsedRule.UsedLevel.gameObject, new Vector3(0, -3f, 0), Quaternion.identity) as GameObject;
 
 		LabelRuleName.enabled = true;
 		LabelRuleName.text = UsedRule.Name;
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
 	{
 		if(UsedRule != null && UsedRule.Started)
 		{
-			if(UsedRule.IsFinished)
+			if(UsedRule.IsFinished || Input.GetKeyDown(KeyCode.Space))
 			{
 				GameOver();
 			}
