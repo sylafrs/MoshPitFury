@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 public class PlayerController : MonoBehaviour 
 {
 	private Player player;
-	
+		
 	void Awake()
 	{
 		player = this.GetComponent<Player>();
 	}
+
+	private GamePadState PadState;
 
 	public float	MaxSpeed;
 	public float	MaxSpeedDash;
@@ -25,11 +28,19 @@ public class PlayerController : MonoBehaviour
 	private Vector3 Speed;
 	public float BumpPower = 2;
 
+	private void UpdateState()
+	{
+		this.PadState = GamePad.GetState((PlayerIndex)(this.player.Id - 1));
+	}
+
 	private bool AButton
 	{
 		get
 		{
-			return Input.GetButton("P" + player.Id + "_A");
+			if (this.PadState.IsConnected)
+				return this.PadState.Buttons.A == ButtonState.Pressed;
+
+			return false;
 		}
 	}
 
@@ -37,15 +48,17 @@ public class PlayerController : MonoBehaviour
 	{
 		get
 		{
-			const float sqrDeadZone = 0.09f;//0.3f * 0.3f;
+			const float sqrDeadZone = 0.09f;
 
-			Vector3 padController = new Vector3
-			(
-				Input.GetAxisRaw("P" + player.Id + "_Horizontal"),
-				0,
-				-Input.GetAxisRaw("P" + player.Id + "_Vertical")
-			);
+			Vector3 padController = Vector3.zero;
 
+			if (this.PadState.IsConnected)
+			{
+				padController.x = this.PadState.ThumbSticks.Left.X;
+				padController.z = this.PadState.ThumbSticks.Left.Y;
+			}
+
+		
 			if (Mathf.Abs(padController.x) < 0.1f)
 				padController.x = 0;
 
@@ -57,6 +70,27 @@ public class PlayerController : MonoBehaviour
 			
 			return padController;
 		}
+	}
+
+	void OnDeath()
+	{
+		if (PadState.IsConnected)
+			StartCoroutine(TimeVibration(3, 0.2f, 0.2f));
+
+	}
+	void OnDestroy()
+	{
+		if (PadState.IsConnected)
+			GamePad.SetVibration((PlayerIndex)(this.player.Id - 1), 0, 0);
+	}
+
+	IEnumerator TimeVibration(float time, float left, float right)
+	{
+		if (PadState.IsConnected)
+			GamePad.SetVibration((PlayerIndex)(this.player.Id - 1), left, right);
+		yield return new WaitForSeconds(time);
+		if (PadState.IsConnected)
+			GamePad.SetVibration((PlayerIndex)(this.player.Id - 1), 0, 0);
 	}
 
 	void UpdateDash()
@@ -150,13 +184,13 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
 	{
+		UpdateState();
 		UpdateDash();
 		UpdateSpeed();
 	}
 
 	void OnBumped(BumperTrigger bumper)
 	{
-		Debug.Log("yup");
 		this.Speed += bumper.transform.forward * bumper.Power;
 	}
 		
