@@ -160,15 +160,15 @@ public class PlayerController : MonoBehaviour
 			if (other.isDashing)
 			{
 				this.Speed += collision.relativeVelocity.normalized * (BumpPower * other.Speed.magnitude);
-				this.SendMessage("OnPushed", other, SendMessageOptions.DontRequireReceiver);
-				other.SendMessage("OnPush", this, SendMessageOptions.DontRequireReceiver);
+				this.gameObject.SendMessage("OnPushed", other, SendMessageOptions.DontRequireReceiver);
+				other.gameObject.SendMessage("OnPush", this, SendMessageOptions.DontRequireReceiver);
 			}
 
 			if (this.isDashing)
 			{
 				other.Speed -= collision.relativeVelocity.normalized * (BumpPower * prevSpeed.magnitude);
-				this.SendMessage("OnPush", other, SendMessageOptions.DontRequireReceiver);
-				other.SendMessage("OnPushed", this, SendMessageOptions.DontRequireReceiver);
+				this.gameObject.SendMessage("OnPush", other, SendMessageOptions.DontRequireReceiver);
+				other.gameObject.SendMessage("OnPushed", this, SendMessageOptions.DontRequireReceiver);
 			}
 		}		
 	}

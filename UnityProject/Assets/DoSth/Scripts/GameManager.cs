@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 		{
 			p.transform.position = UsedRule.GetPlayerSpawnPoint(p).position;
 			p.transform.forward = UsedRule.GetPlayerSpawnPoint(p).forward;
-			p.SendMessage("OnPlayerPlaced");
+			p.gameObject.SendMessage("OnPlayerPlaced");
 			p.StartGame();
 		}
 	}
