@@ -10,7 +10,7 @@ public abstract class Rule : MonoBehaviour
 		get;
 	}
 
-	public GameObject Level;
+	public Level UsedLevel;
 
 	public bool Started
 	{
