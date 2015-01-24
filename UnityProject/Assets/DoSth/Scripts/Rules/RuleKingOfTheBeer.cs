@@ -23,7 +23,7 @@ public class RuleKingOfTheBeer : Rule {
 		Area = GameObject.Instantiate(this.transform.FindChild("BeerArea").gameObject) as GameObject;
 	}
 
-	void OnPlayerStayInBeerArea(Player p)
+	public override void OnPlayerStayInBeerArea(Player p)
 	{
 		Times[p] += Time.deltaTime;
 	}

@@ -82,27 +82,27 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	void OnPlayerDeath(Player p)
+	public void OnPlayerDeath(Player p)
 	{
 		Debug.Log(p.name + " is dead");
 
 		if (this.UsedRule != null)
-			this.UsedRule.SendMessage("OnPlayerDeath", p, SendMessageOptions.DontRequireReceiver);
+			this.UsedRule.OnPlayerDeath(p);
 
 		if (AlivePlayers.Contains(p))
 			AlivePlayers.Remove(p);
 	}
 
-	void OnPlayerStayInBeerArea(Player p)
+	public void OnPlayerStayInBeerArea(Player p)
 	{
 		if (this.UsedRule != null)
-			this.UsedRule.SendMessage("OnPlayerStayInBeerArea", p, SendMessageOptions.DontRequireReceiver);
+			this.UsedRule.OnPlayerStayInBeerArea(p);
 	}
 
-	void OnPlayerMove(Player p)
+	public void OnPlayerMove(Player p)
 	{
 		if (this.UsedRule != null)
-			this.UsedRule.SendMessage("OnPlayerMove", p, SendMessageOptions.DontRequireReceiver);
+			this.UsedRule.OnPlayerMove(p);
 	}
 
 	void Update()

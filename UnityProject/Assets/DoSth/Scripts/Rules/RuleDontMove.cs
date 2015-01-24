@@ -8,7 +8,7 @@ public class RuleDontMove : Rule
 		get { return "Don't move."; }
 	}
 
-	void OnPlayerMove(Player p)
+	public override void OnPlayerMove(Player p)
 	{
 		p.Death();
 	}

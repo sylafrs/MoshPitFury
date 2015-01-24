@@ -98,13 +98,13 @@ public class Player : MonoBehaviour {
 
 	void OnBeerAreaStay()
 	{
-		Manager.SendMessage("OnPlayerStayInBeerArea", this);
+		Manager.OnPlayerStayInBeerArea(this);
 	}
 
 	public void Death()
 	{
 		this.gameObject.SetActive(false);
-		Manager.SendMessage("OnPlayerDeath", this);
+		Manager.OnPlayerDeath(this);
 		this.CanMove = false;
 		IsDead = true;
 	}
@@ -116,6 +116,6 @@ public class Player : MonoBehaviour {
 
 	public void OnMove()
 	{
-		Manager.SendMessage("OnPlayerMove", this);
+		Manager.OnPlayerMove(this);
 	}
 }

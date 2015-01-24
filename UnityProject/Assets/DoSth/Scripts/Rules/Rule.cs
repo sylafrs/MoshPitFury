@@ -42,4 +42,10 @@ public abstract class Rule : MonoBehaviour
 		get { return this.Manager.RoundTimer > this.Duration || this.Manager.AlivePlayers.Count == 0; }
 	}
 
+
+	public virtual void OnPlayerDeath(Player p) { }
+
+	public virtual void OnPlayerStayInBeerArea(Player p) { }
+	
+	public virtual void OnPlayerMove(Player p) { }
 }
