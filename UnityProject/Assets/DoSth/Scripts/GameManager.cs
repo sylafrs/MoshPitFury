@@ -6,12 +6,13 @@ using System.Collections;
 public class GameManager : MonoBehaviour 
 {
 	public static GameManager instance;
+	private GameObject Level;
 
 	public Rule[] ExistingRules;
+	public Transform[] SpawnPoints;
 
 	public Rule UsedRule { get; private set; }
 
-	private Level CurrentLevel;
 
 	public List<Player> AlivePlayers { get; private set; }
 
@@ -43,14 +44,15 @@ public class GameManager : MonoBehaviour
 
 		foreach (Player p in AlivePlayers)
 		{
-			p.transform.position = Vector3.zero;
+			p.transform.position = this.SpawnPoints[p.Id - 1].position;
+			p.transform.forward = this.SpawnPoints[p.Id - 1].forward;
+
 			p.Prepare();
+			p.JumpsTo(this.UsedRule.SpawnPoints[p.Id - 1], 2);
 		}
 
-		yield return StartCoroutine(CountDown(3));
-		GameObject instance = GameObject.Instantiate(UsedRule.UsedLevel.gameObject, new Vector3(0, -3f, 0), Quaternion.identity) as GameObject;
-		CurrentLevel = instance.GetComponent<Level>();
-
+		yield return StartCoroutine(CountDown(3, 0.3f, 3));
+	
 		LabelRuleName.enabled = true;
 		LabelRuleName.text = UsedRule.Name;
 		yield return new WaitForSeconds(2);
@@ -60,7 +62,8 @@ public class GameManager : MonoBehaviour
 
 		foreach (Player p in AlivePlayers)
 		{
-			p.transform.position = CurrentLevel.SpawnPoints[p.Id - 1].position;
+			p.transform.position	= UsedRule.SpawnPoints[p.Id - 1].position;
+			p.transform.forward		= UsedRule.SpawnPoints[p.Id - 1].forward;
 			p.StartGame();
 		}
 	}
@@ -88,22 +91,28 @@ public class GameManager : MonoBehaviour
 	{
 		this.UsedRule.GameOver();
 		this.UsedRule = null;
-		GameObject.Destroy(CurrentLevel.gameObject);
+
 		StartCoroutine(StartGame());
 	}
 
-	private IEnumerator CountDown(int duration)
+	private IEnumerator CountDown(float duration, float readyRatio, int compte)
 	{
 		LabelStartTimer.enabled = true;
 		LabelStartTimer.text = "Ready?";
-		yield return new WaitForSeconds(3);
-		for (int seconds = duration; seconds > 0; seconds--)
+		yield return new WaitForSeconds(duration * readyRatio);
+
+		// On a duration * 0.7f pour seconds + 1 iteration.
+		// Donc une itération : duration * 0.7f * (1 / 1+iteration)
+
+		float durationIteration = duration * (1 - readyRatio) / (1 + compte);
+
+		for (int seconds = compte; seconds > 0; seconds--)
 		{
 			LabelStartTimer.text = seconds.ToString();
-			yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(durationIteration);
 		}
 		LabelStartTimer.text = "GO!";
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(durationIteration);
 		LabelStartTimer.enabled = false;
 	}
 

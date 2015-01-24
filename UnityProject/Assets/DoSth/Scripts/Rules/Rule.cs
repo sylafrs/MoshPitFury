@@ -4,14 +4,13 @@ using System.Collections;
 public abstract class Rule : MonoBehaviour
 {
 	protected GameManager Manager;
+	public Transform[] SpawnPoints;
 
 	public abstract string Name
 	{
 		get;
 	}
-
-	public Level UsedLevel;
-
+	
 	public bool Started
 	{
 		get
