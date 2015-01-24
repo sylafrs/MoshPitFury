@@ -56,9 +56,9 @@ public class GameManager : MonoBehaviour
 		{
 			p.transform.position = this.SpawnPoints[p.Id - 1].position;
 			p.transform.forward = this.SpawnPoints[p.Id - 1].forward;
-			p.SendMessage("OnPlayerPlaced");
 
 			p.Prepare();
+			p.gameObject.SendMessage("OnPlayerPlaced");
 			p.JumpsTo(this.UsedRule.GetPlayerSpawnPoint(p), 2);
 		}
 
@@ -114,10 +114,21 @@ public class GameManager : MonoBehaviour
 
 			if(UsedRule.IsFinished || Input.GetKeyDown(KeyCode.Space))
 			{
+				Player [] winners = UsedRule.GetWinners();
+				foreach(Player p in winners)
+					this.OnPlayerWin(p);
+
 				GameOver();
 			}
 		}
 	}
+
+	void OnPlayerWin(Player p)
+	{
+		p.OnPlayerWin();
+	}
+
+	
 
 	void GameOver()
 	{

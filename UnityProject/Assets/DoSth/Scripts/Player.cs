@@ -10,6 +10,33 @@ public class Player : MonoBehaviour {
 	private GameManager Manager;
 
 	public bool CanMove = false;
+	private bool hasWon = false;
+	public Color MainColor;
+	public ProjectorLookAt projector;
+	
+	public char GetHex (int d) 
+	{
+		string alpha = "0123456789ABCDEF";
+		return alpha[d];
+	}
+
+	public string MainColorHex {
+		get 
+		{
+			float red	=	MainColor.r * 255;
+			float green	=	MainColor.g * 255;
+			float blue	=	MainColor.b * 255;
+ 
+			char a = GetHex(Mathf.FloorToInt(red / 16));
+			char b = GetHex(Mathf.RoundToInt(red % 16));
+			char c = GetHex(Mathf.FloorToInt(green / 16));
+			char d = GetHex(Mathf.RoundToInt(green % 16));
+			char e = GetHex(Mathf.FloorToInt(blue / 16));
+			char f = GetHex(Mathf.RoundToInt(blue % 16));
+ 
+			return "#" + a + b + c + d + e + f;
+		}
+	}
 
 	void Start () 
 	{
@@ -117,5 +144,30 @@ public class Player : MonoBehaviour {
 	public void OnMove()
 	{
 		Manager.OnPlayerMove(this);
+	}
+
+	public void OnPlayerWin()
+	{
+		if(!this.gameObject.activeSelf)
+			hasWon = true;
+		else
+			StartCoroutine(ActiveProjector(3));
+	}
+
+	public void OnEnable()
+	{
+		if(hasWon)
+		{
+			hasWon = false;
+			StartCoroutine(ActiveProjector(3));
+		}
+	}
+
+	private IEnumerator ActiveProjector(float duration)
+	{
+		projector.target = transform;
+		projector.enabled = true;
+		yield return new WaitForSeconds(duration);
+		projector.enabled = false;
 	}
 }
