@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class TitleScreen : MonoBehaviour {
 
@@ -11,6 +12,7 @@ public class TitleScreen : MonoBehaviour {
 	public GameObject TeamCode;
 	public GameObject TeamGA;
 	public GameObject TeamSound;
+	public EventSystem myEventSystem;
 
 	void Start () {
 	
@@ -29,6 +31,7 @@ public class TitleScreen : MonoBehaviour {
 		CreditBtn.SetActive (false);
 		QuitBtn.SetActive (false);
 		MainMenuBtn.SetActive (true);
+		myEventSystem.SetSelectedGameObject(MainMenuBtn);
 		TeamGA.SetActive (true);
 		TeamCode.SetActive (true);
 		TeamSound.SetActive (true);
@@ -40,6 +43,7 @@ public class TitleScreen : MonoBehaviour {
 
 	public void MainMenu(){
 		NewGameBtn.SetActive (true);
+		myEventSystem.SetSelectedGameObject(NewGameBtn);
 		CreditBtn.SetActive (true);
 		QuitBtn.SetActive (true);
 		MainMenuBtn.SetActive (false);
