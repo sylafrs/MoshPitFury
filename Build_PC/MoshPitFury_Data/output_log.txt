@@ -1,0 +1,29 @@
+Initialize engine version: 4.6.1p3 (6cb5fa1a7cac)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GT 525M (ID=0xdf5)
+    Vendor:   NVIDIA
+    VRAM:     1998 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+Platform assembly: D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\XInputDotNetPure.dll (this message is harmless)
+Loading D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\XInputDotNetPure.dll into Unity Child Domain
+- Completed reload, in  0.079 seconds
+<RI> Initializing input.
+<RI> Input initialized.
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+Platform assembly: D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\System.dll (this message is harmless)
+Platform assembly: D:\Projects\Unity\Jams\DoSth\Build_PC\MoshPitFury_Data\Managed\Boo.Lang.dll (this message is harmless)

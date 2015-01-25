@@ -11,31 +11,31 @@ public class PlayerSounds : MonoBehaviour
 	private FMOD_StudioEventEmitter death;
 	private FMOD.Studio.ParameterInstance deathParam;
 
-	private void Awake()
+	private void Start()
 	{
 		player = this.GetComponent<Player>();
-		// bump = this.transform.FindChild("Sounds/Bump").GetComponent<FMOD_StudioEventEmitter>();
-		// bumpParam = bump.getParameter("Bump");
-		// death = this.transform.FindChild("Sounds/Death").GetComponent<FMOD_StudioEventEmitter>();
-		// deathParam = death.getParameter("Death");
+		bump = this.transform.FindChild("Sounds/Bump").GetComponent<FMOD_StudioEventEmitter>();
+		bumpParam = bump.getParameter("Bump");
+		death = this.transform.FindChild("Sounds/Death").GetComponent<FMOD_StudioEventEmitter>();
+		deathParam = death.getParameter("Death");
 	}
 
 	private void OnDeath(bool fire)
 	{
 		// Param : Death -> 1
-		// deathParam.setValue(1);
-		// 
-		// StopCoroutine("PlayDeathSound");
-		// StartCoroutine("PlayDeathSound");
+		deathParam.setValue(1);
+		
+		StopCoroutine("PlayDeathSound");
+		StartCoroutine("PlayDeathSound");
 	}
 
 	private void OnPushed(PushData data)
 	{
 		// Param : Bump -> 1
-		// bumpParam.setValue(1);
-		// 
-		// StopCoroutine("PlayBumpSound");
-		// StartCoroutine("PlayBumpSound");
+		bumpParam.setValue(1);
+		
+		StopCoroutine("PlayBumpSound");
+		StartCoroutine("PlayBumpSound");
 	}
 
 	private IEnumerator PlayBumpSound()

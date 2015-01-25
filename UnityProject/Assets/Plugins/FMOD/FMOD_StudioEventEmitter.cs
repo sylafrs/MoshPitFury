@@ -175,6 +175,7 @@ public class FMOD_StudioEventEmitter : MonoBehaviour
 		}
 	}    
     
+#if UNITY_EDITOR
 	void OnDrawGizmosSelected() 
 	{
         if (asset != null && enabled)
@@ -194,7 +195,8 @@ public class FMOD_StudioEventEmitter : MonoBehaviour
             }
         }		
 	}
-	
+#endif
+
 	FMOD.RESULT ERRCHECK(FMOD.RESULT result)
 	{
 		FMOD.Studio.UnityUtil.ERRCHECK(result);
