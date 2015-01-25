@@ -7,7 +7,7 @@ public class RuleSuicide : Rule
 
 	public override string Description
 	{
-		get { return "DIE."; }
+		get { return "KILL YOURSELF!"; }
 	}
 	
 	public override bool IsFinished

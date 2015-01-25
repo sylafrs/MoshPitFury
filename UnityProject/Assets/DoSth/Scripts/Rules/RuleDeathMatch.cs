@@ -10,7 +10,7 @@ public class RuleDeathMatch : Rule {
 
 	public override string Description
 	{
-		get { return "DEATHMATCH"; }
+		get { return "FREE FOR ALL"; }
 	}
 
 	public override Player[] GetWinners()
