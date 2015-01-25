@@ -137,6 +137,11 @@ public class Player : MonoBehaviour {
 		Manager.OnPlayerMove(this);
 	}
 
+	private void OnBeerCollision()
+	{
+		this.Death();
+	}
+
 	public Coroutine OnPlayerWin()
 	{
 		Score++;	

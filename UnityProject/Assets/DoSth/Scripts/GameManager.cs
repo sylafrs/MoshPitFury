@@ -102,6 +102,12 @@ public class GameManager : MonoBehaviour
 			this.UsedRule.OnPlayerMove(p);
 	}
 
+	private void OnBeerDestroyed(GameObject g)
+	{
+		if (this.UsedRule != null)
+			this.UsedRule.OnBeerDestroyed(g);
+	}
+
 	void Update()
 	{
 		if(UsedRule != null && UsedRule.Started)
@@ -109,6 +115,7 @@ public class GameManager : MonoBehaviour
 			RoundTimer += Time.deltaTime;
 			this.LabelRoundTimer.text = Mathf.FloorToInt(UsedRule.Duration - RoundTimer).ToString();
 
+			UsedRule.OnUpdate();
 			if(UsedRule.IsFinished || Input.GetKeyDown(KeyCode.Space))
 			{
 				this.LabelRoundTimer.enabled = false;

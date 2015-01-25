@@ -47,10 +47,14 @@ public abstract class Rule : MonoBehaviour
 		return new Player[0];
 	}
 
+	public virtual void OnUpdate() { }
+
 	public virtual void OnPlayerDeath(Player p) { }
 
 	public virtual void OnPlayerStayInBeerArea(Player p) { }
 	
 	public virtual void OnPlayerMove(Player p) { }
+
+	public virtual void OnBeerDestroyed(GameObject g) { }
 
 }
