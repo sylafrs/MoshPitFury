@@ -146,6 +146,7 @@ public class GameManager : MonoBehaviour
 		if (HasBeenScoreReached())
 		{
 			// Montrer le panneau des scores
+			Application.LoadLevel("FinalScore");
 		}
 		else
 		{
