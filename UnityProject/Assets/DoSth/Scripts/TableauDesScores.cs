@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class TableauDesScores : MonoBehaviour {
@@ -17,6 +18,10 @@ public class TableauDesScores : MonoBehaviour {
 			if (indexWinner != 2) GameObject.Find("Player_2").SendMessage("UseAnimation", "Player_Loser");
 			if (indexWinner != 3) GameObject.Find("Player_3").SendMessage("UseAnimation", "Player_Loser");
 			if (indexWinner != 4) GameObject.Find("Player_4").SendMessage("UseAnimation", "Player_Loser");
+			for (int i=0 ; i < 0 ; i++) {
+				transform.GetChild(i).GetComponent<Text>().enabled = true;
+				transform.GetChild(i).GetComponent<Text>().text = playersScore[i].ToString();
+			}
 		}
 	}
 

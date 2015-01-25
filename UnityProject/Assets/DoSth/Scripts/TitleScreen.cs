@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class TitleScreen : MonoBehaviour {
 
+	public GameObject Logo;
 	public GameObject NewGameBtn;
 	public GameObject CreditBtn;
 	public GameObject QuitBtn;
@@ -27,6 +28,7 @@ public class TitleScreen : MonoBehaviour {
 	}
 
 	public void LoadCredit(){
+		Logo.SetActive(false);
 		NewGameBtn.SetActive (false);
 		CreditBtn.SetActive (false);
 		QuitBtn.SetActive (false);
@@ -50,5 +52,6 @@ public class TitleScreen : MonoBehaviour {
 		TeamGA.SetActive (false);
 		TeamCode.SetActive (false);
 		TeamSound.SetActive (false);
+		Logo.SetActive(true);
 	}
 }
