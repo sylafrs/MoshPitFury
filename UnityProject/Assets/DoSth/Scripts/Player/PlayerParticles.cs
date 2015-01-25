@@ -52,20 +52,38 @@ public class PlayerParticles : MonoBehaviour {
 		dash.enableEmission = false;
 	}
 
-	void OnDeath()
+	void OnDeath(bool flames)
 	{
-		GameObject deathClone = GameObject.Instantiate(death.gameObject) as GameObject;
-		deathClone.transform.position = death.transform.position;
-		deathClone.transform.rotation = death.transform.rotation;
+		if (flames)
+		{
+			GameObject deathFClone = GameObject.Instantiate(death_flame.gameObject) as GameObject;
+			deathFClone.transform.position = death_flame.transform.position;
+			deathFClone.transform.rotation = death_flame.transform.rotation;
 
-		deathClone.particleSystem.enableEmission = true;
-		deathClone.particleSystem.loop = false;
+			deathFClone.particleSystem.enableEmission = true;
+			deathFClone.particleSystem.loop = false;
 
-		Transform deathCloneBone = deathClone.transform.FindChild("Bone");
-		deathCloneBone.particleSystem.enableEmission = true;
-		deathCloneBone.particleSystem.loop = false;
+			Transform deathFCloneFlames = deathFClone.transform.FindChild("FLAMES");
+			deathFCloneFlames.particleSystem.enableEmission = true;
+			deathFCloneFlames.particleSystem.loop = false;
 
-		GameObject.Destroy(deathClone, deathClone.particleSystem.duration + 1);
+			GameObject.Destroy(deathFClone, deathFClone.particleSystem.duration + 1);
+		}
+		else
+		{
+			GameObject deathClone = GameObject.Instantiate(death.gameObject) as GameObject;
+			deathClone.transform.position = death.transform.position;
+			deathClone.transform.rotation = death.transform.rotation;
+
+			deathClone.particleSystem.enableEmission = true;
+			deathClone.particleSystem.loop = false;
+
+			Transform deathCloneBone = deathClone.transform.FindChild("Bone");
+			deathCloneBone.particleSystem.enableEmission = true;
+			deathCloneBone.particleSystem.loop = false;
+
+			GameObject.Destroy(deathClone, deathClone.particleSystem.duration + 1);
+		}
 	}
 
 	void OnPushed(PushData data)

@@ -126,7 +126,7 @@ public class Player : MonoBehaviour {
 		
 	void OnDeathTrigger()
 	{
-		Death();
+		Death(true);
 	}
 
 	void OnBeerAreaStay()
@@ -135,11 +135,11 @@ public class Player : MonoBehaviour {
 			Manager.OnPlayerStayInBeerArea(this);
 	}
 
-	public void Death()
+	public void Death(bool flames)
 	{
 		if (!IsDead)
 		{
-			this.gameObject.SendMessage("OnDeath");
+			this.gameObject.SendMessage("OnDeath", flames);
 			Manager.OnPlayerDeath(this);
 			this.CanMove = false;
 			IsDead = true;
@@ -163,7 +163,7 @@ public class Player : MonoBehaviour {
 
 	private void OnBeerCollision()
 	{
-		this.Death();
+		this.Death(false);
 	}
 
 	private void OnBeerRangeReached(PickageItemRange beer)
