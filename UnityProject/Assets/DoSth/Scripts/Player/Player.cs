@@ -118,10 +118,13 @@ public class Player : MonoBehaviour {
 
 	public void Death()
 	{
-		this.gameObject.SendMessage("OnDeath");
-		Manager.OnPlayerDeath(this);
-		this.CanMove = false;
-		IsDead = true;
+		if (!IsDead)
+		{
+			this.gameObject.SendMessage("OnDeath");
+			Manager.OnPlayerDeath(this);
+			this.CanMove = false;
+			IsDead = true;
+		}
 	}
 	
 	private void OnMove()
