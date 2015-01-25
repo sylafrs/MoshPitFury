@@ -5,8 +5,8 @@ public class Player : MonoBehaviour {
 
 	[Range(1, 4)]
 	public int Id;
-	public bool IsDead;
-	public bool HasStarted;
+	public bool IsDead { get; private set; }
+	public bool HasStarted { get; private set; }
 	private GameManager Manager;
 	private GameObject Model;
 
@@ -15,7 +15,7 @@ public class Player : MonoBehaviour {
 	[HideInInspector]
 	public bool IsDashing = false;
 
-	public bool CanMove = false;
+	public bool CanMove  { get; private set; }
 	public Color MainColor;
 	public ProjectorLookAt projector;
 	

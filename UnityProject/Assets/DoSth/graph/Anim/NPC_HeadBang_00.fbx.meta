@@ -74,7 +74,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -90,30 +90,30 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: RIG:HB_00
+      - path: HB_00
         weight: 1
-      - path: RIG:root_jnt
+      - path: root_jnt
         weight: 1
-      - path: RIG:root_jnt/RIG:bodyRoot_jnt
+      - path: root_jnt/bodyRoot_jnt
         weight: 1
-      - path: RIG:root_jnt/RIG:bodyRoot_jnt/RIG:body_jnt
+      - path: root_jnt/bodyRoot_jnt/body_jnt
         weight: 1
-      - path: RIG:root_jnt/RIG:bodyRoot_jnt/RIG:body_jnt/RIG:head_jnt
+      - path: root_jnt/bodyRoot_jnt/body_jnt/head_jnt
         weight: 1
-      - path: RIG:root_jnt/RIG:bodyRoot_jnt/RIG:body_jnt/RIG:L_arm_jnt
+      - path: root_jnt/bodyRoot_jnt/body_jnt/L_arm_jnt
         weight: 1
-      - path: RIG:root_jnt/RIG:bodyRoot_jnt/RIG:body_jnt/RIG:R_arm_jnt
+      - path: root_jnt/bodyRoot_jnt/body_jnt/R_arm_jnt
         weight: 1
-      - path: RIG:root_jnt/RIG:bodyRoot_jnt/RIG:L_leg_jnt
+      - path: root_jnt/bodyRoot_jnt/L_leg_jnt
         weight: 1
-      - path: RIG:root_jnt/RIG:bodyRoot_jnt/RIG:R_leg_jnt
+      - path: root_jnt/bodyRoot_jnt/R_leg_jnt
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .100000001
+    globalScale: .00999999978
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
