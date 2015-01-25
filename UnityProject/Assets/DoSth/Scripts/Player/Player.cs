@@ -3,11 +3,13 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	[Range(1, 10)]
+	[Range(1, 4)]
 	public int Id;
 	public bool IsDead;
 	public bool HasStarted;
 	private GameManager Manager;
+
+	public int Score { get; private set; }
 
 	[HideInInspector]
 	public bool IsDashing = false;
@@ -38,6 +40,11 @@ public class Player : MonoBehaviour {
  
 			return "#" + a + b + c + d + e + f;
 		}
+	}
+
+	public void ResetScore()
+	{
+		Score = 0;
 	}
 
 	void Start () 
@@ -124,6 +131,7 @@ public class Player : MonoBehaviour {
 
 	public Coroutine OnPlayerWin()
 	{
+		Score++;	
 		return StartCoroutine(ActiveProjector(3));
 	}
 
