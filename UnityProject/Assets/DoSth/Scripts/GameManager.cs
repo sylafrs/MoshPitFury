@@ -24,9 +24,12 @@ public class GameManager : MonoBehaviour
 	private Text LabelRuleName;
 	private Text LabelRoundTimer;
 
+	private MainThemeSoundManager MainTheme;
+
 	private void Awake()
 	{
 		Players = GameObject.FindObjectsOfType<Player>();
+		MainTheme = this.GetComponent<MainThemeSoundManager>();
 		LabelStartTimer = GameObject.Find("TXT_start_cooldown").GetComponent<Text>();
 		LabelRuleName = GameObject.Find("TXT_rule_name").GetComponent<Text>();
 		LabelRoundTimer = GameObject.Find("TXT_round_timer").GetComponent<Text>();	
@@ -121,7 +124,7 @@ public class GameManager : MonoBehaviour
 			this.LabelRoundTimer.text = Mathf.FloorToInt(UsedRule.Duration - RoundTimer).ToString();
 
 			UsedRule.OnUpdate();
-			if(UsedRule.IsFinished || Input.GetKeyDown(KeyCode.Space))
+			if(UsedRule.IsFinished)
 			{
 				this.LabelRoundTimer.enabled = false;
 				StartCoroutine(OnEndGame());
@@ -159,7 +162,9 @@ public class GameManager : MonoBehaviour
 				TableauDesScores.scores[p.Id - 1] = p.Score;
 				GameObject.Destroy(p.gameObject);
 			}
-			
+
+			yield return MainTheme.StartCoroutine(MainTheme.EndOfMusic());
+
 			Application.LoadLevel((int)SCENE.Score);
 		}
 		else
