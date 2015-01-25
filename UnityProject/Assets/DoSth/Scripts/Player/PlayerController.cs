@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
 		
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
 		player = this.GetComponent<Player>();
 	}
 

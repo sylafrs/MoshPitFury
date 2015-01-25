@@ -11,6 +11,8 @@ public class PlayerParticles : MonoBehaviour {
 	private ParticleSystem death_bone;
 	private ParticleSystem choc;
 	private ParticleSystem choc_smoke;
+	private ParticleSystem death_flame;
+	private ParticleSystem death_flame_flames;
 		
 	void Awake()
 	{
@@ -22,6 +24,8 @@ public class PlayerParticles : MonoBehaviour {
 		death_bone	= this.transform.FindChild("Particles/Death/Bone")	.particleSystem;
 		choc		= this.transform.FindChild("Particles/Choc")		.particleSystem;
 		choc_smoke	= this.transform.FindChild("Particles/Choc/Smoke")	.particleSystem;
+		death_flame = this.transform.FindChild("Particles/FlameDeath").particleSystem;
+		death_flame_flames = this.transform.FindChild("Particles/FlameDeath/FLAMES").particleSystem;
 	}
 
 	void Start()
@@ -32,6 +36,8 @@ public class PlayerParticles : MonoBehaviour {
 		death_bone.enableEmission	= false;
 		choc.enableEmission			= false;
 		choc_smoke.enableEmission	= false;
+		death_flame.enableEmission = false;
+		death_flame_flames.enableEmission = false;
 	}
 
 	void OnMove()
@@ -64,7 +70,7 @@ public class PlayerParticles : MonoBehaviour {
 
 	void OnPushed(PushData data)
 	{
-		Debug.Log("PUSHED " + data.Collision.contacts[0].point);
+		// Debug.Log("PUSHED " + data.Collision.contacts[0].point);
 
 		GameObject chocClone = GameObject.Instantiate(choc.gameObject) as GameObject;
 		chocClone.transform.position = data.Collision.contacts[0].point;

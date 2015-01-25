@@ -151,6 +151,17 @@ public class GameManager : MonoBehaviour
 		if (HasBeenScoreReached())
 		{
 			// Montrer le panneau des scores
+
+			TableauDesScores.scores = new int[Players.Length];
+
+			int i = 0;
+			foreach (Player p in Players)
+			{
+				TableauDesScores.scores[i] = p.Score;
+				GameObject.Destroy(p.gameObject);
+				i++;
+			}
+			
 			Application.LoadLevel((int)SCENE.Score);
 		}
 		else

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	[Range(1, 4)]
+//	[Range(1, 4)]
 	public int Id;
 	public bool IsDead;
 	public bool HasStarted;
