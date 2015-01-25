@@ -29,7 +29,12 @@ public class GameManager : MonoBehaviour
 		Players = GameObject.FindObjectsOfType<Player>();
 		LabelStartTimer = GameObject.Find("TXT_start_cooldown").GetComponent<Text>();
 		LabelRuleName = GameObject.Find("TXT_rule_name").GetComponent<Text>();
-		LabelRoundTimer = GameObject.Find("TXT_round_timer").GetComponent<Text>();
+		LabelRoundTimer = GameObject.Find("TXT_round_timer").GetComponent<Text>();	
+	
+		foreach(Player p in Players)
+		{
+			p.Init();
+		}
 	}
 
 	private void Start()
@@ -146,7 +151,16 @@ public class GameManager : MonoBehaviour
 		if (HasBeenScoreReached())
 		{
 			// Montrer le panneau des scores
-			Application.LoadLevel("FinalScore");
+
+			TableauDesScores.scores = new int[Players.Length];
+
+			foreach (Player p in Players)
+			{
+				TableauDesScores.scores[p.Id - 1] = p.Score;
+				GameObject.Destroy(p.gameObject);
+			}
+			
+			Application.LoadLevel((int)SCENE.Score);
 		}
 		else
 		{

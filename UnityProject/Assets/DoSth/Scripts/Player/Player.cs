@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	[Range(1, 4)]
+//	[Range(1, 4)]
 	public int Id;
 	public bool IsDead;
 	public bool HasStarted;
@@ -51,13 +51,22 @@ public class Player : MonoBehaviour {
 		Score = 0;
 	}
 
-	void Awake () 
+	public void Init () 
 	{
 		Model = this.transform.FindChild("Player_Model").gameObject;
 		Manager = GameObject.FindObjectOfType<GameManager>();
 		IsDashing = false;
 		IsDead = false;
 		CanMove = false;
+
+
+		GameObject pGO = GameObject.Find("Projector" + this.Id) as GameObject;
+		if (pGO)
+		{
+			this.projector = pGO.GetComponent<ProjectorLookAt>();
+			this.projector.target = this.transform;
+			this.projector.enabled = false;
+		}
 	}
 
 	private IEnumerator JumpsToCoroutine(Transform to, float duration)
@@ -117,7 +126,7 @@ public class Player : MonoBehaviour {
 		
 	void OnDeathTrigger()
 	{
-		Death();
+		Death(true);
 	}
 
 	void OnBeerAreaStay()
@@ -126,11 +135,11 @@ public class Player : MonoBehaviour {
 			Manager.OnPlayerStayInBeerArea(this);
 	}
 
-	public void Death()
+	public void Death(bool flames)
 	{
 		if (!IsDead)
 		{
-			this.gameObject.SendMessage("OnDeath");
+			this.gameObject.SendMessage("OnDeath", flames);
 			Manager.OnPlayerDeath(this);
 			this.CanMove = false;
 			IsDead = true;
@@ -154,7 +163,7 @@ public class Player : MonoBehaviour {
 
 	private void OnBeerCollision()
 	{
-		this.Death();
+		this.Death(false);
 	}
 
 	private void OnBeerRangeReached(PickageItemRange beer)
@@ -198,9 +207,13 @@ public class Player : MonoBehaviour {
 
 	private IEnumerator ActiveProjector(float duration)
 	{
-		projector.target = transform;
-		projector.enabled = true;
+		if (projector)
+		{
+			projector.target = transform;
+			projector.enabled = true;
+		}
 		yield return new WaitForSeconds(duration);
-		projector.enabled = false;
+		if(projector)
+			projector.enabled = false;
 	}
 }

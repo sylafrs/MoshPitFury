@@ -15,16 +15,9 @@ public class TitleScreen : MonoBehaviour {
 	public GameObject TeamSound;
 	public EventSystem myEventSystem;
 
-	void Start () {
-	
-	}
-	
-	void Update () {
-
-	}
 
 	public void LoadNewGame(){
-		Application.LoadLevel ("CharacterSelection");
+		Application.LoadLevel ((int)SCENE.CharacterSelection);
 	}
 
 	public void LoadCredit(){

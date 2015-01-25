@@ -7,74 +7,53 @@ public class CharacterSelection : MonoBehaviour {
 
 	bool[] selectedCharacters = new bool[4];
 	int nbPlayersSelected = 0;
-	GameObject[] players;
-	string[] playerName = new string[4];
 	public Light[] spotlights;
 
 	// Use this for initialization
-	void Start () {
-		players = GameObject.FindGameObjectsWithTag("Player");
-		if (Input.GetJoystickNames().GetLength(0) < 4) {
+	void Start () 
+	{
+		if (Input.GetJoystickNames().GetLength(0) < 4) 
+		{
 			if (!GamePad.GetState(PlayerIndex.One).IsConnected) Debug.LogError("NO.");
 			if (!GamePad.GetState(PlayerIndex.Two).IsConnected) Debug.LogError("NO.");
 			if (!GamePad.GetState(PlayerIndex.Three).IsConnected) GameObject.Find("Player_3").SetActive(false);
 			if (!GamePad.GetState(PlayerIndex.Four).IsConnected) GameObject.Find("Player_4").SetActive(false);
 		}
 	}
+
+	void CheckPlayer(int id)
+	{
+		if (!selectedCharacters[(id - 1)] && GamePad.GetState((PlayerIndex)(id - 1)).Buttons.Start == ButtonState.Pressed)
+		{
+			selectedCharacters[(id - 1)] = true;
+
+			GameObject p = GameObject.Find("Player_" + (nbPlayersSelected + 1));
+			p.GetComponent<Player>().Id = id;
+
+			spotlights[nbPlayersSelected].enabled = true;
+
+			Text playerTextFeedback = transform.GetChild(nbPlayersSelected).GetComponent<Text>();
+			playerTextFeedback.enabled = true;
+			playerTextFeedback.text = "P" + id;
+
+			Object.DontDestroyOnLoad(p);
+
+			nbPlayersSelected++;
+		}
+	}
 	
 	// Update is called once per frame
-	void Update () {
-		if (nbPlayersSelected < Input.GetJoystickNames().GetLength(0)) {
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed && !selectedCharacters[0]) {
-				selectedCharacters[0] = true;
-				players[nbPlayersSelected].GetComponent<Player>().Id = 1;
-				playerName[nbPlayersSelected] = "1";
-				
-				spotlights[nbPlayersSelected].enabled = true;
-				Text playerTextFeedback = transform.GetChild(nbPlayersSelected).GetComponent<Text>();
-				playerTextFeedback.enabled = true;
-				playerTextFeedback.text = "P"+playerName[nbPlayersSelected];
-
-				nbPlayersSelected++;
-			}
-			if (GamePad.GetState(PlayerIndex.Two).Buttons.Start == ButtonState.Pressed && !selectedCharacters[1]) {
-				selectedCharacters[1] = true;
-				players[nbPlayersSelected].GetComponent<Player>().Id = 2;
-				playerName[nbPlayersSelected] = "2";
-				
-				spotlights[nbPlayersSelected].enabled = true;
-				Text playerTextFeedback = transform.GetChild(nbPlayersSelected).GetComponent<Text>();
-				playerTextFeedback.enabled = true;
-				playerTextFeedback.text = "P"+playerName[nbPlayersSelected];
-
-				nbPlayersSelected++;
-			}
-			if (GamePad.GetState(PlayerIndex.Three).Buttons.Start == ButtonState.Pressed && !selectedCharacters[2]) {
-				selectedCharacters[2] = true;
-				players[nbPlayersSelected].GetComponent<Player>().Id = 3;
-				playerName[nbPlayersSelected] = "3";
-				
-				spotlights[nbPlayersSelected].enabled = true;
-				Text playerTextFeedback = transform.GetChild(nbPlayersSelected).GetComponent<Text>();
-				playerTextFeedback.enabled = true;
-				playerTextFeedback.text = "P"+playerName[nbPlayersSelected];
-
-				nbPlayersSelected++;
-			}
-			if (GamePad.GetState(PlayerIndex.Four).Buttons.Start == ButtonState.Pressed && !selectedCharacters[3]) {
-				selectedCharacters[3] = true;
-				players[nbPlayersSelected].GetComponent<Player>().Id = 4;
-				playerName[nbPlayersSelected] = "4";
-				
-				spotlights[nbPlayersSelected].enabled = true;
-				Text playerTextFeedback = transform.GetChild(nbPlayersSelected).GetComponent<Text>();
-				playerTextFeedback.enabled = true;
-				playerTextFeedback.text = "P"+playerName[nbPlayersSelected];
-
-				nbPlayersSelected++;
-			}
+	void Update () 
+	{
+		if (nbPlayersSelected < 4)
+		{
+			for (int i = 1; i <= 4; i++)
+				CheckPlayer(i);
 		}
-		else StartCoroutine(startTheGame());
+		else
+		{
+			StartCoroutine(startTheGame());
+		}
 
 		/*
 		for (int i=0 ; i < nbGamepads ; i++) {
@@ -91,8 +70,9 @@ public class CharacterSelection : MonoBehaviour {
 		*/
 	}
 
-	IEnumerator startTheGame () {
+	IEnumerator startTheGame ()
+	{
 		yield return new WaitForSeconds(3.0f);
-		Application.LoadLevel("debug_A");
+		Application.LoadLevel((int)SCENE.Game);
 	}
 }

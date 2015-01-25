@@ -45,8 +45,11 @@ public class PlayerAnimations : MonoBehaviour {
 
 	}
 
-	void UseAnimation(string str)
+	public void UseAnimation(string str)
 	{
+		if (prevAnimation == "Loser")
+			return;
+
 		if(prevAnimation != str)
 		{
 			myAnimator.CrossFade(str, 0.1f);

@@ -10,7 +10,7 @@ public class RuleDontMove : Rule
 
 	public override void OnPlayerMove(Player p)
 	{
-		p.Death();
+		p.Death(false);
 	}
 
 	public override Player[] GetWinners()
