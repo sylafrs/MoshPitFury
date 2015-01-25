@@ -8,11 +8,13 @@ public class CharacterSelection : MonoBehaviour {
 	bool[] selectedCharacters = new bool[4];
 	int nbPlayersSelected = 0;
 	public Light[] spotlights;
+	int nbManettes;
 
 	// Use this for initialization
 	void Start () 
 	{
-		if (Input.GetJoystickNames().GetLength(0) < 4) 
+		nbManettes = Input.GetJoystickNames().GetLength(0);
+		if (nbManettes < 4) 
 		{
 			if (!GamePad.GetState(PlayerIndex.One).IsConnected) Debug.LogError("NO.");
 			if (!GamePad.GetState(PlayerIndex.Two).IsConnected) Debug.LogError("NO.");
@@ -45,9 +47,9 @@ public class CharacterSelection : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (nbPlayersSelected < 4)
+		if (nbPlayersSelected < nbManettes)
 		{
-			for (int i = 1; i <= 4; i++)
+			for (int i = 1; i <= nbManettes; i++)
 				CheckPlayer(i);
 		}
 		else

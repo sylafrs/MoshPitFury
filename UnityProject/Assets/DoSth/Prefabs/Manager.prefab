@@ -9,6 +9,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 491802}
   - 114: {fileID: 11491802}
+  - 114: {fileID: 11423946}
+  - 114: {fileID: 11423944}
+  - 114: {fileID: 11423942}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -28,6 +31,43 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11423942
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd39d620de714d4bb05e19459364d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asset: {fileID: 11400000, guid: 98bdba2efa7a78f47b1dc40b9611c21e, type: 2}
+  path: '{9b10e43a-e41b-4610-a978-35fd6da2907c}'
+  startEventOnAwake: 1
+--- !u!114 &11423944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd988ad2d0944b43b7e47c833fec031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pluginPaths: []
+--- !u!114 &11423946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11fadec55dee4f84baddcc80c812e653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11491802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -39,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3317e44f14d8eee47aa9284da77bd26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreToReach: 2
+  ScoreToReach: 5
   ExistingRules:
   - {fileID: 11400000, guid: f35c58b5138f8f748999ece36baa28f1, type: 2}
   - {fileID: 11400000, guid: 7dd31590936caf44a831704f6a1b6366, type: 2}
