@@ -12,12 +12,14 @@ public class TableauDesScores : MonoBehaviour {
 	}
 
 	// Use this for initialization
+
 	void Start () {
+		recordPlayersScore();
 		if (Application.loadedLevelName == "FinalScore") {
-			if (indexWinner != 1) GameObject.Find("Player_1").SendMessage("UseAnimation", "Player_Loser");
-			if (indexWinner != 2) GameObject.Find("Player_2").SendMessage("UseAnimation", "Player_Loser");
-			if (indexWinner != 3) GameObject.Find("Player_3").SendMessage("UseAnimation", "Player_Loser");
-			if (indexWinner != 4) GameObject.Find("Player_4").SendMessage("UseAnimation", "Player_Loser");
+			if (indexWinner != 1) GameObject.Find("Player_1").GetComponent<PlayerAnimations>().UseAnimation("Loser");
+			if (indexWinner != 2) GameObject.Find("Player_2").GetComponent<PlayerAnimations>().UseAnimation("Loser");
+			if (indexWinner != 3) GameObject.Find("Player_3").GetComponent<PlayerAnimations>().UseAnimation("Loser");
+			if (indexWinner != 4) GameObject.Find("Player_4").GetComponent<PlayerAnimations>().UseAnimation("Loser");
 			for (int i=0 ; i < 0 ; i++) {
 				transform.GetChild(i).GetComponent<Text>().enabled = true;
 				transform.GetChild(i).GetComponent<Text>().text = scores[i].ToString();
@@ -25,15 +27,18 @@ public class TableauDesScores : MonoBehaviour {
 		}
 	}
 
-	void recordPlayersScore () {
-		scores[0] = GameObject.Find("Player_1").GetComponent<Player>().Score;
-		scores[1] = GameObject.Find("Player_2").GetComponent<Player>().Score;
-		scores[2] = GameObject.Find("Player_3").GetComponent<Player>().Score;
-		scores[3] = GameObject.Find("Player_4").GetComponent<Player>().Score;
-		if (scores[0] > scores[1] && scores[0] > scores[2] && scores[0] > scores[3]) indexWinner = 0;
-		else if (scores[1] > scores[0] && scores[1] > scores[2] && scores[1] > scores[3]) indexWinner = 1;
-		else if (scores[2] > scores[0] && scores[2] > scores[1] && scores[2] > scores[3]) indexWinner = 2;
-		else if (scores[3] > scores[0] && scores[3] > scores[1] && scores[3] > scores[2]) indexWinner = 3;
+	void recordPlayersScore ()
+	{
+		indexWinner = 1;
+		int maxScore = 0;
+		for(int i = 0; i < scores.Length; i++)
+		{
+			if (scores[i] > maxScore)
+			{
+				maxScore = scores[i];
+				indexWinner = (i + 1);
+			}
+		}
 	}
 
 

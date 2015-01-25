@@ -154,12 +154,10 @@ public class GameManager : MonoBehaviour
 
 			TableauDesScores.scores = new int[Players.Length];
 
-			int i = 0;
 			foreach (Player p in Players)
 			{
-				TableauDesScores.scores[i] = p.Score;
+				TableauDesScores.scores[p.Id - 1] = p.Score;
 				GameObject.Destroy(p.gameObject);
-				i++;
 			}
 			
 			Application.LoadLevel((int)SCENE.Score);
