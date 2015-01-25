@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
 	public bool IsDead;
 	public bool HasStarted;
 	private GameManager Manager;
+	private GameObject Model;
 
 	public int Score { get; private set; }
 
@@ -47,8 +48,9 @@ public class Player : MonoBehaviour {
 		Score = 0;
 	}
 
-	void Start () 
+	void Awake () 
 	{
+		Model = this.transform.FindChild("Player_Model").gameObject;
 		Manager = GameObject.FindObjectOfType<GameManager>();
 	}
 
@@ -95,6 +97,7 @@ public class Player : MonoBehaviour {
 	{
 		HasStarted = false;
 		IsDead = false;
+		Model.SetActive(true);
 		this.CanMove = false;
 	}
 
@@ -103,6 +106,7 @@ public class Player : MonoBehaviour {
 		IsDead = false;
 		HasStarted = true;
 		this.CanMove = true;
+		Model.SetActive(true);
 	}
 		
 	void OnDeathTrigger()
@@ -124,6 +128,7 @@ public class Player : MonoBehaviour {
 			Manager.OnPlayerDeath(this);
 			this.CanMove = false;
 			IsDead = true;
+			Model.SetActive(false);
 		}
 	}
 	
