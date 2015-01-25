@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
 			this.LabelRoundTimer.text = Mathf.FloorToInt(UsedRule.Duration - RoundTimer).ToString();
 
 			UsedRule.OnUpdate();
-			if(UsedRule.IsFinished || Input.GetKeyDown(KeyCode.Space))
+			if(UsedRule.IsFinished)
 			{
 				this.LabelRoundTimer.enabled = false;
 				StartCoroutine(OnEndGame());
