@@ -5,17 +5,20 @@ public class Player : MonoBehaviour {
 
 	[Range(1, 4)]
 	public int Id;
-	public bool IsDead { get; private set; }
-	public bool HasStarted { get; private set; }
+	public bool IsDead;
+	public bool HasStarted;
 	private GameManager Manager;
 	private GameObject Model;
+
+	public Transform BeerPlaceHolder;
+	private PickableBeer Beer;
 
 	public int Score { get; private set; }
 
 	[HideInInspector]
 	public bool IsDashing = false;
 
-	public bool CanMove  { get; private set; }
+	public bool CanMove = false;
 	public Color MainColor;
 	public ProjectorLookAt projector;
 	
@@ -52,6 +55,9 @@ public class Player : MonoBehaviour {
 	{
 		Model = this.transform.FindChild("Player_Model").gameObject;
 		Manager = GameObject.FindObjectOfType<GameManager>();
+		IsDashing = false;
+		IsDead = false;
+		CanMove = false;
 	}
 
 	private IEnumerator JumpsToCoroutine(Transform to, float duration)
@@ -129,12 +135,59 @@ public class Player : MonoBehaviour {
 			this.CanMove = false;
 			IsDead = true;
 			Model.SetActive(false);
+
+			if(Beer)
+			{
+				Beer.Owner = null;
+				Beer.transform.parent = null;
+				Beer.transform.position = Vector3.zero;
+				Beer.transform.rotation = Quaternion.identity;
+				Beer.Projector.target = Beer.transform;
+			}
 		}
 	}
 	
 	private void OnMove()
 	{
 		Manager.OnPlayerMove(this);
+	}
+
+	private void OnBeerCollision()
+	{
+		this.Death();
+	}
+
+	private void OnBeerRangeReached(PickageItemRange beer)
+	{
+		this.Beer = (PickableBeer)beer;
+		this.PlaceBeer();
+	}
+
+	private void OnPushed(PushData data)
+	{
+		if(this.Beer)
+		{
+			data.Pusher.Beer = this.Beer;
+			this.Beer = null;
+			data.Pusher.PlaceBeer();
+		}
+	}
+
+	private void OnBeerDestroyed()
+	{
+		this.Beer = null;
+	}
+
+	private void PlaceBeer()
+	{
+		if(this.Beer)
+		{
+			this.Beer.Owner						= this;
+			this.Beer.transform.parent			= this.BeerPlaceHolder;
+			this.Beer.transform.localPosition	= Vector3.zero;
+			this.Beer.transform.localRotation	= Quaternion.identity;
+			this.Beer.Projector.target			= this.transform;
+		}
 	}
 
 	public Coroutine OnPlayerWin()
