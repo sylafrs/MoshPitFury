@@ -22,6 +22,7 @@ public class RuleTheBeer : Rule {
 	public override void GameOver()
 	{
 		GameObject.Destroy(Beer.gameObject);
+		GameObject.Destroy(Beer.Projector.gameObject);
 		base.GameOver();
 	}
 

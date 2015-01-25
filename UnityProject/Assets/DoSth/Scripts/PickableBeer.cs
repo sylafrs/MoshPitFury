@@ -19,8 +19,6 @@ public class PickableBeer : PickageItemRange
 
 	void OnDestroy()
 	{
-		GameObject.Destroy(Projector.gameObject);
-
 		if(Owner)
 			Owner.gameObject.SendMessage("OnBeerDestroyed");
 	}
