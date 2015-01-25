@@ -93,6 +93,6 @@ public class CharacterSelection : MonoBehaviour {
 
 	IEnumerator startTheGame () {
 		yield return new WaitForSeconds(3.0f);
-		Application.LoadLevel("debug_A");
+		Application.LoadLevel((int)SCENE.Game);
 	}
 }

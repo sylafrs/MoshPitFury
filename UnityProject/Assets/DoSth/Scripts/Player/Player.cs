@@ -51,13 +51,22 @@ public class Player : MonoBehaviour {
 		Score = 0;
 	}
 
-	void Awake () 
+	public void Init () 
 	{
 		Model = this.transform.FindChild("Player_Model").gameObject;
 		Manager = GameObject.FindObjectOfType<GameManager>();
 		IsDashing = false;
 		IsDead = false;
 		CanMove = false;
+
+
+		GameObject pGO = GameObject.Find("Projector" + this.Id) as GameObject;
+		if (pGO)
+		{
+			this.projector = pGO.GetComponent<ProjectorLookAt>();
+			this.projector.target = this.transform;
+			this.projector.enabled = false;
+		}
 	}
 
 	private IEnumerator JumpsToCoroutine(Transform to, float duration)
@@ -198,9 +207,13 @@ public class Player : MonoBehaviour {
 
 	private IEnumerator ActiveProjector(float duration)
 	{
-		projector.target = transform;
-		projector.enabled = true;
+		if (projector)
+		{
+			projector.target = transform;
+			projector.enabled = true;
+		}
 		yield return new WaitForSeconds(duration);
-		projector.enabled = false;
+		if(projector)
+			projector.enabled = false;
 	}
 }
