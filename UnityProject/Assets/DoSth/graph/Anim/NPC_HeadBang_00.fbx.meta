@@ -13,6 +13,15 @@ ModelImporter:
     100014: RIG:R_arm_jnt
     100016: RIG:R_leg_jnt
     100018: RIG:root_jnt
+    100020: body_jnt
+    100022: bodyRoot_jnt
+    100024: HB_00
+    100026: head_jnt
+    100028: L_arm_jnt
+    100030: L_leg_jnt
+    100032: R_arm_jnt
+    100034: R_leg_jnt
+    100036: root_jnt
     400000: //RootNode
     400002: RIG:body_jnt
     400004: RIG:bodyRoot_jnt
@@ -23,11 +32,22 @@ ModelImporter:
     400014: RIG:R_arm_jnt
     400016: RIG:R_leg_jnt
     400018: RIG:root_jnt
+    400020: body_jnt
+    400022: bodyRoot_jnt
+    400024: HB_00
+    400026: head_jnt
+    400028: L_arm_jnt
+    400030: L_leg_jnt
+    400032: R_arm_jnt
+    400034: R_leg_jnt
+    400036: root_jnt
     4300000: RIG:HB_00
+    4300002: HB_00
     7400000: NPC_Headbang
     9500000: //RootNode
     11100000: //RootNode
     13700000: RIG:HB_00
+    13700002: HB_00
   materials:
     importMaterials: 1
     materialName: 0

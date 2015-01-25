@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
 	private GameObject Level;
+	public int ScoreToReach;
 
 	public Rule[] ExistingRules;
 	private List<Rule> NotPlayedRules;
@@ -135,7 +136,31 @@ public class GameManager : MonoBehaviour
 
 		this.LabelRoundTimer.enabled = false;
 
-		StartCoroutine(StartGame());
+		if (HasBeenScoreReached())
+		{
+			// Montrer le panneau des scores
+		}
+		else
+		{
+			StartCoroutine(StartGame());
+		}
+	}
+
+	private bool HasBeenScoreReached()
+	{
+		foreach (Player p in Players)
+		{
+			if (p.Score >= ScoreToReach)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void ScoreReached()
+	{
+
 	}
 
 	private IEnumerator CountDown(float duration, float readyRatio, int compte)

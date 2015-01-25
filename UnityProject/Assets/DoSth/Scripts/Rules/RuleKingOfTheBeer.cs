@@ -6,7 +6,7 @@ public class RuleKingOfTheBeer : Rule {
 
 	public override string Description
 	{
-		get { return "BUVEZ LE PLUS !"; }
+		get { return "KEEP THE BEERS"; }
 	}
 
 	private Dictionary<Player, float> Times;

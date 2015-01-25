@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cc680c35ffb5cd8478b5ddb4132db5fa
+guid: e55c756a1d25e0140bd64d9e9a8cfaec
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -25,7 +25,6 @@ ModelImporter:
     400018: root_jnt
     4300000: HB_02
     9500000: //RootNode
-    11100000: //RootNode
     13700000: HB_02
   materials:
     importMaterials: 1
@@ -46,7 +45,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .100000001
+    globalScale: .00999999978
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -78,6 +77,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  animationType: 2
   additionalBone: 0
   userData: 

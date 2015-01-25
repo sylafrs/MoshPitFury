@@ -9,6 +9,11 @@ public class Player : MonoBehaviour {
 	public bool HasStarted;
 	private GameManager Manager;
 
+	public int Score { get; private set; }
+
+	[HideInInspector]
+	public bool IsDashing = false;
+
 	public bool CanMove = false;
 	public Color MainColor;
 	public ProjectorLookAt projector;
@@ -35,6 +40,11 @@ public class Player : MonoBehaviour {
  
 			return "#" + a + b + c + d + e + f;
 		}
+	}
+
+	public void ResetScore()
+	{
+		Score = 0;
 	}
 
 	void Start () 
@@ -114,13 +124,14 @@ public class Player : MonoBehaviour {
 		IsDead = true;
 	}
 	
-	public void OnMove()
+	private void OnMove()
 	{
 		Manager.OnPlayerMove(this);
 	}
 
 	public Coroutine OnPlayerWin()
 	{
+		Score++;	
 		return StartCoroutine(ActiveProjector(3));
 	}
 

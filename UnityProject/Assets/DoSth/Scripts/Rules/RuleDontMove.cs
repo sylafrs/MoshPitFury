@@ -5,7 +5,7 @@ public class RuleDontMove : Rule
 {
 	public override string Description
 	{
-		get { return "Don't move."; }
+		get { return "Don't move!"; }
 	}
 
 	public override void OnPlayerMove(Player p)
