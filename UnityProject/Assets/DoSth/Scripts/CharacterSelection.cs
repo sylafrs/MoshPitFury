@@ -8,71 +8,100 @@ public class CharacterSelection : MonoBehaviour {
 	bool[] selectedCharacters = new bool[4];
 	int nbPlayersSelected = 0;
 	public Light[] spotlights;
-	int nbManettes;
+    int nbPlayers;
+    CanvasRenderer nbPlayersPanel;
+    Text nbPlayersText;
+    Player[] Players;
 
 	// Use this for initialization
-	void Start () 
-	{
-		nbManettes = Input.GetJoystickNames().GetLength(0);
-		if (nbManettes < 4) 
-		{
-			if (!GamePad.GetState(PlayerIndex.One).IsConnected) Debug.LogError("NO.");
-			if (!GamePad.GetState(PlayerIndex.Two).IsConnected) Debug.LogError("NO.");
-			if (!GamePad.GetState(PlayerIndex.Three).IsConnected) GameObject.Find("Player_3").SetActive(false);
-			if (!GamePad.GetState(PlayerIndex.Four).IsConnected) GameObject.Find("Player_4").SetActive(false);
-		}
+	void Start ()
+    {
+        Players = new Player[4];
+        for (int i = 0; i < 4; i++ )
+        {
+            Players[i] = GameObject.Find("Player_" + (i + 1)).GetComponent<Player>();   
+        }
+
+        nbPlayersPanel = GameObject.Find("PanelNBJOUEURS").GetComponent<CanvasRenderer>();
+        nbPlayersText = GameObject.Find("TextNBJOUEURS").GetComponent<Text>();
+        nbPlayers = 2;
+        ShowPlayers();
 	}
 
-	void CheckPlayer(int id)
-	{
-		if (!selectedCharacters[(id - 1)] && GamePad.GetState((PlayerIndex)(id - 1)).Buttons.Start == ButtonState.Pressed)
-		{
-			selectedCharacters[(id - 1)] = true;
+    public void LessPlayers()
+    {
+        nbPlayers = Mathf.Max(nbPlayers - 1, 2);
+        nbPlayersText.text = nbPlayers.ToString();
+        ShowPlayers();
+    }
 
-			GameObject p = GameObject.Find("Player_" + (nbPlayersSelected + 1));
-			p.GetComponent<Player>().Id = id;
+    public void MorePlayers()
+    {
+        nbPlayers = Mathf.Min(nbPlayers + 1, 4);
+        nbPlayersText.text = nbPlayers.ToString();
+        ShowPlayers();
+    }
+    
+    void ShowPlayers()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            Players[i].gameObject.SetActive(i < nbPlayers);
+        }
+    }
 
-			spotlights[nbPlayersSelected].enabled = true;
+    public void NbPlayersSelected()
+    {
+        nbPlayersPanel.gameObject.SetActive(false);
+        StartCoroutine(WaitForPlayers());
+    }
 
-			Text playerTextFeedback = transform.GetChild(nbPlayersSelected).GetComponent<Text>();
-			playerTextFeedback.enabled = true;
-			playerTextFeedback.text = "P" + id;
+    IEnumerator WaitForPlayers()
+    {
+        while (nbPlayersSelected < nbPlayers)
+        {
+            for (int i = 1; i <= nbPlayers; i++)
+                CheckPlayer(i);
 
-			Object.DontDestroyOnLoad(p);
+            yield return null;
+        }     
 
-			nbPlayersSelected++;
-		}
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		if (nbPlayersSelected < nbManettes)
-		{
-			for (int i = 1; i <= nbManettes; i++)
-				CheckPlayer(i);
-		}
-		else
-		{
-			StartCoroutine(startTheGame());
-		}
+        StartCoroutine(StartTheGame());
+    }
 
-		/*
-		for (int i=0 ; i < nbGamepads ; i++) {
-			if (!selectedCharacters[i]) {
-				displayFeedback[i].text = "Waiting";
-				for (int j=0 ; j < Mathf.FloorToInt((float) nbDots/20.0f) ; j++) {
-					displayFeedback[i].text += ".";
-				}
-				nbDots++;
-				if (nbDots >= 80) nbDots = 0;
-			}
-			else displayFeedback[i].text = "Ok";
-		}
-		*/
-	}
+    private bool AButton(int id)
+    {
+        GamePadState padState = GamePad.GetState((PlayerIndex)(id - 1));
+        if (padState.IsConnected)
+            return padState.Buttons.A == ButtonState.Pressed;
 
-	IEnumerator startTheGame ()
+        return Input.GetButton("P" + id + "_A");
+    }
+    
+
+    void CheckPlayer(int id)
+    {
+        if (!selectedCharacters[(id - 1)] && AButton(id))
+        {
+            selectedCharacters[(id - 1)] = true;
+
+            Player p = Players[nbPlayersSelected];
+            p.Id = id;
+
+            spotlights[nbPlayersSelected].enabled = true;
+
+            Text playerTextFeedback = GameObject.Find("TextP" + id).GetComponent<Text>();
+
+            playerTextFeedback.enabled = true;
+            playerTextFeedback.text = "P" + id;
+
+            Object.DontDestroyOnLoad(p.gameObject);
+
+            nbPlayersSelected++;
+        }
+    }
+
+	IEnumerator StartTheGame ()
 	{
 		yield return new WaitForSeconds(3.0f);
 		Application.LoadLevel((int)SCENE.Game);

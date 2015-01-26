@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
 			if (this.PadState.IsConnected)
 				return this.PadState.Buttons.A == ButtonState.Pressed;
 
-			return false;
+			return Input.GetButton("P" + this.player.Id + "_A");
 		}
 	}
 
@@ -55,7 +55,11 @@ public class PlayerController : MonoBehaviour
 				padController.x = this.PadState.ThumbSticks.Left.X;
 				padController.z = this.PadState.ThumbSticks.Left.Y;
 			}
-
+            else
+            {
+                padController.x = Input.GetAxis("P" + this.player.Id + "_Horizontal");
+                padController.z = Input.GetAxis("P" + this.player.Id + "_Vertical");
+            }
 		
 			if (Mathf.Abs(padController.x) < 0.1f)
 				padController.x = 0;
