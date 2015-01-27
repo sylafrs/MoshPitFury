@@ -11,26 +11,27 @@ public class CharacterSelection : MonoBehaviour {
     int nbPlayers;
     CanvasRenderer nbPlayersPanel;
     Text nbPlayersText;
-    Player[] Players;
+    GameObject[] Players;
 
 	// Use this for initialization
 	void Start ()
     {
-        Players = new Player[4];
+        Players = new GameObject[4];
         for (int i = 0; i < 4; i++ )
         {
-            Players[i] = GameObject.Find("Player_" + (i + 1)).GetComponent<Player>();   
+            Players[i] = GameObject.Find("Player_" + (i + 1)) as GameObject;
+            Object.DontDestroyOnLoad(Players[i]);
         }
 
         nbPlayersPanel = GameObject.Find("PanelNBJOUEURS").GetComponent<CanvasRenderer>();
         nbPlayersText = GameObject.Find("TextNBJOUEURS").GetComponent<Text>();
-        nbPlayers = 2;
+        nbPlayers = 4;
         ShowPlayers();
 	}
 
     public void LessPlayers()
     {
-        nbPlayers = Mathf.Max(nbPlayers - 1, 2);
+        nbPlayers = Mathf.Max(nbPlayers - 1, 0);
         nbPlayersText.text = nbPlayers.ToString();
         ShowPlayers();
     }
@@ -46,7 +47,7 @@ public class CharacterSelection : MonoBehaviour {
     {
         for (int i = 0; i < 4; i++)
         {
-            Players[i].gameObject.SetActive(i < nbPlayers);
+            Players[i].SetActive(i < nbPlayers);
         }
     }
 
@@ -85,18 +86,16 @@ public class CharacterSelection : MonoBehaviour {
         {
             selectedCharacters[(id - 1)] = true;
 
-            Player p = Players[nbPlayersSelected];
-            p.Id = id;
+            Player player = Players[nbPlayersSelected].GetComponentInChildren<Player>();
+            player.Id = id;
+            player.InitCursor();
+
+            // Switch brains :)
+            GameObject.Destroy(player.GetComponent<PlayerAI>());
+            player.gameObject.AddComponent<PlayerInput>();
 
             spotlights[nbPlayersSelected].enabled = true;
-
-            Text playerTextFeedback = GameObject.Find("TextP" + id).GetComponent<Text>();
-
-            playerTextFeedback.enabled = true;
-            playerTextFeedback.text = "P" + id;
-
-            Object.DontDestroyOnLoad(p.gameObject);
-
+                        
             nbPlayersSelected++;
         }
     }
@@ -104,6 +103,10 @@ public class CharacterSelection : MonoBehaviour {
 	IEnumerator StartTheGame ()
 	{
 		yield return new WaitForSeconds(3.0f);
+
+        foreach (GameObject p in Players)
+            p.SetActive(true);
+
 		Application.LoadLevel((int)SCENE.Game);
 	}
 }

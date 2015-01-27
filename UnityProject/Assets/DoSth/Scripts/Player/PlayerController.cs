@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
-using XInputDotNetPure;
 
 public class PlayerController : MonoBehaviour 
 {
 	private Player player;
+    private PlayerBrain Brain;
 		
 	void Awake()
 	{
-		player = this.GetComponent<Player>();
+		player  = this.GetComponent<Player>();
 	}
 
-	private GamePadState PadState;
 
 	public float	MaxSpeed;
 	public float	MaxSpeedDash;
@@ -25,75 +24,6 @@ public class PlayerController : MonoBehaviour
 		
 	private Vector3 Speed;
 	public float BumpPower = 2;
-
-	private void UpdateState()
-	{
-		this.PadState = GamePad.GetState((PlayerIndex)(this.player.Id - 1));
-	}
-
-	private bool AButton
-	{
-		get
-		{
-			if (this.PadState.IsConnected)
-				return this.PadState.Buttons.A == ButtonState.Pressed;
-
-			return Input.GetButton("P" + this.player.Id + "_A");
-		}
-	}
-
-	private Vector3 PadDirection
-	{
-		get
-		{
-			const float sqrDeadZone = 0.09f;
-
-			Vector3 padController = Vector3.zero;
-
-			if (this.PadState.IsConnected)
-			{
-				padController.x = this.PadState.ThumbSticks.Left.X;
-				padController.z = this.PadState.ThumbSticks.Left.Y;
-			}
-            else
-            {
-                padController.x = Input.GetAxis("P" + this.player.Id + "_Horizontal");
-                padController.z = Input.GetAxis("P" + this.player.Id + "_Vertical");
-            }
-		
-			if (Mathf.Abs(padController.x) < 0.1f)
-				padController.x = 0;
-
-			if (Mathf.Abs(padController.z) < 0.1f)
-				padController.z = 0;
-
-			if (padController.sqrMagnitude < sqrDeadZone)
-				padController = Vector2.zero;
-			
-			return padController;
-		}
-	}
-
-	void OnDeath()
-	{
-		if (PadState.IsConnected)
-			StartCoroutine(TimeVibration(3, 0.2f, 0.2f));
-
-	}
-	void OnDestroy()
-	{
-		if (PadState.IsConnected)
-			GamePad.SetVibration((PlayerIndex)(this.player.Id - 1), 0, 0);
-	}
-
-	IEnumerator TimeVibration(float time, float left, float right)
-	{
-		if (PadState.IsConnected)
-			GamePad.SetVibration((PlayerIndex)(this.player.Id - 1), left, right);
-		yield return new WaitForSeconds(time);
-		if (PadState.IsConnected)
-			GamePad.SetVibration((PlayerIndex)(this.player.Id - 1), 0, 0);
-	}
 
 	void UpdateDash()
 	{
@@ -120,7 +50,7 @@ public class PlayerController : MonoBehaviour
 			// Fin du cooldown
 			if (DashTimer <= 0)
 			{
-				this.player.IsDashing = this.AButton;
+				this.player.IsDashing = this.Brain.WantToDash;
 
 				// Nouveau dash.
 				if(this.player.IsDashing)
@@ -128,15 +58,7 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 	}
-
-	Vector3 CameraRelatedDirection(Vector3 padDir)
-	{
-		Transform t = Camera.main.transform;
-
-		Vector3 dir = Quaternion.Euler(0, t.eulerAngles.y, 0) * padDir;
-		
-		return dir.normalized;
-	}
+    
 
 	void OnPlayerPlaced()
 	{
@@ -160,7 +82,7 @@ public class PlayerController : MonoBehaviour
 			}
 			else
 			{
-				perfectSpeed = CameraRelatedDirection(this.PadDirection) * MaxSpeed;
+				perfectSpeed = this.Brain.WantedDirection * MaxSpeed;
 			}
 		}
 		else
@@ -185,10 +107,18 @@ public class PlayerController : MonoBehaviour
 		this.rigidbody.velocity = this.Speed;
 		this.rigidbody.angularVelocity = Vector3.zero;		
 	}
+
+    void UpdateBrain()
+    {
+        if(Brain == null)
+            Brain = this.GetComponent<PlayerBrain>();
+        if(Brain != null)
+            this.Brain.UpdateState();		
+    }
 	
 	void Update ()
 	{
-		UpdateState();
+        UpdateBrain();
 		UpdateDash();
 		UpdateSpeed();
 	}
@@ -197,39 +127,40 @@ public class PlayerController : MonoBehaviour
 	{
 		this.Speed += bumper.transform.forward * bumper.Power;
 	}
-		
-	public void OnCollisionEnter(Collision collision)
-	{
-		PlayerController other = collision.gameObject.GetComponent<PlayerController>();
-		if(other != null && this.player.Id < other.player.Id)
-		{
-			Vector3 prevSpeed = this.Speed;
 
-			if (other.player.IsDashing)
-			{
-				PushData push = new PushData();
-				push.Collision = collision;
-				push.Pushed = this.player;
-				push.Pusher = other.player;
 
-				this.Speed += collision.relativeVelocity.normalized * (BumpPower * other.Speed.magnitude);
-				this.gameObject.SendMessage("OnPushed", push, SendMessageOptions.DontRequireReceiver);
-				other.gameObject.SendMessage("OnPush", push, SendMessageOptions.DontRequireReceiver);
-			}
+    public void OnCollisionEnter(Collision collision)
+    {
+        PlayerController other = collision.gameObject.GetComponent<PlayerController>();
+        if (other != null && this.player.Id < other.player.Id)
+        {
+            Vector3 prevSpeed = this.Speed;
 
-			if (this.player.IsDashing)
-			{
-				PushData push = new PushData();
-				push.Collision = collision;
-				push.Pushed = other.player;
-				push.Pusher = this.player;
+            if (other.player.IsDashing)
+            {
+                PushData push = new PushData();
+                push.Collision = collision;
+                push.Pushed = this.player;
+                push.Pusher = other.player;
 
-				other.Speed -= collision.relativeVelocity.normalized * (BumpPower * prevSpeed.magnitude);
-				this.gameObject.SendMessage("OnPush", push, SendMessageOptions.DontRequireReceiver);
-				other.gameObject.SendMessage("OnPushed", push, SendMessageOptions.DontRequireReceiver);
-			}
-		}		
-	}
+                this.Speed += collision.relativeVelocity.normalized * (BumpPower * other.Speed.magnitude);
+                this.gameObject.SendMessage("OnPushed", push, SendMessageOptions.DontRequireReceiver);
+                other.gameObject.SendMessage("OnPush", push, SendMessageOptions.DontRequireReceiver);
+            }
+
+            if (this.player.IsDashing)
+            {
+                PushData push = new PushData();
+                push.Collision = collision;
+                push.Pushed = other.player;
+                push.Pusher = this.player;
+
+                other.Speed -= collision.relativeVelocity.normalized * (BumpPower * prevSpeed.magnitude);
+                this.gameObject.SendMessage("OnPush", push, SendMessageOptions.DontRequireReceiver);
+                other.gameObject.SendMessage("OnPushed", push, SendMessageOptions.DontRequireReceiver);
+            }
+        }
+    }
 }
 
 public class PushData

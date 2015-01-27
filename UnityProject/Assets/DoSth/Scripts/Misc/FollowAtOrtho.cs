@@ -9,11 +9,16 @@ using System.Collections.Generic;
   */
 public class FollowAtOrtho : MonoBehaviour {
 
-    public Camera cam;
+    private Camera orthoCamera;
     public Transform target;
 
     public void Update()
     {
+        if(orthoCamera == null)
+        {
+            orthoCamera = GameObject.FindGameObjectWithTag("InterfaceCamera").camera;
+        }
+
         if (target)
         {
             Vector3 pos = WorldToNormalizedViewportPoint(
@@ -21,7 +26,7 @@ public class FollowAtOrtho : MonoBehaviour {
                 target.transform.position
             );
 
-            this.transform.position = NormalizedViewportToWorldPoint(cam, pos);
+            this.transform.position = NormalizedViewportToWorldPoint(orthoCamera, pos);
         }
     }
 

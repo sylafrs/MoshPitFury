@@ -24,9 +24,4 @@ public class PlayerNames : MonoBehaviour {
 		transform.Translate(Vector3.up *3);
 		draw = true;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		this.transform.LookAt(-Camera.main.transform.position);
-	}
 }

@@ -5,6 +5,7 @@ public class Player : MonoBehaviour {
 
 //	[Range(1, 4)]
 	public int Id;
+
 	public bool IsDead;
 	public bool HasStarted;
 	private GameManager Manager;
@@ -20,7 +21,7 @@ public class Player : MonoBehaviour {
 
 	public bool CanMove = false;
 	public Color MainColor;
-	public ProjectorLookAt projector;
+	private ProjectorLookAt projector;
 	
 	public char GetHex (int d) 
 	{
@@ -58,16 +59,23 @@ public class Player : MonoBehaviour {
 		IsDashing = false;
 		IsDead = false;
 		CanMove = false;
-
-
-		GameObject pGO = GameObject.Find("Projector" + this.Id) as GameObject;
-		if (pGO)
-		{
-			this.projector = pGO.GetComponent<ProjectorLookAt>();
-			this.projector.target = this.transform;
-			this.projector.enabled = false;
-		}
+        
+		this.projector = this.transform.parent.FindChild("Projector").GetComponent<ProjectorLookAt>();
 	}
+
+    public void InitCursor()
+    {
+        Transform cursor = this.transform.parent.FindChild("NameUI");
+        if (cursor)
+        {
+            TextMesh tm = cursor.GetComponent<TextMesh>();
+            if (tm)
+            {
+                tm.color = this.MainColor;
+                tm.text = "P" + this.Id;
+            }
+        }
+    }
 
 	private IEnumerator JumpsToCoroutine(Transform to, float duration)
 	{

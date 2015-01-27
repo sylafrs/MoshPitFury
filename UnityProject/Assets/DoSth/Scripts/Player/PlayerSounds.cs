@@ -1,23 +1,68 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using FMODEvent = FMOD_StudioEventEmitter;
+using FMODParameter = FMOD.Studio.ParameterInstance;
+using System;
+
 public class PlayerSounds : MonoBehaviour 
 {
 	private Player player;
 
-	private FMOD_StudioEventEmitter bump;
-	private FMOD.Studio.ParameterInstance bumpParam;
+	private FMODEvent bump;
+	private FMODParameter bumpParam;
 
-	private FMOD_StudioEventEmitter death;
-	private FMOD.Studio.ParameterInstance deathParam;
+	private FMODEvent death;
+	private FMODParameter deathParam;
+    
+    private FMODParameter GetParameter(FMODEvent evt, string pName)
+    {
+        FMODParameter p = null;
 
-	private void Start()
+        if (evt != null && !string.IsNullOrEmpty(pName))
+        {
+            try
+            {
+                p = evt.getParameter(pName);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e, evt);
+            }
+        }
+
+        return p;
+    }
+
+    private FMODEvent GetEvent(string name)
+    {
+        Transform soundsTransform = this.transform.FindChild("Sounds");
+        if(soundsTransform == null)
+        {
+            Debug.LogError("Missing Sounds parent.", this);
+            return null;
+        }
+
+        Transform eventTransform = soundsTransform.FindChild(name);
+        if(eventTransform == null)
+        {
+            Debug.LogError("Missing " + name + " object.", soundsTransform);
+            return null;
+        }
+
+        FMODEvent evnt = eventTransform.GetComponent<FMODEvent>();
+        if(evnt == null)
+            Debug.LogError("Missing FMODEvent component.", eventTransform);
+        return evnt;
+    }
+
+    private void Start()
 	{
-		player = this.GetComponent<Player>();
-		bump = this.transform.FindChild("Sounds/Bump").GetComponent<FMOD_StudioEventEmitter>();
-		bumpParam = bump.getParameter("Bump");
-		death = this.transform.FindChild("Sounds/Death").GetComponent<FMOD_StudioEventEmitter>();
-		deathParam = death.getParameter("Death");
+		player      = this.GetComponent<Player>();
+		bump        = GetEvent("Bump");
+        bumpParam   = GetParameter(bump, "Bump");
+		death       = GetEvent("Death");
+		deathParam  = GetParameter(death, "Death");
 	}
 
 	private void OnDeath(bool fire)
