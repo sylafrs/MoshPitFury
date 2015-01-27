@@ -26,13 +26,21 @@ public class GameManager : MonoBehaviour
 
 	private MainThemeSoundManager MainTheme;
 
+    private Text GetText(string name)
+    {
+        GameObject g = GameObject.Find(name);
+        if (g == null)
+            return null;
+        return g.GetComponent<Text>();
+    }
+
 	private void Awake()
 	{
-		Players = GameObject.FindObjectsOfType<Player>();
-		MainTheme = this.GetComponent<MainThemeSoundManager>();
-		LabelStartTimer = GameObject.Find("TXT_start_cooldown").GetComponent<Text>();
-		LabelRuleName = GameObject.Find("TXT_rule_name").GetComponent<Text>();
-		LabelRoundTimer = GameObject.Find("TXT_round_timer").GetComponent<Text>();	
+		Players         = GameObject.FindObjectsOfType<Player>();
+		MainTheme       = this.GetComponent<MainThemeSoundManager>();
+		LabelStartTimer = GetText("TXT_start_cooldown") ;
+		LabelRuleName   = GetText("TXT_rule_name")      ;
+		LabelRoundTimer = GetText("TXT_round_timer")    ;	
 	
 		foreach(Player p in Players)
 		{

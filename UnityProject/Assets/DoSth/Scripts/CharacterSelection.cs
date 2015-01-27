@@ -16,11 +16,13 @@ public class CharacterSelection : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        Transform players = GameObject.Find("Players").transform;
+        GameObject.DontDestroyOnLoad(players.gameObject);
+
         Players = new GameObject[4];
         for (int i = 0; i < 4; i++ )
         {
-            Players[i] = GameObject.Find("Player_" + (i + 1)) as GameObject;
-            Object.DontDestroyOnLoad(Players[i]);
+            Players[i] = players.FindChild("Player_" + (i + 1)).gameObject;
         }
 
         nbPlayersPanel = GameObject.Find("PanelNBJOUEURS").GetComponent<CanvasRenderer>();

@@ -11,6 +11,7 @@ public class RuleSurvival : Rule {
 
 	public Transform boxA, boxB;
 
+    private Transform Beers;
 	private List<GameObject> BeerClones;
 
 	public override void Prepare(GameManager manager)
@@ -18,6 +19,7 @@ public class RuleSurvival : Rule {
 		this.enabled = true;
 		Beer = this.transform.FindChild("Beer").gameObject;
 		BeerClones = new List<GameObject>();
+        Beers = new GameObject("Beers").transform;
 	}
 
 	public override string Description
@@ -47,10 +49,7 @@ public class RuleSurvival : Rule {
 	{
 		this.enabled = false;
 		base.GameOver();
-		foreach(GameObject clone in BeerClones)
-		{
-			GameObject.Destroy(clone);
-		}
+        GameObject.Destroy(Beers.gameObject);
 	}
 
 	public override void OnBeerDestroyed(GameObject g)
@@ -86,6 +85,7 @@ public class RuleSurvival : Rule {
 			Random.Range(minP.z, maxP.z)
 		);
 
+        BeerClone.transform.parent = Beers;
 		BeerClone.transform.position = random;
 	}
 }
