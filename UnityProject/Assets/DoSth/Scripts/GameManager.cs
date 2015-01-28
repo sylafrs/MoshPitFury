@@ -41,6 +41,11 @@ public class GameManager : MonoBehaviour
 		LabelStartTimer = GetText("TXT_start_cooldown") ;
 		LabelRuleName   = GetText("TXT_rule_name")      ;
 		LabelRoundTimer = GetText("TXT_round_timer")    ;	
+
+        if(Players.Length == 0)
+        {
+            Application.LoadLevel((int)SCENE.CharacterSelection);
+        }
 	
 		foreach(Player p in Players)
 		{
