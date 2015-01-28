@@ -49,6 +49,6 @@ public class RuleKillOnePlayer : Rule {
 
 	public override string Description
 	{
-		get { return "ALL VS PLAYER <color=" + PlayerToKill.MainColorHex + ">" + PlayerToKill.Id + "</color>"; }
+		get { return "ALL VS <color=" + PlayerToKill.MainColorHex + ">" + PlayerToKill.Name + "</color>"; }
 	}
 }

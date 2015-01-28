@@ -23,6 +23,16 @@ public class RuleKingOfTheBeer : Rule {
 		Area = GameObject.Instantiate(this.transform.FindChild("BeerArea").gameObject) as GameObject;
 	}
 
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+        float winningTime = GetMaxScore();
+        foreach(Player p in this.Manager.Players)
+        {
+            p.Halo.enabled = (this.Times[p] >= winningTime);
+        }
+    }
+
 	public override void OnPlayerStayInBeerArea(Player p)
 	{
 		Times[p] += Time.deltaTime;
@@ -30,8 +40,12 @@ public class RuleKingOfTheBeer : Rule {
 
 	public override void GameOver()
 	{
-		base.GameOver();
-		GameObject.Destroy(Area);
+        foreach (Player p in this.Manager.Players)
+        {
+            p.Halo.enabled = false;
+        }
+        GameObject.Destroy(Area);
+        base.GameOver();
 	}
 
 	public float GetMaxScore()

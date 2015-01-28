@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
 	private PickableBeer Beer;
 
 	public int Score { get; private set; }
+    public string Name { get; private set; }
 
 	[HideInInspector]
 	public bool IsDashing = false;
@@ -22,6 +23,8 @@ public class Player : MonoBehaviour {
 	public bool CanMove = false;
 	public Color MainColor;
 	private ProjectorLookAt projector;
+
+    public Light Halo { get; private set; }
 	
 	public char GetHex (int d) 
 	{
@@ -59,6 +62,7 @@ public class Player : MonoBehaviour {
 		IsDashing = false;
 		IsDead = false;
 		CanMove = false;
+        Halo = this.transform.FindChild("Halo").light;
         
 		this.projector = this.transform.parent.FindChild("Projector").GetComponent<ProjectorLookAt>();
 	}
@@ -72,7 +76,21 @@ public class Player : MonoBehaviour {
             if (tm)
             {
                 tm.color = this.MainColor;
-                tm.text = "P" + this.Id;
+                tm.text = Name = "P" + this.Id;
+            }
+        }
+    }
+
+    public void InitCPUCursor()
+    {
+        Transform cursor = this.transform.parent.FindChild("NameUI");
+        if (cursor)
+        {
+            TextMesh tm = cursor.GetComponent<TextMesh>();
+            if (tm)
+            {
+                tm.color = this.MainColor;
+                tm.text = Name = "CPU" + this.Id;
             }
         }
     }

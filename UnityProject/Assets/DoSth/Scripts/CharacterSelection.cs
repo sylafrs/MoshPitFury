@@ -13,6 +13,7 @@ public class CharacterSelection : MonoBehaviour {
     Text nbPlayersText;
     GameObject[] Players;
 
+
 	// Use this for initialization
 	void Start ()
     {
@@ -63,7 +64,7 @@ public class CharacterSelection : MonoBehaviour {
     {
         while (nbPlayersSelected < nbPlayers)
         {
-            for (int i = 1; i <= nbPlayers; i++)
+            for (int i = 1; i <= 4; i++)
                 CheckPlayer(i);
 
             yield return null;
@@ -102,13 +103,36 @@ public class CharacterSelection : MonoBehaviour {
         }
     }
 
-	IEnumerator StartTheGame ()
-	{
-		yield return new WaitForSeconds(3.0f);
+    void CreateCPUS()
+    {
+        while (nbPlayersSelected < 4)
+        {
+            for (int id = 1; id <= 4; id++)
+            {
+                if (!selectedCharacters[(id - 1)])
+                {
+                    selectedCharacters[(id - 1)] = true;
 
+                    Player player = Players[nbPlayersSelected].GetComponentInChildren<Player>();
+                    player.Id = id;
+                    player.InitCPUCursor();
+
+                    nbPlayersSelected++;
+                    break;
+                }
+            }
+
+        }
+    }
+
+	IEnumerator StartTheGame ()
+    {
         foreach (GameObject p in Players)
             p.SetActive(true);
 
+        CreateCPUS();
+
+		yield return new WaitForSeconds(3.0f);   
 		Application.LoadLevel((int)SCENE.Game);
 	}
 }

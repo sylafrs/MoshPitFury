@@ -51,7 +51,7 @@ public class RuleDeathMatchTeam : Rule {
 			if (!first)
 				str += " / ";
 			first = false;
-			str += "<color=" + p.MainColorHex + ">"+p.Id+"</color>";
+			str += "<color=" + p.MainColorHex + ">"+p.Name+"</color>";
 		}
 
 		return str;
@@ -70,18 +70,32 @@ public class RuleDeathMatchTeam : Rule {
 		{
 			chosen = remaining[Random.Range(0, remaining.Count)];
 			teamA.Add(chosen);
+            chosen.Halo.color = Color.red;
+            chosen.Halo.enabled = true;
 			remaining.Remove(chosen);
 		}
 
 		for (int i = 0; i < teamSize; i++)
 		{
 			chosen = remaining[Random.Range(0, remaining.Count)];
-			teamB.Add(chosen);
+            teamB.Add(chosen);
+            chosen.Halo.color = Color.green;
+            chosen.Halo.enabled = true;
 			remaining.Remove(chosen);
 		}
 
 		base.Prepare(manager);
 	}
+
+    public override void GameOver()
+    {
+        foreach(Player p in this.Manager.Players)
+        {
+            p.Halo.color = Color.white;
+            p.Halo.enabled = false;
+        }
+        base.GameOver();
+    }
 
 	private bool IsTeamDead(List<Player> team)
 	{
