@@ -1,40 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour 
+public class PlayerController : MonoBehaviour
 {
 	private Player player;
-    private PlayerBrain Brain;
-		
+	private PlayerBrain Brain;
+
 	void Awake()
 	{
-		player  = this.GetComponent<Player>();
+		player = this.GetComponent<Player>();
 	}
 
 
-	public float	MaxSpeed;
-	public float	MaxSpeedDash;
+	public float MaxSpeed;
+	public float MaxSpeedDash;
 
-	public float	Acceleration;
-	public float	AccelerationDash;
+	public float Acceleration;
+	public float AccelerationDash;
 
-	public float	DashDuration;
-	public float	DashCooldown;
-	private float	DashTimer;
-		
+	public float DashDuration;
+	public float DashCooldown;
+	private float DashTimer;
+
 	private Vector3 Speed;
 	public float BumpPower = 2;
 
 	void UpdateDash()
 	{
-		if(DashTimer > 0)
+		if (DashTimer > 0)
 			DashTimer -= Time.deltaTime;
-		
+
 		// On dashe.
-		if(this.player.IsDashing)
+		if (this.player.IsDashing)
 		{
 			// Fin du dash
-			if(this.DashTimer <= 0)
+			if (this.DashTimer <= 0)
 			{
 				this.player.IsDashing = false;
 				this.DashTimer = this.DashCooldown;
@@ -53,12 +53,12 @@ public class PlayerController : MonoBehaviour
 				this.player.IsDashing = this.Brain ? this.Brain.WantToDash : false;
 
 				// Nouveau dash.
-				if(this.player.IsDashing)
+				if (this.player.IsDashing)
 					this.DashTimer = this.DashDuration;
 			}
 		}
 	}
-    
+
 
 	void OnPlayerPlaced()
 	{
@@ -77,23 +77,22 @@ public class PlayerController : MonoBehaviour
 		{
 			if (this.player.IsDashing)
 			{
-
 				perfectSpeed = this.Speed.normalized * MaxSpeedDash;
 			}
-			else if(this.Brain)
+			else if (this.Brain)
 			{
 				perfectSpeed = this.Brain.WantedDirection * MaxSpeed;
 			}
-            else
-            {
-                perfectSpeed = Vector3.zero;
-            }
+			else
+			{
+				perfectSpeed = Vector3.zero;
+			}
 		}
 		else
 		{
 			perfectSpeed = Vector3.zero;
 		}
-		
+
 		this.Speed = Vector3.Lerp(this.Speed, perfectSpeed, Time.deltaTime * (this.player.IsDashing ? AccelerationDash : Acceleration));
 		this.Speed.y = this.rigidbody.velocity.y;
 
@@ -109,20 +108,20 @@ public class PlayerController : MonoBehaviour
 		}
 
 		this.rigidbody.velocity = this.Speed;
-		this.rigidbody.angularVelocity = Vector3.zero;		
+		this.rigidbody.angularVelocity = Vector3.zero;
 	}
 
-    void UpdateBrain()
-    {
-        if(Brain == null)
-            Brain = this.GetComponent<PlayerBrain>();
-        if(Brain != null)
-            this.Brain.UpdateState();		
-    }
-	
-	void Update ()
+	void UpdateBrain()
 	{
-        UpdateBrain();
+		if (Brain == null)
+			Brain = this.GetComponent<PlayerBrain>();
+		if (Brain != null)
+			this.Brain.UpdateState();
+	}
+
+	void Update()
+	{
+		UpdateBrain();
 		UpdateDash();
 		UpdateSpeed();
 	}
@@ -133,38 +132,38 @@ public class PlayerController : MonoBehaviour
 	}
 
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        PlayerController other = collision.gameObject.GetComponent<PlayerController>();
-        if (other != null && this.player.Id < other.player.Id)
-        {
-            Vector3 prevSpeed = this.Speed;
+	public void OnCollisionEnter(Collision collision)
+	{
+		PlayerController other = collision.gameObject.GetComponent<PlayerController>();
+		if (other != null && this.player.Id < other.player.Id)
+		{
+			Vector3 prevSpeed = this.Speed;
 
-            if (other.player.IsDashing)
-            {
-                PushData push = new PushData();
-                push.Collision = collision;
-                push.Pushed = this.player;
-                push.Pusher = other.player;
+			if (other.player.IsDashing)
+			{
+				PushData push = new PushData();
+				push.Collision = collision;
+				push.Pushed = this.player;
+				push.Pusher = other.player;
 
-                this.Speed += collision.relativeVelocity.normalized * (BumpPower * other.Speed.magnitude);
-                this.gameObject.SendMessage("OnPushed", push, SendMessageOptions.DontRequireReceiver);
-                other.gameObject.SendMessage("OnPush", push, SendMessageOptions.DontRequireReceiver);
-            }
+				this.Speed += collision.relativeVelocity.normalized * (BumpPower * other.Speed.magnitude);
+				this.gameObject.SendMessage("OnPushed", push, SendMessageOptions.DontRequireReceiver);
+				other.gameObject.SendMessage("OnPush", push, SendMessageOptions.DontRequireReceiver);
+			}
 
-            if (this.player.IsDashing)
-            {
-                PushData push = new PushData();
-                push.Collision = collision;
-                push.Pushed = other.player;
-                push.Pusher = this.player;
+			if (this.player.IsDashing)
+			{
+				PushData push = new PushData();
+				push.Collision = collision;
+				push.Pushed = other.player;
+				push.Pusher = this.player;
 
-                other.Speed -= collision.relativeVelocity.normalized * (BumpPower * prevSpeed.magnitude);
-                this.gameObject.SendMessage("OnPush", push, SendMessageOptions.DontRequireReceiver);
-                other.gameObject.SendMessage("OnPushed", push, SendMessageOptions.DontRequireReceiver);
-            }
-        }
-    }
+				other.Speed -= collision.relativeVelocity.normalized * (BumpPower * prevSpeed.magnitude);
+				this.gameObject.SendMessage("OnPush", push, SendMessageOptions.DontRequireReceiver);
+				other.gameObject.SendMessage("OnPushed", push, SendMessageOptions.DontRequireReceiver);
+			}
+		}
+	}
 }
 
 public class PushData

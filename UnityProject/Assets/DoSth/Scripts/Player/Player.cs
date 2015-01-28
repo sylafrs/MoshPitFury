@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
 
-//	[Range(1, 4)]
+	//	[Range(1, 4)]
 	public int Id;
 
-    public bool IsDead { get; private set; }
-    public bool HasStarted { get; private set; }
+	public bool IsDead { get; private set; }
+	public bool HasStarted { get; private set; }
 
 	private GameManager Manager;
 
@@ -18,40 +19,40 @@ public class Player : MonoBehaviour {
 	private PickableBeer Beer;
 
 	public int Score { get; private set; }
-    public string Name { get; private set; }
+	public string Name { get; private set; }
 
 	[HideInInspector]
 	public bool IsDashing = false;
 
-    public bool CanMove { get; private set; }
+	public bool CanMove { get; private set; }
 
 	public Color MainColor;
 
 	private ProjectorLookAt projector;
 
-    public Light Halo { get; private set; }
-	
-	public char GetHex (int d) 
+	public Light Halo { get; private set; }
+
+	public char GetHex(int d)
 	{
 		string alpha = "0123456789ABCDEF";
 		return alpha[d];
 	}
 
-	public string MainColorHex 
-    {
-		get 
+	public string MainColorHex
+	{
+		get
 		{
-			float red	=	MainColor.r * 255;
-			float green	=	MainColor.g * 255;
-			float blue	=	MainColor.b * 255;
- 
+			float red = MainColor.r * 255;
+			float green = MainColor.g * 255;
+			float blue = MainColor.b * 255;
+
 			char a = GetHex(Mathf.FloorToInt(red / 16));
 			char b = GetHex(Mathf.RoundToInt(red % 16));
 			char c = GetHex(Mathf.FloorToInt(green / 16));
 			char d = GetHex(Mathf.RoundToInt(green % 16));
 			char e = GetHex(Mathf.FloorToInt(blue / 16));
 			char f = GetHex(Mathf.RoundToInt(blue % 16));
- 
+
 			return "#" + a + b + c + d + e + f;
 		}
 	}
@@ -61,45 +62,62 @@ public class Player : MonoBehaviour {
 		Score = 0;
 	}
 
-	public void Init () 
+	public void Init()
 	{
 		Model = this.transform.FindChild("Player_Model").gameObject;
 		Manager = GameObject.FindObjectOfType<GameManager>();
 		IsDashing = false;
 		IsDead = false;
 		CanMove = false;
-        Halo = this.transform.FindChild("Halo").light;
-        
-		this.projector = this.transform.parent.FindChild("Projector").GetComponent<ProjectorLookAt>();
+
+		this.InitHalo();
+		this.InitProjector();
 	}
 
-    public void InitCursor()
-    {
-        Transform cursor = this.transform.parent.FindChild("NameUI");
-        if (cursor)
-        {
-            TextMesh tm = cursor.GetComponent<TextMesh>();
-            if (tm)
-            {
-                tm.color = this.MainColor;
-                tm.text = Name = "P" + this.Id;
-            }
-        }
-    }
+	private void InitHalo()
+	{
+		Transform t = this.transform.FindChild("Halo");
+		if (t)
+			this.Halo = t.light;
+	}
 
-    public void InitCPUCursor()
-    {
-        Transform cursor = this.transform.parent.FindChild("NameUI");
-        if (cursor)
-        {
-            TextMesh tm = cursor.GetComponent<TextMesh>();
-            if (tm)
-            {
-                tm.color = this.MainColor;
-                tm.text = Name = "CPU" + this.Id;
-            }
-        }
-    }
+	private void InitProjector()
+	{
+		if (this.transform.parent)
+		{
+			Transform t = this.transform.parent.FindChild("Projector");
+			if (t)
+				this.projector = t.GetComponent<ProjectorLookAt>();
+		}
+	}
+
+	public void InitCursor()
+	{
+		Transform cursor = this.transform.parent.FindChild("NameUI");
+		if (cursor)
+		{
+			TextMesh tm = cursor.GetComponent<TextMesh>();
+			if (tm)
+			{
+				tm.color = this.MainColor;
+				tm.text = Name = "P" + this.Id;
+			}
+		}
+	}
+
+	public void InitCPUCursor()
+	{
+		Transform cursor = this.transform.parent.FindChild("NameUI");
+		if (cursor)
+		{
+			TextMesh tm = cursor.GetComponent<TextMesh>();
+			if (tm)
+			{
+				tm.color = this.MainColor;
+				tm.text = Name = "CPU" + this.Id;
+			}
+		}
+	}
 
 	private IEnumerator JumpsToCoroutine(Transform to, float duration)
 	{
@@ -123,7 +141,7 @@ public class Player : MonoBehaviour {
 			t += Time.deltaTime;
 		}
 
-		while(t < duration)
+		while (t < duration)
 		{
 			v = Vector3.Lerp(from, to.position, t / duration);
 			v.y = Mathf.Lerp(maxY, to.position.y, (t - (duration * ratioJump)) / (duration * (1 - ratioJump)));
@@ -144,8 +162,8 @@ public class Player : MonoBehaviour {
 	{
 		HasStarted = false;
 		IsDead = false;
-        if (Model)
-		    Model.SetActive(true);
+		if (Model)
+			Model.SetActive(true);
 		this.CanMove = false;
 	}
 
@@ -154,10 +172,10 @@ public class Player : MonoBehaviour {
 		IsDead = false;
 		HasStarted = true;
 		this.CanMove = true;
-        if (Model)
-	        Model.SetActive(true);
+		if (Model)
+			Model.SetActive(true);
 	}
-		
+
 	void OnDeathTrigger()
 	{
 		Death(true);
@@ -165,7 +183,7 @@ public class Player : MonoBehaviour {
 
 	void OnBeerAreaStay()
 	{
-		if(!IsDead && Manager)
+		if (!IsDead && Manager)
 			Manager.OnPlayerStayInBeerArea(this);
 	}
 
@@ -174,15 +192,15 @@ public class Player : MonoBehaviour {
 		if (!IsDead)
 		{
 			this.gameObject.SendMessage("OnDeath", flames);
-            if(Manager)
-			    Manager.OnPlayerDeath(this);
+			if (Manager)
+				Manager.OnPlayerDeath(this);
 			this.CanMove = false;
 			IsDead = true;
 
-            if(Model)
-			    Model.SetActive(false);
+			if (Model)
+				Model.SetActive(false);
 
-			if(Beer)
+			if (Beer)
 			{
 				Beer.Owner = null;
 				Beer.transform.parent = null;
@@ -192,11 +210,11 @@ public class Player : MonoBehaviour {
 			}
 		}
 	}
-	
+
 	private void OnMove()
 	{
-        if(Manager)
-		    Manager.OnPlayerMove(this);
+		if (Manager)
+			Manager.OnPlayerMove(this);
 	}
 
 	private void OnBeerCollision()
@@ -212,7 +230,7 @@ public class Player : MonoBehaviour {
 
 	private void OnPushed(PushData data)
 	{
-		if(this.Beer)
+		if (this.Beer)
 		{
 			data.Pusher.Beer = this.Beer;
 			this.Beer = null;
@@ -227,19 +245,19 @@ public class Player : MonoBehaviour {
 
 	private void PlaceBeer()
 	{
-		if(this.Beer)
+		if (this.Beer)
 		{
-			this.Beer.Owner						= this;
-			this.Beer.transform.parent			= this.BeerPlaceHolder;
-			this.Beer.transform.localPosition	= Vector3.zero;
-			this.Beer.transform.localRotation	= Quaternion.identity;
-			this.Beer.Projector.target			= this.transform;
+			this.Beer.Owner = this;
+			this.Beer.transform.parent = this.BeerPlaceHolder;
+			this.Beer.transform.localPosition = Vector3.zero;
+			this.Beer.transform.localRotation = Quaternion.identity;
+			this.Beer.Projector.target = this.transform;
 		}
 	}
 
 	public Coroutine OnPlayerWin()
 	{
-		Score++;	
+		Score++;
 		return StartCoroutine(ActiveProjector(3));
 	}
 
@@ -251,7 +269,7 @@ public class Player : MonoBehaviour {
 			projector.enabled = true;
 		}
 		yield return new WaitForSeconds(duration);
-		if(projector)
+		if (projector)
 			projector.enabled = false;
 	}
 }

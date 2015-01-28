@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class RuleSurvival : Rule {
+public class RuleSurvival : Rule
+{
 
 	public float MinCooldown;
 	public float MaxCooldown;
@@ -11,7 +12,7 @@ public class RuleSurvival : Rule {
 
 	public Transform boxA, boxB;
 
-    private Transform Beers;
+	private Transform Beers;
 	private List<GameObject> BeerClones;
 
 	public override void Prepare(GameManager manager)
@@ -19,7 +20,7 @@ public class RuleSurvival : Rule {
 		this.enabled = true;
 		Beer = this.transform.FindChild("Beer").gameObject;
 		BeerClones = new List<GameObject>();
-        Beers = new GameObject("Beers").transform;
+		Beers = new GameObject("Beers").transform;
 	}
 
 	public override string Description
@@ -34,10 +35,10 @@ public class RuleSurvival : Rule {
 
 	public override void OnUpdate()
 	{
-		if(!IsFinished)
+		if (!IsFinished)
 		{
 			CooldownTimer -= Time.deltaTime;
-			if(CooldownTimer <= 0)
+			if (CooldownTimer <= 0)
 			{
 				ThrowBeer();
 				CooldownTimer = Random.Range(MinCooldown, MaxCooldown);
@@ -49,7 +50,7 @@ public class RuleSurvival : Rule {
 	{
 		this.enabled = false;
 		base.GameOver();
-        GameObject.Destroy(Beers.gameObject);
+		GameObject.Destroy(Beers.gameObject);
 	}
 
 	public override void OnBeerDestroyed(GameObject g)
@@ -59,7 +60,7 @@ public class RuleSurvival : Rule {
 
 	private void ThrowBeer()
 	{
-		
+
 		GameObject BeerClone = GameObject.Instantiate(this.Beer) as GameObject;
 		this.BeerClones.Add(BeerClone);
 
@@ -85,7 +86,7 @@ public class RuleSurvival : Rule {
 			Random.Range(minP.z, maxP.z)
 		);
 
-        BeerClone.transform.parent = Beers;
+		BeerClone.transform.parent = Beers;
 		BeerClone.transform.position = random;
 	}
 }

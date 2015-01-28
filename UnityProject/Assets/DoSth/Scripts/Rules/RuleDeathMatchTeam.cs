@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class RuleDeathMatchTeam : Rule {
+public class RuleDeathMatchTeam : Rule
+{
 
 	private List<Player> teamA;
 	private List<Player> teamB;
@@ -28,7 +29,7 @@ public class RuleDeathMatchTeam : Rule {
 		// Personne en vie
 		if (teamADead && teamBDead)
 			return new Player[0];
-		
+
 		// que B
 		if (teamADead)
 			return teamB.ToArray();
@@ -46,12 +47,12 @@ public class RuleDeathMatchTeam : Rule {
 		string str = "Players ";
 
 		bool first = true;
-		foreach(Player p in team)
+		foreach (Player p in team)
 		{
 			if (!first)
 				str += " / ";
 			first = false;
-			str += "<color=" + p.MainColorHex + ">"+p.Name+"</color>";
+			str += "<color=" + p.MainColorHex + ">" + p.Name + "</color>";
 		}
 
 		return str;
@@ -66,40 +67,40 @@ public class RuleDeathMatchTeam : Rule {
 		teamA = new List<Player>();
 		teamB = new List<Player>();
 
-		for (int i = 0; i < teamSize; i++ )
+		for (int i = 0; i < teamSize; i++)
 		{
 			chosen = remaining[Random.Range(0, remaining.Count)];
 			teamA.Add(chosen);
-            chosen.Halo.color = Color.red;
-            chosen.Halo.enabled = true;
+			chosen.Halo.color = Color.red;
+			chosen.Halo.enabled = true;
 			remaining.Remove(chosen);
 		}
 
 		for (int i = 0; i < teamSize; i++)
 		{
 			chosen = remaining[Random.Range(0, remaining.Count)];
-            teamB.Add(chosen);
-            chosen.Halo.color = Color.green;
-            chosen.Halo.enabled = true;
+			teamB.Add(chosen);
+			chosen.Halo.color = Color.green;
+			chosen.Halo.enabled = true;
 			remaining.Remove(chosen);
 		}
 
 		base.Prepare(manager);
 	}
 
-    public override void GameOver()
-    {
-        foreach(Player p in this.Manager.Players)
-        {
-            p.Halo.color = Color.white;
-            p.Halo.enabled = false;
-        }
-        base.GameOver();
-    }
+	public override void GameOver()
+	{
+		foreach (Player p in this.Manager.Players)
+		{
+			p.Halo.color = Color.white;
+			p.Halo.enabled = false;
+		}
+		base.GameOver();
+	}
 
 	private bool IsTeamDead(List<Player> team)
 	{
-		foreach(Player p in team)
+		foreach (Player p in team)
 		{
 			if (!p.IsDead)
 				return false;

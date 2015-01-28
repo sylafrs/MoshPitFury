@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Collections;
 
-public class GameManager : MonoBehaviour 
+public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
 	private GameObject Level;
@@ -26,28 +26,28 @@ public class GameManager : MonoBehaviour
 
 	private MainThemeSoundManager MainTheme;
 
-    private Text GetText(string name)
-    {
-        GameObject g = GameObject.Find(name);
-        if (g == null)
-            return null;
-        return g.GetComponent<Text>();
-    }
+	private Text GetText(string name)
+	{
+		GameObject g = GameObject.Find(name);
+		if (g == null)
+			return null;
+		return g.GetComponent<Text>();
+	}
 
 	private void Awake()
 	{
-		Players         = GameObject.FindObjectsOfType<Player>();
-		MainTheme       = this.GetComponent<MainThemeSoundManager>();
-		LabelStartTimer = GetText("TXT_start_cooldown") ;
-		LabelRuleName   = GetText("TXT_rule_name")      ;
-		LabelRoundTimer = GetText("TXT_round_timer")    ;	
+		Players = GameObject.FindObjectsOfType<Player>();
+		MainTheme = this.GetComponent<MainThemeSoundManager>();
+		LabelStartTimer = GetText("TXT_start_cooldown");
+		LabelRuleName = GetText("TXT_rule_name");
+		LabelRoundTimer = GetText("TXT_round_timer");
 
-        if(Players.Length == 0)
-        {
-            Application.LoadLevel((int)SCENE.CharacterSelection);
-        }
-	
-		foreach(Player p in Players)
+		if (Players.Length == 0)
+		{
+			Application.LoadLevel((int)SCENE.CharacterSelection);
+		}
+
+		foreach (Player p in Players)
 		{
 			p.Init();
 		}
@@ -60,15 +60,15 @@ public class GameManager : MonoBehaviour
 	}
 
 	public IEnumerator StartGame()
-	{				
-		if(NotPlayedRules == null || NotPlayedRules.Count == 0)
+	{
+		if (NotPlayedRules == null || NotPlayedRules.Count == 0)
 			NotPlayedRules = new List<Rule>(this.ExistingRules);
 
-		UsedRule		= NotPlayedRules[Random.Range(0, NotPlayedRules.Count)];
+		UsedRule = NotPlayedRules[Random.Range(0, NotPlayedRules.Count)];
 
 		NotPlayedRules.Remove(UsedRule);
 
-		AlivePlayers	= new List<Player>(Players);
+		AlivePlayers = new List<Player>(Players);
 
 		UsedRule.Prepare(this);
 
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		yield return StartCoroutine(CountDown(1.25f, 0.3f, 3));
-	
+
 		LabelRuleName.enabled = true;
 		LabelRuleName.text = UsedRule.Description;
 		yield return new WaitForSeconds(2);
@@ -131,20 +131,20 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
-		if(UsedRule != null && UsedRule.Started)
+		if (UsedRule != null && UsedRule.Started)
 		{
 			RoundTimer += Time.deltaTime;
 			this.LabelRoundTimer.text = Mathf.FloorToInt(UsedRule.Duration - RoundTimer).ToString();
 
 			UsedRule.OnUpdate();
-			if(UsedRule.IsFinished)
+			if (UsedRule.IsFinished)
 			{
 				this.LabelRoundTimer.enabled = false;
 				StartCoroutine(OnEndGame());
 			}
 		}
 	}
-		
+
 	private IEnumerator OnEndGame()
 	{
 		Player[] winners = UsedRule.GetWinners();
@@ -153,11 +153,11 @@ public class GameManager : MonoBehaviour
 		this.UsedRule = null;
 
 		List<Coroutine> coroutines = new List<Coroutine>();
-		
+
 		// On lance les coroutines
 		foreach (Player p in winners)
 			coroutines.Add(p.OnPlayerWin());
-		
+
 		// On les attend
 		foreach (Coroutine c in coroutines)
 			yield return c;
@@ -170,13 +170,13 @@ public class GameManager : MonoBehaviour
 
 			TableauDesScores.scores = new int[Players.Length];
 
-            foreach (Player p in Players)
-            {
-                TableauDesScores.scores[p.Id - 1] = p.Score;
-            }
+			foreach (Player p in Players)
+			{
+				TableauDesScores.scores[p.Id - 1] = p.Score;
+			}
 
-            GameObject.Destroy(GameObject.Find("Players"));
-            yield return MainTheme.StartCoroutine(MainTheme.EndOfMusic());
+			GameObject.Destroy(GameObject.Find("Players"));
+			yield return MainTheme.StartCoroutine(MainTheme.EndOfMusic());
 
 			Application.LoadLevel((int)SCENE.Score);
 		}

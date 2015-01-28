@@ -1,27 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerAI : PlayerBrain 
+public class PlayerAI : PlayerBrain
 {
+	protected PlayerAIBehaviour behaviour;
 
-    protected NavMeshAgent nma;
+	public override bool WantToDash
+	{
+		get { return false; }
+	}
 
-    public override bool WantToDash
-    {
-        get { return false; }
-    }
+	public override Vector3 WantedDirection
+	{
+		get { return behaviour.WantedDirection; }
+	}
 
-    public override Vector3 WantedDirection
-    {
-        get { return Vector3.zero; }
-    }
+	protected override void Awake()
+	{
+		base.Awake();
+		this.behaviour = this.GetComponent<PlayerAIBehaviour>(); //to change
 
-    protected override void Awake()
-    {
-        base.Awake();
-        nma = this.GetComponent<NavMeshAgent>();
-        if (nma == null)
-            nma = this.gameObject.AddComponent<NavMeshAgent>();
-        nma.enabled = true;
-    }
+
+	}
+
+	public override void UpdateState()
+	{
+		if (this.behaviour)
+			this.behaviour.OnUpdate();
+	}
 }
