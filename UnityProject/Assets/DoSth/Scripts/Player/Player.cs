@@ -6,12 +6,15 @@ public class Player : MonoBehaviour {
 //	[Range(1, 4)]
 	public int Id;
 
-	public bool IsDead;
-	public bool HasStarted;
+    public bool IsDead { get; private set; }
+    public bool HasStarted { get; private set; }
+
 	private GameManager Manager;
+
 	private GameObject Model;
 
 	public Transform BeerPlaceHolder;
+
 	private PickableBeer Beer;
 
 	public int Score { get; private set; }
@@ -20,8 +23,10 @@ public class Player : MonoBehaviour {
 	[HideInInspector]
 	public bool IsDashing = false;
 
-	public bool CanMove = false;
+    public bool CanMove { get; private set; }
+
 	public Color MainColor;
+
 	private ProjectorLookAt projector;
 
     public Light Halo { get; private set; }
@@ -32,7 +37,8 @@ public class Player : MonoBehaviour {
 		return alpha[d];
 	}
 
-	public string MainColorHex {
+	public string MainColorHex 
+    {
 		get 
 		{
 			float red	=	MainColor.r * 255;
@@ -138,7 +144,8 @@ public class Player : MonoBehaviour {
 	{
 		HasStarted = false;
 		IsDead = false;
-		Model.SetActive(true);
+        if (Model)
+		    Model.SetActive(true);
 		this.CanMove = false;
 	}
 
@@ -147,7 +154,8 @@ public class Player : MonoBehaviour {
 		IsDead = false;
 		HasStarted = true;
 		this.CanMove = true;
-		Model.SetActive(true);
+        if (Model)
+	        Model.SetActive(true);
 	}
 		
 	void OnDeathTrigger()
@@ -157,7 +165,7 @@ public class Player : MonoBehaviour {
 
 	void OnBeerAreaStay()
 	{
-		if(!IsDead)
+		if(!IsDead && Manager)
 			Manager.OnPlayerStayInBeerArea(this);
 	}
 
@@ -166,10 +174,13 @@ public class Player : MonoBehaviour {
 		if (!IsDead)
 		{
 			this.gameObject.SendMessage("OnDeath", flames);
-			Manager.OnPlayerDeath(this);
+            if(Manager)
+			    Manager.OnPlayerDeath(this);
 			this.CanMove = false;
 			IsDead = true;
-			Model.SetActive(false);
+
+            if(Model)
+			    Model.SetActive(false);
 
 			if(Beer)
 			{
@@ -184,7 +195,8 @@ public class Player : MonoBehaviour {
 	
 	private void OnMove()
 	{
-		Manager.OnPlayerMove(this);
+        if(Manager)
+		    Manager.OnPlayerMove(this);
 	}
 
 	private void OnBeerCollision()

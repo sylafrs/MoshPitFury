@@ -170,13 +170,13 @@ public class GameManager : MonoBehaviour
 
 			TableauDesScores.scores = new int[Players.Length];
 
-			foreach (Player p in Players)
-			{
-				TableauDesScores.scores[p.Id - 1] = p.Score;
-				GameObject.Destroy(p.gameObject);
-			}
+            foreach (Player p in Players)
+            {
+                TableauDesScores.scores[p.Id - 1] = p.Score;
+            }
 
-			yield return MainTheme.StartCoroutine(MainTheme.EndOfMusic());
+            GameObject.Destroy(GameObject.Find("Players"));
+            yield return MainTheme.StartCoroutine(MainTheme.EndOfMusic());
 
 			Application.LoadLevel((int)SCENE.Score);
 		}

@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
 			// Fin du cooldown
 			if (DashTimer <= 0)
 			{
-				this.player.IsDashing = this.Brain.WantToDash;
+				this.player.IsDashing = this.Brain ? this.Brain.WantToDash : false;
 
 				// Nouveau dash.
 				if(this.player.IsDashing)
@@ -80,10 +80,14 @@ public class PlayerController : MonoBehaviour
 
 				perfectSpeed = this.Speed.normalized * MaxSpeedDash;
 			}
-			else
+			else if(this.Brain)
 			{
 				perfectSpeed = this.Brain.WantedDirection * MaxSpeed;
 			}
+            else
+            {
+                perfectSpeed = Vector3.zero;
+            }
 		}
 		else
 		{

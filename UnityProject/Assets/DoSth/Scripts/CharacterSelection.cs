@@ -92,9 +92,7 @@ public class CharacterSelection : MonoBehaviour {
             Player player = Players[nbPlayersSelected].GetComponentInChildren<Player>();
             player.Id = id;
             player.InitCursor();
-
-            // Switch brains :)
-            GameObject.Destroy(player.GetComponent<PlayerAI>());
+       
             player.gameObject.AddComponent<PlayerInput>();
 
             spotlights[nbPlayersSelected].enabled = true;
@@ -116,6 +114,8 @@ public class CharacterSelection : MonoBehaviour {
                     Player player = Players[nbPlayersSelected].GetComponentInChildren<Player>();
                     player.Id = id;
                     player.InitCPUCursor();
+
+                    player.gameObject.AddComponent<PlayerAI>();
 
                     nbPlayersSelected++;
                     break;
