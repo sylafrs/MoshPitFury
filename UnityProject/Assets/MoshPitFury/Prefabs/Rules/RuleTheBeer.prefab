@@ -456,7 +456,7 @@ MonoBehaviour:
   - {fileID: 439560}
   - {fileID: 439562}
   - {fileID: 439564}
-  Duration: 20
+  Duration: 12
 --- !u!114 &11439554
 MonoBehaviour:
   m_ObjectHideFlags: 1

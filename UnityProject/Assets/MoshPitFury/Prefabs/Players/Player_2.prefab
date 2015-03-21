@@ -1189,9 +1189,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7afca9df0efe1743bcde649629260e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSpeed: 10
+  MaxSpeed: 12
   MaxSpeedDash: 30
-  Acceleration: 6
+  Acceleration: 7
   AccelerationDash: 20
   DashDuration: .200000003
   DashCooldown: 1
