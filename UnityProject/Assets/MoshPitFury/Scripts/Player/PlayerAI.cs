@@ -12,7 +12,11 @@ public class PlayerAI : PlayerBrain
 
 	public override Vector3 WantedDirection
 	{
-		get { return behaviour.WantedDirection; }
+		get {
+			if (!behaviour)
+				return Vector3.zero;
+			return behaviour.WantedDirection; 
+		}
 	}
 
 	protected override void Awake()
