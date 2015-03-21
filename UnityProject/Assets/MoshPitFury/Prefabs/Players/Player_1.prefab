@@ -461,6 +461,7 @@ GameObject:
   - 4: {fileID: 461020}
   - 33: {fileID: 3361020}
   - 23: {fileID: 2361020}
+  - 114: {fileID: 11476270}
   m_Layer: 0
   m_Name: Round
   m_TagString: Untagged
@@ -1253,6 +1254,18 @@ MonoBehaviour:
   asset: {fileID: 11400000, guid: 717668e1e0ec59647adbaec780790506, type: 2}
   path: '{fb799130-1e4b-4bd3-a57f-43c80f8694f9}'
   startEventOnAwake: 0
+--- !u!114 &11476270
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a911aac24c1e9f41ad164746f63b403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  YPos: 0
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1

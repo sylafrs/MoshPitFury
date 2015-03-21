@@ -446,6 +446,7 @@ GameObject:
   - 4: {fileID: 429668}
   - 33: {fileID: 3329668}
   - 23: {fileID: 2329668}
+  - 114: {fileID: 11431126}
   m_Layer: 0
   m_Name: Round
   m_TagString: Untagged
@@ -1253,6 +1254,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 400040}
+--- !u!114 &11431126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a911aac24c1e9f41ad164746f63b403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  YPos: 0
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1
