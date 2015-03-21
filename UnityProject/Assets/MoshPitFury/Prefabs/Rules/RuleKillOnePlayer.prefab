@@ -185,6 +185,7 @@ MonoBehaviour:
   - {fileID: 400006}
   - {fileID: 400002}
   Duration: 10
+  ruleSprite: {fileID: 21300000, guid: edbfbe4146a4b684a96c3adcf330cee2, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

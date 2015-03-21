@@ -5,7 +5,8 @@ public abstract class Rule : MonoBehaviour
 {
 	protected GameManager Manager;
 	public Transform[] SpawnPoints;
-	public float Duration = 10;
+    public float Duration = 10;
+    public Sprite ruleSprite;
 
 	public abstract string Description
 	{

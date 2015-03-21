@@ -389,7 +389,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 153212}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36c1ad1821f36bf44a368a78f7ca9f9a, type: 3}
   m_Name: 
@@ -399,9 +399,10 @@ MonoBehaviour:
   - {fileID: 453208}
   - {fileID: 453206}
   - {fileID: 453204}
-  Duration: 20
-  MinCooldown: .200000003
-  MaxCooldown: 1
+  Duration: 15
+  ruleSprite: {fileID: 21300000, guid: dd6a5efb83f0bba4ab8dbe79457059f5, type: 3}
+  MinCooldown: .100000001
+  MaxCooldown: .5
   boxA: {fileID: 434930}
   boxB: {fileID: 434928}
 --- !u!119 &11953198
