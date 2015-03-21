@@ -49,20 +49,20 @@ public class CharacterSelection : MonoBehaviour
 		StartCoroutine("SelectNBPlayersControls");
 	}
 
-	// void OnGUI()
-	// {
-	// 	for(int i = 0; i < 4; i++)
-	// 	{
-	// 		GUILayout.BeginHorizontal();
-	// 		if (Left[i])
-	// 			GUILayout.Label("Left");
-	// 		if (Right[i])
-	// 			GUILayout.Label("Right");
-	// 		if (A[i])
-	// 			GUILayout.Label("A");
-	// 		GUILayout.EndHorizontal();
-	// 	}
-	// }
+	void OnGUI()
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			GUILayout.BeginHorizontal();
+			if (Left[i])
+				GUILayout.Label("Left");
+			if (Right[i])
+				GUILayout.Label("Right");
+			if (A[i])
+				GUILayout.Label("A");
+			GUILayout.EndHorizontal();
+		}
+	}
 
 	void Update()
 	{
@@ -140,7 +140,6 @@ public class CharacterSelection : MonoBehaviour
 			{
 				if(ADown[i])
 				{
-					ADown[i] = false; // Force de nouveau l'appui.
 					this.NbPlayersSelected();
 					break;
 				}
@@ -186,6 +185,10 @@ public class CharacterSelection : MonoBehaviour
 	{
 		selectsNbPlayers = false;
 		nbPlayersPanel.gameObject.SetActive(false);
+
+		for (int i = 0; i < 4; i++)
+			ADown[i] = false;
+
 		StartCoroutine(WaitForPlayers());
 	}
 
@@ -193,7 +196,7 @@ public class CharacterSelection : MonoBehaviour
 	{
 		while (nbPlayersSelected < nbPlayers)
 		{
-			for (int i = 1; i <= 4; i++)
+			for (int i = 0; i < 4; i++)
 				CheckPlayer(i);
 
 			yield return null;
@@ -202,14 +205,14 @@ public class CharacterSelection : MonoBehaviour
 		StartCoroutine(StartTheGame());
 	}
 
-	void CheckPlayer(int id)
+	void CheckPlayer(int i)
 	{
-		if (!selectedCharacters[(id - 1)] && ADown[id - 1])
+		if (!selectedCharacters[i] && ADown[i])
 		{
-			selectedCharacters[(id - 1)] = true;
+			selectedCharacters[i] = true;
 
 			Player player = Players[nbPlayersSelected].GetComponentInChildren<Player>();
-			player.Id = id;
+			player.Id = (i+1);
 			player.InitCursor(false);
 
 			player.gameObject.AddComponent<PlayerInput>();
@@ -224,14 +227,14 @@ public class CharacterSelection : MonoBehaviour
 	{
 		while (nbPlayersSelected < 4)
 		{
-			for (int id = 1; id <= 4; id++)
+			for (int i = 0; i < 4; i++)
 			{
-				if (!selectedCharacters[(id - 1)])
+				if (!selectedCharacters[i])
 				{
-					selectedCharacters[(id - 1)] = true;
+					selectedCharacters[i] = true;
 
 					Player player = Players[nbPlayersSelected].GetComponentInChildren<Player>();
-					player.Id = id;
+					player.Id = (i + 1);
 					player.InitCursor(true);
 
 					player.gameObject.AddComponent<PlayerAI>();
