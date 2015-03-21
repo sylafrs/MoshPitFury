@@ -24,6 +24,7 @@ public class PlayerAIBehaviourTarget : PlayerAIBehaviour
 		NewPath();
 	}
 
+#if UNITY_EDITOR
 	public void OnDrawGizmos()
 	{
 		if (path != null && path.corners != null)
@@ -49,7 +50,7 @@ public class PlayerAIBehaviourTarget : PlayerAIBehaviour
 
 		}
 	}
-
+#endif
 	// Faire une sorte d'état pour éviter de calculer le chemin chaque frame !
 	public override void OnUpdate()
 	{
