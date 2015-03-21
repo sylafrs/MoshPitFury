@@ -104,7 +104,7 @@ public class Player : MonoBehaviour
 			}
 		}
 
-		cursor = this.transform.FindChild("Round");
+		cursor = this.transform.FindChild("Circle");
 		if(cursor)
 		{
 			cursor.renderer.material.color = this.MainColor;
@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
 			}
 		}
 
-		cursor = this.transform.FindChild("Round");
+		cursor = this.transform.FindChild("Circle");
 		if (cursor)
 		{
 			cursor.renderer.material.color = this.MainColor;
