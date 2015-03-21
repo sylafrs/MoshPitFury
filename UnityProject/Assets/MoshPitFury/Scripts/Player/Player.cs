@@ -103,6 +103,13 @@ public class Player : MonoBehaviour
 				tm.text = Name = "P" + this.Id;
 			}
 		}
+
+		cursor = this.transform.FindChild("Round");
+		if(cursor)
+		{
+			cursor.renderer.material.color = this.MainColor;
+			cursor.renderer.enabled = true;
+		}
 	}
 
 	public void InitCPUCursor()
@@ -116,6 +123,13 @@ public class Player : MonoBehaviour
 				tm.color = this.MainColor;
 				tm.text = Name = "CPU" + this.Id;
 			}
+		}
+
+		cursor = this.transform.FindChild("Round");
+		if (cursor)
+		{
+			cursor.renderer.material.color = this.MainColor;
+			cursor.renderer.enabled = true;
 		}
 	}
 
