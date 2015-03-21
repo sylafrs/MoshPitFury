@@ -457,6 +457,7 @@ MonoBehaviour:
   - {fileID: 439562}
   - {fileID: 439564}
   Duration: 12
+  ruleSprite: {fileID: 21300000, guid: 7389c99acb0eae247a4bd5dd530834f4, type: 3}
 --- !u!114 &11439554
 MonoBehaviour:
   m_ObjectHideFlags: 1

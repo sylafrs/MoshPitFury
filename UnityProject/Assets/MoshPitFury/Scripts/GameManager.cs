@@ -22,7 +22,8 @@ public class GameManager : MonoBehaviour
 
 	public Player[] Players { get; private set; }
 	private Text LabelStartTimer;
-	private Text LabelRuleName;
+    private Text LabelRuleName;
+    private Image ImageRuleName;
 	private Text LabelRoundTimer;
 
 	private MainThemeSoundManager MainTheme;
@@ -40,7 +41,8 @@ public class GameManager : MonoBehaviour
 		Players = GameObject.FindObjectsOfType<Player>();
 		MainTheme = this.GetComponent<MainThemeSoundManager>();
 		LabelStartTimer = GetText("TXT_start_cooldown");
-		LabelRuleName = GetText("TXT_rule_name");
+        LabelRuleName = GetText("TXT_rule_name");
+        ImageRuleName = GameObject.Find("IMG_rule_name").GetComponent<Image>();
 		LabelRoundTimer = GetText("TXT_round_timer");
 
 		if (Players.Length == 0)
@@ -93,10 +95,13 @@ public class GameManager : MonoBehaviour
 
 		yield return StartCoroutine(CountDown(1.25f, 0.3f, 3));
 
-		LabelRuleName.enabled = true;
-		LabelRuleName.text = UsedRule.Description;
+        //LabelRuleName.enabled = true;
+        LabelRuleName.text = UsedRule.Description;
+        ImageRuleName.enabled = true;
+        ImageRuleName.sprite = UsedRule.ruleSprite;
 		yield return new WaitForSeconds(2);
-		LabelRuleName.enabled = false;
+        LabelRuleName.enabled = false;
+        ImageRuleName.enabled = false;
 		this.LabelRoundTimer.enabled = true;
 
 		RoundTimer = 0;
