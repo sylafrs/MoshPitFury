@@ -5,7 +5,7 @@ using XInputDotNetPure;
 
 public class CharacterSelection : MonoBehaviour
 {
-
+	bool selectsNbPlayers;
 	bool[] selectedCharacters = new bool[4];
 	int nbPlayersSelected = 0;
 	public Light[] spotlights;
@@ -14,10 +14,23 @@ public class CharacterSelection : MonoBehaviour
 	Text nbPlayersText;
 	GameObject[] Players;
 
+	private bool[] LeftDown;
+	private bool[] RightDown;
+	private bool[] Left;
+	private bool[] Right;
+	private bool[] A;
+	private bool[] ADown;
 
 	// Use this for initialization
 	void Start()
 	{
+		LeftDown = new bool[4];
+		RightDown = new bool[4];
+		Left = new bool[4];
+		Right = new bool[4];
+		A = new bool[4];
+		ADown = new bool[4];
+
 		Transform players = GameObject.Find("Players").transform;
 		GameObject.DontDestroyOnLoad(players.gameObject);
 
@@ -31,6 +44,117 @@ public class CharacterSelection : MonoBehaviour
 		nbPlayersText = GameObject.Find("TextNBJOUEURS").GetComponent<Text>();
 		nbPlayers = 4;
 		ShowPlayers();
+
+		selectsNbPlayers = true;
+		StartCoroutine("SelectNBPlayersControls");
+	}
+
+	void OnGUI()
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			GUILayout.BeginHorizontal();
+			if (Left[i])
+				GUILayout.Label("Left");
+			if (Right[i])
+				GUILayout.Label("Right");
+			if (A[i])
+				GUILayout.Label("A");
+			GUILayout.EndHorizontal();
+		}
+	}
+
+	void Update()
+	{
+		const float EPSILON = 0.9f;
+		float axis;
+		bool aButton;
+		for(int i = 0; i < 4; i++)
+		{
+			GamePadState padState = GamePad.GetState((PlayerIndex)i);
+
+			if (padState.IsConnected)
+			{
+				axis = padState.ThumbSticks.Left.X;
+				aButton = padState.Buttons.A == ButtonState.Pressed;
+			}
+			else
+			{
+				axis = Input.GetAxis("P" + (i + 1) + "_Horizontal");
+				aButton = Input.GetButton("P" + (i + 1) + "_A");
+			}
+
+			RightDown[i] = false;
+			LeftDown[i] = false;
+			ADown[i] = false;
+
+			if (axis > EPSILON)
+			{
+				if (!Right[i])
+				{
+					RightDown[i] = true;
+					Right[i] = true;
+				}
+			}
+			else
+			{
+				Right[i] = false;
+			}
+
+			if (axis < -EPSILON)
+			{
+				if (!Left[i])
+				{
+					LeftDown[i] = true;
+					Left[i] = true;
+				}
+			}
+			else
+			{
+				Left[i] = false;
+			}
+
+			if (aButton)
+			{
+				if (!A[i])
+				{
+					ADown[i] = true;
+					A[i] = true;
+				}
+			}
+			else
+			{
+				A[i] = false;
+			}
+		}
+	}
+
+	IEnumerator SelectNBPlayersControls()
+	{
+		while (selectsNbPlayers)
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				if(ADown[i])
+				{
+					ADown[i] = false; // Force de nouveau l'appui.
+					this.NbPlayersSelected();
+					break;
+				}
+
+				if(LeftDown[i])
+				{
+					this.LessPlayers();
+				}
+
+				if(RightDown[i])
+				{
+					this.MorePlayers();
+				}
+			}
+
+			yield return null;
+		}
 	}
 
 	public void LessPlayers()
@@ -57,6 +181,7 @@ public class CharacterSelection : MonoBehaviour
 
 	public void NbPlayersSelected()
 	{
+		selectsNbPlayers = false;
 		nbPlayersPanel.gameObject.SetActive(false);
 		StartCoroutine(WaitForPlayers());
 	}
@@ -74,19 +199,9 @@ public class CharacterSelection : MonoBehaviour
 		StartCoroutine(StartTheGame());
 	}
 
-	private bool AButton(int id)
-	{
-		GamePadState padState = GamePad.GetState((PlayerIndex)(id - 1));
-		if (padState.IsConnected)
-			return padState.Buttons.A == ButtonState.Pressed;
-
-		return Input.GetButton("P" + id + "_A");
-	}
-
-
 	void CheckPlayer(int id)
 	{
-		if (!selectedCharacters[(id - 1)] && AButton(id))
+		if (!selectedCharacters[(id - 1)] && ADown[id - 1])
 		{
 			selectedCharacters[(id - 1)] = true;
 
