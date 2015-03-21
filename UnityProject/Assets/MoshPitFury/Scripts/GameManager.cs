@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 	public int ScoreToReach;
 
 	public Rule[] ExistingRules;
+	public bool ForceFirstExistingRule;
 	private List<Rule> NotPlayedRules;
 
 	public Transform[] SpawnPoints;
@@ -59,7 +60,16 @@ public class GameManager : MonoBehaviour
 		instance = this;
 #if !DEBUG && !UNITY_EDITOR
 		if(!DebugMode)
-			StartCoroutine(StartGame());
+		{
+			if(ForceFirstExistingRule)
+			{
+				StartCoroutine(StartGame(this.ExistingGame[0]));
+			}
+			else
+			{
+				StartCoroutine(StartGame());
+			}
+		}
 #endif
 	}
 
@@ -67,8 +77,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (NotPlayedRules == null || NotPlayedRules.Count == 0)
 			NotPlayedRules = new List<Rule>(this.ExistingRules);
-
-		NotPlayedRules.Remove(UsedRule);
+		
 		return StartGame(NotPlayedRules[Random.Range(0, NotPlayedRules.Count)]);
 	}
 
@@ -76,6 +85,12 @@ public class GameManager : MonoBehaviour
 	{
 		if (usedRule == null)
 			throw new System.ArgumentNullException("usedRule must not be null");
+
+		if (NotPlayedRules == null || NotPlayedRules.Count == 0)
+			NotPlayedRules = new List<Rule>(this.ExistingRules);
+
+		if(NotPlayedRules.Contains(usedRule))
+			NotPlayedRules.Remove(usedRule);
 
 		UsedRule = usedRule;
 		UsedRule.Prepare(this);
@@ -189,6 +204,18 @@ public class GameManager : MonoBehaviour
 			if(GUILayout.Button("respawn"))
 			{
 				SpawnPlayers();
+			}
+
+			foreach (Player p in Players)
+			{
+				if (p.GetComponent<PlayerInput>())
+				{
+					if (p.GetComponent<PlayerInput>().StartButton)
+					{
+						SpawnPlayers();
+						break;
+					}
+				}
 			}
 		}
 		else if(UsedRule == null)

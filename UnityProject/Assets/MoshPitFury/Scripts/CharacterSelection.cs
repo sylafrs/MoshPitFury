@@ -210,7 +210,7 @@ public class CharacterSelection : MonoBehaviour
 
 			Player player = Players[nbPlayersSelected].GetComponentInChildren<Player>();
 			player.Id = id;
-			player.InitCursor();
+			player.InitCursor(false);
 
 			player.gameObject.AddComponent<PlayerInput>();
 
@@ -232,7 +232,7 @@ public class CharacterSelection : MonoBehaviour
 
 					Player player = Players[nbPlayersSelected].GetComponentInChildren<Player>();
 					player.Id = id;
-					player.InitCPUCursor();
+					player.InitCursor(true);
 
 					player.gameObject.AddComponent<PlayerAI>();
 

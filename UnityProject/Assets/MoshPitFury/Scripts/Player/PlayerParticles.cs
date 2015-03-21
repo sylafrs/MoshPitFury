@@ -88,15 +88,22 @@ public class PlayerParticles : MonoBehaviour {
 
 	void OnPushed(PushData data)
 	{
+		StartCoroutine(LaunchChoc(data));
+	}
+
+	IEnumerator LaunchChoc(PushData data)
+	{
 		// Debug.Log("PUSHED " + data.Collision.contacts[0].point);
 
 		GameObject chocClone = GameObject.Instantiate(choc.gameObject) as GameObject;
-		
+
 		chocClone.transform.position = data.Collision.contacts[0].point;	// Choc au point de contact
 		//chocClone.transform.position = data.Pushed.transform.position;	// Choc sur le personnage poussé.
 		//chocClone.transform.parent	 = data.Pushed.transform;			// Suit le personnage poussé.
 
 		chocClone.transform.rotation = choc.transform.rotation;
+
+		yield return null;
 
 		chocClone.particleSystem.enableEmission = true;
 		chocClone.particleSystem.loop = false;

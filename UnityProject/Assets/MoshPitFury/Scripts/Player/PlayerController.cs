@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
 		player = this.GetComponent<Player>();
 	}
 
-
 	public float MaxSpeed;
 	public float MaxSpeedDash;
 
@@ -36,13 +35,7 @@ public class PlayerController : MonoBehaviour
 			// Fin du dash
 			if (this.DashTimer <= 0)
 			{
-				this.player.IsDashing = false;
-				this.DashTimer = this.DashCooldown;
-
-				if (this.Speed.sqrMagnitude > MaxSpeed * MaxSpeed)
-				{
-					this.Speed = this.Speed.normalized * MaxSpeed;
-				}
+				this.StopsDashing();
 			}
 		}
 		else
@@ -50,15 +43,31 @@ public class PlayerController : MonoBehaviour
 			// Fin du cooldown
 			if (DashTimer <= 0)
 			{
-				this.player.IsDashing = this.Brain ? this.Brain.WantToDash : false;
-
 				// Nouveau dash.
-				if (this.player.IsDashing)
-					this.DashTimer = this.DashDuration;
+				if(this.Brain && this.Brain.WantToDash)
+				{
+					this.StartDashing();
+				}
 			}
 		}
 	}
 
+	void StartDashing()
+	{
+		this.player.IsDashing = true;
+		this.DashTimer = this.DashDuration;
+	}
+
+	void StopsDashing()
+	{
+		this.player.IsDashing = false;
+		this.DashTimer = this.DashCooldown;
+
+		if (this.Speed.sqrMagnitude > MaxSpeed * MaxSpeed)
+		{
+			this.Speed = this.Speed.normalized * MaxSpeed;
+		}
+	}
 
 	void OnPlayerPlaced()
 	{
@@ -131,6 +140,50 @@ public class PlayerController : MonoBehaviour
 		this.Speed += bumper.transform.forward * bumper.Power;
 	}
 
+	private static void OnPushPlayer(Collision collision, PlayerController pusher, PlayerController pushed)
+	{
+		PushData push = new PushData();
+		push.Collision = collision;
+		push.Pushed = pushed.player;
+		push.Pusher = pusher.player;
+
+		Vector3 collisionSpeed = collision.relativeVelocity.normalized;
+		if(collision.gameObject == pushed.gameObject)		
+			collisionSpeed = -collisionSpeed;
+		
+		pushed.Speed = collisionSpeed * (pusher.BumpPower * pusher.Speed.magnitude);
+
+		Debug.Log("PUSH : " + pusher.player.Id + " on " + pushed.player.Id + " --> " + pushed.Speed.ToString());
+		
+		pusher.Speed = Vector3.zero;
+		pusher.StopsDashing();
+
+		push.Other = pusher.player;
+		pushed.gameObject.SendMessage("OnPushed", push, SendMessageOptions.DontRequireReceiver);
+
+		push.Other = pushed.player;
+		pusher.gameObject.SendMessage("OnPush", push, SendMessageOptions.DontRequireReceiver);
+	}
+
+	private static void OnDoublePush(Collision collision, PlayerController p1, PlayerController p2)
+	{
+		PushData push = new PushData();
+		push.Collision = collision;
+		push.Pushed = null;
+		push.Pusher = null;
+
+		p1.Speed = Vector3.zero;
+		p1.StopsDashing();
+
+		p2.Speed = Vector3.zero;
+		p2.StopsDashing();
+
+		push.Other = p2.player;
+		p1.gameObject.SendMessage("OnDoublePush", push, SendMessageOptions.DontRequireReceiver);
+
+		push.Other = p1.player;
+		p2.gameObject.SendMessage("OnDoublePush", push, SendMessageOptions.DontRequireReceiver);
+	}
 
 	public void OnCollisionEnter(Collision collision)
 	{
@@ -139,28 +192,19 @@ public class PlayerController : MonoBehaviour
 		{
 			Vector3 prevSpeed = this.Speed;
 
-			if (other.player.IsDashing)
+			if (other.player.IsDashing && !this.player.IsDashing)
 			{
-				PushData push = new PushData();
-				push.Collision = collision;
-				push.Pushed = this.player;
-				push.Pusher = other.player;
-
-				this.Speed += collision.relativeVelocity.normalized * (BumpPower * other.Speed.magnitude);
-				this.gameObject.SendMessage("OnPushed", push, SendMessageOptions.DontRequireReceiver);
-				other.gameObject.SendMessage("OnPush", push, SendMessageOptions.DontRequireReceiver);
+				OnPushPlayer(collision, other, this);
 			}
 
-			if (this.player.IsDashing)
+			if (this.player.IsDashing && !other.player.IsDashing)
 			{
-				PushData push = new PushData();
-				push.Collision = collision;
-				push.Pushed = other.player;
-				push.Pusher = this.player;
+				OnPushPlayer(collision, this, other);
+			}
 
-				other.Speed -= collision.relativeVelocity.normalized * (BumpPower * prevSpeed.magnitude);
-				this.gameObject.SendMessage("OnPush", push, SendMessageOptions.DontRequireReceiver);
-				other.gameObject.SendMessage("OnPushed", push, SendMessageOptions.DontRequireReceiver);
+			if(this.player.IsDashing && other.player.IsDashing)
+			{
+				OnDoublePush(collision, this, other);
 			}
 		}
 	}
@@ -170,5 +214,6 @@ public class PushData
 {
 	public Player Pushed;
 	public Player Pusher;
+	public Player Other;
 	public Collision Collision;
 }

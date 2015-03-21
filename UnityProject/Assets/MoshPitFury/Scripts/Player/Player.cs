@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
+	public List<GameObject> Cursor;
 
 	//	[Range(1, 4)]
 	public int Id;
@@ -91,8 +93,10 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	public void InitCursor()
+	public void InitCursor(bool cpu)
 	{
+		this.Cursor = new List<GameObject>();
+
 		Transform cursor = this.transform.parent.FindChild("NameUI");
 		if (cursor)
 		{
@@ -100,8 +104,9 @@ public class Player : MonoBehaviour
 			if (tm)
 			{
 				tm.color = this.MainColor;
-				tm.text = Name = "P" + this.Id;
-			}
+				tm.text = Name = (cpu ? "CPU" : "P") + this.Id;
+				this.Cursor.Add(tm.gameObject);
+			}			
 		}
 
 		cursor = this.transform.FindChild("Circle");
@@ -109,30 +114,18 @@ public class Player : MonoBehaviour
 		{
 			cursor.renderer.material.color = this.MainColor;
 			cursor.renderer.enabled = true;
+			this.Cursor.Add(cursor.gameObject);
 		}
 	}
 
-	public void InitCPUCursor()
+	public void SetCursorActive(bool active)
 	{
-		Transform cursor = this.transform.parent.FindChild("NameUI");
-		if (cursor)
+		foreach(GameObject g in Cursor)
 		{
-			TextMesh tm = cursor.GetComponent<TextMesh>();
-			if (tm)
-			{
-				tm.color = this.MainColor;
-				tm.text = Name = "CPU" + this.Id;
-			}
-		}
-
-		cursor = this.transform.FindChild("Circle");
-		if (cursor)
-		{
-			cursor.renderer.material.color = this.MainColor;
-			cursor.renderer.enabled = true;
+			g.SetActive(active);
 		}
 	}
-
+	
 	private IEnumerator JumpsToCoroutine(Transform to, float duration)
 	{
 		const float ratioJump = 0.3f;
@@ -179,6 +172,7 @@ public class Player : MonoBehaviour
 		if (Model)
 			Model.SetActive(true);
 		this.CanMove = false;
+		this.SetCursorActive(true);
 	}
 
 	public void StartGame()
@@ -188,6 +182,7 @@ public class Player : MonoBehaviour
 		this.CanMove = true;
 		if (Model)
 			Model.SetActive(true);
+		this.SetCursorActive(true);
 	}
 	
 	void OnDeathTrigger()
@@ -205,6 +200,7 @@ public class Player : MonoBehaviour
 	{
 		if (!IsDead)
 		{
+			this.SetCursorActive(false);
 			this.gameObject.SendMessage("OnDeath", flames);
 			if (Manager)
 				Manager.OnPlayerDeath(this);

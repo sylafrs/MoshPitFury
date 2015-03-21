@@ -85,6 +85,16 @@ public class PlayerInput : PlayerBrain
 		}
 	}
 
+	public bool StartButton
+	{
+		get
+		{
+			if (this.PadState.IsConnected)
+				return this.PadState.Buttons.Start == ButtonState.Pressed;
+			return false;
+		}
+	}
+
 	public override Vector3 WantedDirection
 	{
 		get { return CameraRelatedDirection(this.PadDirection); }
