@@ -49,24 +49,25 @@ public class CharacterSelection : MonoBehaviour
 		StartCoroutine("SelectNBPlayersControls");
 	}
 
-	void OnGUI()
-	{
-		for(int i = 0; i < 4; i++)
-		{
-			GUILayout.BeginHorizontal();
-			if (Left[i])
-				GUILayout.Label("Left");
-			if (Right[i])
-				GUILayout.Label("Right");
-			if (A[i])
-				GUILayout.Label("A");
-			GUILayout.EndHorizontal();
-		}
-	}
+	// void OnGUI()
+	// {
+	// 	for(int i = 0; i < 4; i++)
+	// 	{
+	// 		GUILayout.BeginHorizontal();
+	// 		if (Left[i])
+	// 			GUILayout.Label("Left");
+	// 		if (Right[i])
+	// 			GUILayout.Label("Right");
+	// 		if (A[i])
+	// 			GUILayout.Label("A");
+	// 		GUILayout.EndHorizontal();
+	// 	}
+	// }
 
 	void Update()
 	{
-		const float EPSILON = 0.9f;
+		float EPSILON = 0.05f;
+		float EPSILON_PAD = 0.9f;
 		float axis;
 		bool aButton;
 		for(int i = 0; i < 4; i++)
@@ -75,6 +76,7 @@ public class CharacterSelection : MonoBehaviour
 
 			if (padState.IsConnected)
 			{
+				EPSILON = EPSILON_PAD;
 				axis = padState.ThumbSticks.Left.X;
 				aButton = padState.Buttons.A == ButtonState.Pressed;
 			}
@@ -82,6 +84,7 @@ public class CharacterSelection : MonoBehaviour
 			{
 				axis = Input.GetAxis("P" + (i + 1) + "_Horizontal");
 				aButton = Input.GetButton("P" + (i + 1) + "_A");
+				//Debug.Log("" + i + ' ' + axis);
 			}
 
 			RightDown[i] = false;
