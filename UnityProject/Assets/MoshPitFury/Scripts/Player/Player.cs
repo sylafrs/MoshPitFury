@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
 		foreach(GameObject g in Cursor)
 		{
 			g.SetActive(active);
-		}
+		}			
 	}
 	
 	private IEnumerator JumpsToCoroutine(Transform to, float duration)
@@ -200,7 +200,9 @@ public class Player : MonoBehaviour
 	{
 		if (!IsDead)
 		{
+			Halo.enabled = false;
 			this.SetCursorActive(false);
+
 			this.gameObject.SendMessage("OnDeath", flames);
 			if (Manager)
 				Manager.OnPlayerDeath(this);
@@ -267,6 +269,7 @@ public class Player : MonoBehaviour
 
 	public Coroutine OnPlayerWin()
 	{
+		this.SetCursorActive(true);
 		Score++;
 		return StartCoroutine(ActiveProjector(3));
 	}

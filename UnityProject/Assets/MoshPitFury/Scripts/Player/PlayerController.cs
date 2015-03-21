@@ -153,8 +153,6 @@ public class PlayerController : MonoBehaviour
 		
 		pushed.Speed = collisionSpeed * (pusher.BumpPower * pusher.Speed.magnitude);
 
-		Debug.Log("PUSH : " + pusher.player.Id + " on " + pushed.player.Id + " --> " + pushed.Speed.ToString());
-		
 		pusher.Speed = Vector3.zero;
 		pusher.StopsDashing();
 

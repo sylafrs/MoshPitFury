@@ -23,7 +23,10 @@ public class GameManager : MonoBehaviour
 
 	public Player[] Players { get; private set; }
 	private Text LabelStartTimer;
+
+	[System.Obsolete("To delete")]
     private Text LabelRuleName;
+
     private Image ImageRuleName;
 	private Text LabelRoundTimer;
 
@@ -60,12 +63,12 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		instance = this;
-#if !DEBUG && !UNITY_EDITOR
+#if !DEBUG_MODE
 		if(!DebugMode)
 		{
 			if(ForceFirstExistingRule)
 			{
-				StartCoroutine(StartGame(this.ExistingGame[0]));
+				StartCoroutine(StartGame(this.ExistingRules[0]));
 			}
 			else
 			{
@@ -110,12 +113,13 @@ public class GameManager : MonoBehaviour
 
 		yield return StartCoroutine(CountDown(1.25f, 0.3f, 3));
 
+		LabelRuleName.enabled = false; // DEPRECATED
         //LabelRuleName.enabled = true;
-        LabelRuleName.text = UsedRule.Description;
+        //LabelRuleName.text = UsedRule.Description;
         ImageRuleName.enabled = true;
         ImageRuleName.sprite = UsedRule.ruleSprite;
 		yield return new WaitForSeconds(2);
-        LabelRuleName.enabled = false;
+        //LabelRuleName.enabled = false;
         ImageRuleName.enabled = false;
 		this.LabelRoundTimer.enabled = true;
 
@@ -189,7 +193,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-#if DEBUG || UNITY_EDITOR
+#if DEBUG_MODE
 	void OnGUI()
 	{
 		if(DebugMode)
