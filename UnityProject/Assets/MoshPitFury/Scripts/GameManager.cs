@@ -5,6 +5,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+	private bool DebugMode = false;
 	public static GameManager instance;
 	private GameObject Level;
 	public int ScoreToReach;
@@ -56,7 +57,10 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		instance = this;
-		StartCoroutine(StartGame());
+#if !DEBUG && !UNITY_EDITOR
+		if(!DebugMode)
+			StartCoroutine(StartGame());
+#endif
 	}
 
 	public IEnumerator StartGame()
@@ -64,15 +68,20 @@ public class GameManager : MonoBehaviour
 		if (NotPlayedRules == null || NotPlayedRules.Count == 0)
 			NotPlayedRules = new List<Rule>(this.ExistingRules);
 
-		UsedRule = NotPlayedRules[Random.Range(0, NotPlayedRules.Count)];
-
 		NotPlayedRules.Remove(UsedRule);
+		return StartGame(NotPlayedRules[Random.Range(0, NotPlayedRules.Count)]);
+	}
 
-		AlivePlayers = new List<Player>(Players);
+	public IEnumerator StartGame(Rule usedRule)
+	{
+		if (usedRule == null)
+			throw new System.ArgumentNullException("usedRule must not be null");
 
+		UsedRule = usedRule;
 		UsedRule.Prepare(this);
 
-		foreach (Player p in AlivePlayers)
+		AlivePlayers = new List<Player>(Players);
+		foreach (Player p in Players)
 		{
 			p.transform.position = this.SpawnPoints[p.Id - 1].position;
 			p.transform.forward = this.SpawnPoints[p.Id - 1].forward;
@@ -93,10 +102,25 @@ public class GameManager : MonoBehaviour
 		RoundTimer = 0;
 		UsedRule.StartGame(this);
 
+		SpawnPlayers();
+	}
+
+	public void SpawnPlayers()
+	{
+		AlivePlayers = new List<Player>(Players);
 		foreach (Player p in AlivePlayers)
 		{
-			p.transform.position = UsedRule.GetPlayerSpawnPoint(p).position;
-			p.transform.forward = UsedRule.GetPlayerSpawnPoint(p).forward;
+			if (UsedRule != null)
+			{
+				p.transform.position = UsedRule.GetPlayerSpawnPoint(p).position;
+				p.transform.forward = UsedRule.GetPlayerSpawnPoint(p).forward;
+			}
+			else
+			{
+				p.transform.position = ExistingRules[0].GetPlayerSpawnPoint(p).position;
+				p.transform.forward = ExistingRules[0].GetPlayerSpawnPoint(p).forward;
+			}
+
 			p.gameObject.SendMessage("OnPlayerPlaced");
 			p.StartGame();
 		}
@@ -145,6 +169,39 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+#if DEBUG || UNITY_EDITOR
+	void OnGUI()
+	{
+		if(DebugMode)
+		{
+			if(UsedRule == null)
+			{
+				foreach(Rule rule in ExistingRules)
+				{
+					if (GUILayout.Button(rule.name))
+						StartCoroutine(StartGame(rule));
+				}
+
+				if (GUILayout.Button("aleatoire"))
+					StartCoroutine(StartGame());
+			}
+
+			if(GUILayout.Button("respawn"))
+			{
+				SpawnPlayers();
+			}
+		}
+		else if(UsedRule == null)
+		{
+			if (GUILayout.Button("start"))
+				StartCoroutine(StartGame());
+		}
+
+		if (GUILayout.Button("DebugMode : " + DebugMode))
+			DebugMode = !DebugMode;
+	}
+#endif
+
 	private IEnumerator OnEndGame()
 	{
 		Player[] winners = UsedRule.GetWinners();
@@ -164,25 +221,29 @@ public class GameManager : MonoBehaviour
 
 		this.LabelRoundTimer.enabled = false;
 
-		if (HasBeenScoreReached())
+		this.UsedRule = null;
+		if (!DebugMode)
 		{
-			// Montrer le panneau des scores
-
-			TableauDesScores.scores = new int[Players.Length];
-
-			foreach (Player p in Players)
+			if (HasBeenScoreReached())
 			{
-				TableauDesScores.scores[p.Id - 1] = p.Score;
+				// Montrer le panneau des scores
+
+				TableauDesScores.scores = new int[Players.Length];
+
+				foreach (Player p in Players)
+				{
+					TableauDesScores.scores[p.Id - 1] = p.Score;
+				}
+
+				GameObject.Destroy(GameObject.Find("Players"));
+				yield return MainTheme.StartCoroutine(MainTheme.EndOfMusic());
+
+				Application.LoadLevel((int)SCENE.Score);
 			}
-
-			GameObject.Destroy(GameObject.Find("Players"));
-			yield return MainTheme.StartCoroutine(MainTheme.EndOfMusic());
-
-			Application.LoadLevel((int)SCENE.Score);
-		}
-		else
-		{
-			StartCoroutine(StartGame());
+			else
+			{
+				StartCoroutine(StartGame());
+			}
 		}
 	}
 

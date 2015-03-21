@@ -189,7 +189,7 @@ public class Player : MonoBehaviour
 		if (Model)
 			Model.SetActive(true);
 	}
-
+	
 	void OnDeathTrigger()
 	{
 		Death(true);

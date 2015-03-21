@@ -92,8 +92,9 @@ public class PlayerParticles : MonoBehaviour {
 
 		GameObject chocClone = GameObject.Instantiate(choc.gameObject) as GameObject;
 		
-		//chocClone.transform.position = data.Collision.contacts[0].point;	// Choc au point de contact
-		chocClone.transform.position = data.Pushed.transform.position;		// Choc sur le personnage poussé.
+		chocClone.transform.position = data.Collision.contacts[0].point;	// Choc au point de contact
+		//chocClone.transform.position = data.Pushed.transform.position;	// Choc sur le personnage poussé.
+		//chocClone.transform.parent	 = data.Pushed.transform;			// Suit le personnage poussé.
 
 		chocClone.transform.rotation = choc.transform.rotation;
 
