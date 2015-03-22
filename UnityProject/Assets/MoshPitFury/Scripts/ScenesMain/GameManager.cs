@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 	private List<Rule> NotPlayedRules;
 
 	public Transform[] SpawnPoints;
+	public Transform[] RuleStartPoints;
 
 	public Rule UsedRule { get; private set; }
 	public float RoundTimer { get; private set; }
@@ -99,6 +100,14 @@ public class GameManager : MonoBehaviour
 		return StartGame(randomRule);
 	}
 
+	public Transform GetStartPoint(Rule r, Player p)
+	{
+		Transform retval = this.UsedRule.GetPlayerStartPoint(p);
+		if (retval != null)
+			return retval;
+		return this.RuleStartPoints[p.Id - 1];
+	}
+
 	public IEnumerator StartGame(Rule usedRule)
 	{
 		if (usedRule == null)
@@ -121,7 +130,7 @@ public class GameManager : MonoBehaviour
 
 			p.Prepare();
 			p.gameObject.SendMessage("OnPlayerPlaced");
-			p.JumpsTo(this.UsedRule.GetPlayerSpawnPoint(p), 2);
+			p.JumpsTo(GetStartPoint(this.UsedRule, p), 0.8f, 3);
 		}
 
         //yield return StartCoroutine(CountDown(1.25f, 0.3f, 3));
@@ -148,13 +157,13 @@ public class GameManager : MonoBehaviour
 		{
 			if (UsedRule != null)
 			{
-				p.transform.position = UsedRule.GetPlayerSpawnPoint(p).position;
-				p.transform.forward = UsedRule.GetPlayerSpawnPoint(p).forward;
+				p.transform.position = this.GetStartPoint(this.UsedRule, p).position;
+				p.transform.forward = this.GetStartPoint(this.UsedRule, p).forward;
 			}
 			else
 			{
-				p.transform.position = ExistingRules[0].GetPlayerSpawnPoint(p).position;
-				p.transform.forward = ExistingRules[0].GetPlayerSpawnPoint(p).forward;
+				p.transform.position = this.GetStartPoint(ExistingRules[0], p).position;
+				p.transform.forward = this.GetStartPoint(ExistingRules[0], p).forward;
 			}
 
 			p.gameObject.SendMessage("OnPlayerPlaced");

@@ -89,11 +89,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0b3af19db9f57b24cbedac13e99970e6, type: 2}
   - {fileID: 11439552, guid: 17b1058f15030314cab18ffa9179c6e2, type: 2}
   - {fileID: 11453198, guid: 548ebf11014c58c4ca1ecd89e2e541c2, type: 2}
+  ForceFirstExistingRule: 0
   SpawnPoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  RuleStartPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  gameOverSprite: {fileID: 21300000, guid: 688290f2e63b36f47b19471af7853b45, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

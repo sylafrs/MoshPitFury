@@ -49,6 +49,39 @@ public class LaunchedItem : MonoBehaviour {
 	//
 	// -------------------------------------------------------
 
+	public static IEnumerator Launches(Transform t, Transform target, float duration, float height)
+	{
+		return Launches(t, target.position, duration, height);
+	}
+
+	public static IEnumerator Launches(Transform t, Vector3 finalPosition, float duration, float height)
+	{
+		float tm = duration * 0.5f;
+
+		Vector3 acceleration = Vector3.zero;
+		Vector3 initialSpeed = Vector3.zero;
+		Vector3 initialPosition = t.position;
+
+		if (duration != 0)
+		{
+			acceleration = Vector3.up * (-2 * height) / (tm * tm);
+			initialSpeed = (finalPosition - 0.5f * acceleration * duration * duration - initialPosition) / duration;
+		}
+
+		Vector3 currentSpeed = initialSpeed;
+
+		float elapsed = 0;
+		while (elapsed < duration)
+		{
+			elapsed += Time.deltaTime;
+			currentSpeed += acceleration * Time.deltaTime;
+			t.position += currentSpeed * Time.deltaTime;
+
+			yield return null;
+		}
+
+		t.position = finalPosition;
+	}
 
 	void Start()
 	{

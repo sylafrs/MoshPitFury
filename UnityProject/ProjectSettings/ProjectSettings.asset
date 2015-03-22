@@ -156,7 +156,7 @@ PlayerSettings:
   flashStrippingLevel: 2
   spritePackerPolicy: 
   scriptingDefineSymbols:
-    1: DEBUG_MODE
+    1: 
   metroPackageName: GGJ2015
   metroPackageLogo: 
   metroPackageLogo140: 

@@ -4,7 +4,6 @@ using System.Collections;
 public abstract class Rule : MonoBehaviour
 {
 	protected GameManager Manager;
-	public Transform[] SpawnPoints;
     public float Duration = 10;
     public Sprite ruleSprite;
 
@@ -21,9 +20,9 @@ public abstract class Rule : MonoBehaviour
 		}
 	}
 
-	public virtual Transform GetPlayerSpawnPoint(Player p)
+	public virtual Transform GetPlayerStartPoint(Player p)
 	{
-		return this.SpawnPoints[p.Id - 1];
+		return null;
 	}
 
 	public virtual void Prepare(GameManager manager) { }
