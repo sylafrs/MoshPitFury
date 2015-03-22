@@ -10,7 +10,7 @@ public class Crowd : MonoBehaviour {
 
 	
 	void Start () {
-        if (specificAnimation == "")
+        if (string.IsNullOrEmpty(specificAnimation))
         {
             if (isHeadBang)
             {
