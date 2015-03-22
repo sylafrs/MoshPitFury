@@ -43,7 +43,7 @@ ModelImporter:
     400036: root_jnt
     4300000: RIG:HB_00
     4300002: HB_00
-    7400000: NPC_Headbang
+    7400000: NPC_Headbang00
     9500000: //RootNode
     11100000: //RootNode
     13700000: RIG:HB_00
@@ -65,7 +65,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: NPC_Headbang
+      name: NPC_Headbang00
       takeName: Take 001
       firstFrame: 1
       lastFrame: 13
