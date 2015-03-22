@@ -697,6 +697,7 @@ MonoBehaviour:
   - {fileID: 19835622}
   - {fileID: 19835618}
   - {fileID: 19835620}
+  groundPos: 0
 --- !u!114 &11453198
 MonoBehaviour:
   m_ObjectHideFlags: 1
