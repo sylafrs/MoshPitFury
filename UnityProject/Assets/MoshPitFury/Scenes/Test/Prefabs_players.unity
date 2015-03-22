@@ -113,6 +113,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: bf4eadfa6172785458cb65c03a6c5f52, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf4eadfa6172785458cb65c03a6c5f52, type: 2}
   m_RootGameObject: {fileID: 322240151}
@@ -1438,6 +1442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80c0dde2fe203142b35333eea168583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Cursor: []
   Id: 4
   BeerPlaceHolder: {fileID: 1040036943}
   IsDashing: 0
@@ -1516,7 +1521,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &121174933
 Transform:
   m_ObjectHideFlags: 0
@@ -1610,8 +1615,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 126744084}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -.0719805732, y: -.381797045, z: .029840719, w: -.920955658}
+  m_LocalPosition: {x: -2.32457924, y: 7.64248371, z: 19.0086021}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4311,7 +4316,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &322240152
 Transform:
   m_ObjectHideFlags: 0
@@ -12990,6 +12995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80c0dde2fe203142b35333eea168583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Cursor: []
   Id: 2
   BeerPlaceHolder: {fileID: 1777767227}
   IsDashing: 0
@@ -19073,6 +19079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80c0dde2fe203142b35333eea168583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Cursor: []
   Id: 1
   BeerPlaceHolder: {fileID: 1267664824}
   IsDashing: 0
@@ -19148,6 +19155,10 @@ Prefab:
     - target: {fileID: 400002, guid: a03f8a90925f9c64eb57a90ea9c95f03, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: a03f8a90925f9c64eb57a90ea9c95f03, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a03f8a90925f9c64eb57a90ea9c95f03, type: 2}
@@ -22800,6 +22811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80c0dde2fe203142b35333eea168583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Cursor: []
   Id: 3
   BeerPlaceHolder: {fileID: 1621450080}
   IsDashing: 0
@@ -22875,6 +22887,10 @@ Prefab:
     - target: {fileID: 400002, guid: ad2c41ed428da664788ff06574ff05f6, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: ad2c41ed428da664788ff06574ff05f6, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad2c41ed428da664788ff06574ff05f6, type: 2}
@@ -24271,6 +24287,10 @@ Prefab:
     - target: {fileID: 400002, guid: 85f01cc087fb5824ab1fe983b86a5c07, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 85f01cc087fb5824ab1fe983b86a5c07, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85f01cc087fb5824ab1fe983b86a5c07, type: 2}
@@ -31101,7 +31121,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1670086050
 Transform:
   m_ObjectHideFlags: 0
@@ -33492,7 +33512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1782129189
 Transform:
   m_ObjectHideFlags: 0
