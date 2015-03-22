@@ -15,7 +15,8 @@ public class HUDTarget : MonoBehaviour
 
 	private Vector3 InitialPosition;
 	private Vector3 InitialScale;
-
+	
+	public Transform test;
 	public float multScale;
 	public float duration;
 	public float delay;
@@ -29,6 +30,7 @@ public class HUDTarget : MonoBehaviour
 
 	public void Awake()
 	{
+		Target = test;
 		InitialPosition = this.transform.position;
 		InitialScale = this.transform.localScale;
 		instance = this;
