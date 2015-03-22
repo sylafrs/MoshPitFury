@@ -28,7 +28,7 @@ public abstract class Rule : MonoBehaviour
 
 	public virtual void Prepare(GameManager manager) { }
 
-	public virtual void StartGame(GameManager manager)
+	protected virtual void StartGame(GameManager manager)
 	{
 		this.Manager = manager;
 	}
@@ -59,4 +59,10 @@ public abstract class Rule : MonoBehaviour
 	public virtual void OnBeerDestroyed(GameObject g) { }
 
 	public virtual void OnRuleDisplayed() { }
+
+	public virtual YieldInstruction StartingGame(GameManager manager)
+	{
+		this.StartGame(manager);
+		return null;
+	}
 }

@@ -62,8 +62,10 @@ public class RuleKillOnePlayer : Rule {
 		}
 	}
 
-	public override void OnRuleDisplayed()
+	public override YieldInstruction StartingGame(GameManager manager)
 	{
+		base.StartingGame(manager);
 		HUDTarget.Targets(this.SpawnPoints[PlayerToKill.Id - 1].transform);
+		return new WaitForSeconds(1);
 	}
 }

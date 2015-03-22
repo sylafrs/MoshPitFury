@@ -136,8 +136,8 @@ public class GameManager : MonoBehaviour
 		this.LabelRoundTimer.enabled = true;
 
 		RoundTimer = 0;
-		UsedRule.StartGame(this);
-
+		yield return UsedRule.StartingGame(this);
+		
 		SpawnPlayers();
 	}
 
