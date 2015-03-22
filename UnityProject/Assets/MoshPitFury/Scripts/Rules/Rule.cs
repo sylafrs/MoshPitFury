@@ -4,7 +4,6 @@ using System.Collections;
 public abstract class Rule : MonoBehaviour
 {
 	protected GameManager Manager;
-	public Transform[] SpawnPoints;
     public float Duration = 10;
     public Sprite ruleSprite;
 
@@ -21,14 +20,14 @@ public abstract class Rule : MonoBehaviour
 		}
 	}
 
-	public virtual Transform GetPlayerSpawnPoint(Player p)
+	public virtual Transform GetPlayerStartPoint(Player p)
 	{
-		return this.SpawnPoints[p.Id - 1];
+		return null;
 	}
 
 	public virtual void Prepare(GameManager manager) { }
 
-	public virtual void StartGame(GameManager manager)
+	protected virtual void StartGame(GameManager manager)
 	{
 		this.Manager = manager;
 	}
@@ -59,4 +58,10 @@ public abstract class Rule : MonoBehaviour
 	public virtual void OnBeerDestroyed(GameObject g) { }
 
 	public virtual void OnRuleDisplayed() { }
+
+	public virtual YieldInstruction StartingGame(GameManager manager)
+	{
+		this.StartGame(manager);
+		return null;
+	}
 }

@@ -14,12 +14,14 @@ public class HUDTarget : MonoBehaviour
 	private static Transform Target;
 
 	private Vector3 InitialPosition;
+    private Quaternion InitialRotation;
 	private Vector3 InitialScale;
 	
 	public Transform test;
 	public float multScale;
 	public float duration;
 	public float delay;
+    public float rotation;
 	public iTween.EaseType easeType;
 
 	public static void Targets(Transform target)
@@ -33,6 +35,7 @@ public class HUDTarget : MonoBehaviour
 		Target = test;
 		InitialPosition = this.transform.position;
 		InitialScale = this.transform.localScale;
+        InitialRotation = this.transform.rotation;
 		instance = this;
 	}
 
@@ -40,7 +43,8 @@ public class HUDTarget : MonoBehaviour
 	{
 		this.renderer.enabled = true;
 		this.transform.position = InitialPosition;
-		this.transform.localScale = InitialScale;
+        this.transform.localScale = InitialScale;
+        this.transform.rotation = InitialRotation;
 
 		if (orthoCamera == null)
 		{
@@ -70,6 +74,13 @@ public class HUDTarget : MonoBehaviour
 				"time", duration,
 				"looptype", iTween.LoopType.none
 			));
+
+            iTween.RotateTo(gameObject, iTween.Hash(
+                "rotation", (InitialRotation * Quaternion.Euler(0, 0, rotation)).eulerAngles,
+                "easeType", easeType,
+                "time", duration,
+                "looptype", iTween.LoopType.none
+            ));
 
 			Invoke("reset", duration + delay);
 		}
