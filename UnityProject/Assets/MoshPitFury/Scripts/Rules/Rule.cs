@@ -58,4 +58,5 @@ public abstract class Rule : MonoBehaviour
 
 	public virtual void OnBeerDestroyed(GameObject g) { }
 
+	public virtual void OnRuleDisplayed() { }
 }

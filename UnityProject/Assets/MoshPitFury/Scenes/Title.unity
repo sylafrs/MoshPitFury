@@ -2709,8 +2709,8 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -83.5999985, y: -15}
-  m_SizeDelta: {x: 90, y: 30}
+  m_AnchoredPosition: {x: -105, y: -15}
+  m_SizeDelta: {x: 161.600006, y: 53.9000015}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &101666489
 MonoBehaviour:
@@ -2730,7 +2730,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
@@ -2739,8 +2739,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: .100000001
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: fa8e8c6b6ea8406439f6d4d72ac2d127,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 032f75555e4b57848ac49517c2bf0a6a, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2780,9 +2781,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .752941191}
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: 6ab875fd601b04240bc36ae8c799307a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -3240,7 +3241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &154792818
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8624,8 +8625,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 83.5999985, y: -15}
-  m_SizeDelta: {x: 90, y: 30}
+  m_AnchoredPosition: {x: 105, y: -15}
+  m_SizeDelta: {x: 180, y: 60}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &314532672
 MonoBehaviour:
@@ -8645,7 +8646,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
@@ -8654,8 +8655,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: .100000001
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 7f67489404371fe438477e94a4936f01,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 643f91c8c84601246ba323f26669a04a, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -8695,9 +8697,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .752941191}
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: db3e040b430a7294d9b3851c56cc8210, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -8861,7 +8863,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 0, y: -15}
-  m_SizeDelta: {x: 90, y: 30}
+  m_SizeDelta: {x: 180, y: 60}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &346748421
 MonoBehaviour:
@@ -8881,7 +8883,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
@@ -8890,8 +8892,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: .100000001
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 3b714d6137522d248a174c8c9dfd54e8,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 7a8b155427add9249bce854d4d8a5cb0, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -8931,9 +8934,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .752941191}
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: 174843c5507cf5645b542680e8aae3d9, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -9154,7 +9157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &380461529
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12273,7 +12276,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 61edbca730765ed448e0b7ca512d9a45, type: 3}
+    m_Font: {fileID: 12800000, guid: 9e3255e7ab196ff488535097b5785996, type: 3}
     m_FontSize: 120
     m_FontStyle: 0
     m_BestFit: 0
@@ -12282,16 +12285,9 @@ MonoBehaviour:
     m_Alignment: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 'GAME ARTIST:
-
-
-    Vincent Frise
-
-    Eliott Le Calve
-
-    Swann Klein'
+    m_VerticalOverflow: 1
+    m_LineSpacing: .600000024
+  m_Text: "GAME ARTISTS :\n\nVincent Fris\xE9\nEliott Le Calv\xE9\nSwann Klein"
 --- !u!222 &627671245
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14183,6 +14179,7 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -14837,7 +14834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &956788815
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20463,7 +20460,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 61edbca730765ed448e0b7ca512d9a45, type: 3}
+    m_Font: {fileID: 12800000, guid: 9e3255e7ab196ff488535097b5785996, type: 3}
     m_FontSize: 120
     m_FontStyle: 0
     m_BestFit: 0
@@ -20472,14 +20469,9 @@ MonoBehaviour:
     m_Alignment: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 'Sound Design:
-
-
-    Bill Beheuliere
-
-    Keveen Simonin'
+    m_VerticalOverflow: 1
+    m_LineSpacing: .600000024
+  m_Text: "SOUND DESIGN :\n\nBill Beheuli\xE8re\nKeveen Simonin"
 --- !u!222 &1256201923
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20827,7 +20819,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 61edbca730765ed448e0b7ca512d9a45, type: 3}
+    m_Font: {fileID: 12800000, guid: 9e3255e7ab196ff488535097b5785996, type: 3}
     m_FontSize: 120
     m_FontStyle: 0
     m_BestFit: 0
@@ -20836,9 +20828,9 @@ MonoBehaviour:
     m_Alignment: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 'Design & Code:
+    m_VerticalOverflow: 1
+    m_LineSpacing: .600000024
+  m_Text: 'DESIGN & CODE :
 
 
     Vivien Fusco
@@ -24492,7 +24484,6 @@ GameObject:
   - 92: {fileID: 1435771851}
   - 124: {fileID: 1435771850}
   - 81: {fileID: 1435771849}
-  - 114: {fileID: 1435771854}
   - 114: {fileID: 1435771855}
   m_Layer: 0
   m_Name: Main Camera
@@ -24566,29 +24557,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &1435771854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1435771848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bef3d242a13c447ac90c2d2dc213b1ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mode: 0
-  intensity: 1.74000001
-  chromaticAberration: 2
-  axialAberration: .5
-  blur: 0
-  blurSpread: .75
-  luminanceDependency: .25
-  blurDistance: 2.5
-  vignetteShader: {fileID: 4800000, guid: 627943dc7a9a74286b70a4f694a0acd5, type: 3}
-  separableBlurShader: {fileID: 4800000, guid: e97c14fbb5ea04c3a902cc533d7fc5d1, type: 3}
-  chromAberrationShader: {fileID: 4800000, guid: 2b4f29398d9484ccfa9fd220449f5eee,
-    type: 3}
 --- !u!114 &1435771855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31101,7 +31069,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22400000, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -83.5999985
+      value: -105
       objectReference: {fileID: 0}
     - target: {fileID: 22400000, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -31109,7 +31077,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22400022, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 83.5999985
+      value: 105
       objectReference: {fileID: 0}
     - target: {fileID: 22400016, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
       propertyPath: m_LocalPosition.z
@@ -31169,12 +31137,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400008, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
       propertyPath: m_Text
-      value: 'Sound Design:
-
-
-        Bill Beheuliere
-
-        Keveen Simonin'
+      value: "SOUND DESIGN :\n\nBill Beheuli\xE8re\nKeveen Simonin"
       objectReference: {fileID: 0}
     - target: {fileID: 100012, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
       propertyPath: m_IsActive
@@ -31186,7 +31149,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22400012, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -83.5999985
+      value: -105
       objectReference: {fileID: 0}
     - target: {fileID: 22400012, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -31206,6 +31169,222 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400022, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
       propertyPath: m_Navigation.m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6ab875fd601b04240bc36ae8c799307a,
+        type: 3}
+    - target: {fileID: 11400002, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SpriteState.m_PressedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 032f75555e4b57848ac49517c2bf0a6a,
+        type: 3}
+    - target: {fileID: 11400000, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fa8e8c6b6ea8406439f6d4d72ac2d127,
+        type: 3}
+    - target: {fileID: 11400002, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400022, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400024, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 174843c5507cf5645b542680e8aae3d9,
+        type: 3}
+    - target: {fileID: 11400024, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400022, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3b714d6137522d248a174c8c9dfd54e8,
+        type: 3}
+    - target: {fileID: 11400022, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SpriteState.m_PressedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7a8b155427add9249bce854d4d8a5cb0,
+        type: 3}
+    - target: {fileID: 11400030, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400032, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: db3e040b430a7294d9b3851c56cc8210,
+        type: 3}
+    - target: {fileID: 11400032, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400030, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SpriteState.m_PressedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 643f91c8c84601246ba323f26669a04a,
+        type: 3}
+    - target: {fileID: 11400030, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7f67489404371fe438477e94a4936f01,
+        type: 3}
+    - target: {fileID: 22400000, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 161.600006
+      objectReference: {fileID: 0}
+    - target: {fileID: 22400022, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 22400016, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 22400000, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 53.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 22400022, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 22400016, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400032, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400024, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400016, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400016, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400018, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 633832ad5a1ca1e4f9f51a58ff880e27,
+        type: 3}
+    - target: {fileID: 11400018, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400016, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3e4dbabfa6ac01a48895601f7bdbcb54,
+        type: 3}
+    - target: {fileID: 11400016, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SpriteState.m_PressedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: df6bcf7883c7f854698f698d4c2e514d,
+        type: 3}
+    - target: {fileID: 22400012, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 22400012, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400020, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 9e3255e7ab196ff488535097b5785996,
+        type: 3}
+    - target: {fileID: 11400008, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 9e3255e7ab196ff488535097b5785996,
+        type: 3}
+    - target: {fileID: 11400036, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 9e3255e7ab196ff488535097b5785996,
+        type: 3}
+    - target: {fileID: 11400020, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Text
+      value: "GAME ARTISTS :\n\nVincent Fris\xE9\nEliott Le Calv\xE9\nSwann Klein"
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400020, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_FontData.m_LineSpacing
+      value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_FontData.m_LineSpacing
+      value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400036, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_FontData.m_LineSpacing
+      value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400020, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400036, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400036, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_Text
+      value: 'DESIGN & CODE :
+
+
+        Vivien Fusco
+
+        Sylvain Lafon
+
+        Maxime Sauvage
+
+        Romain Soual'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400018, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
+      propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -35172,8 +35351,8 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -83.5999985, y: -15}
-  m_SizeDelta: {x: 90, y: 30}
+  m_AnchoredPosition: {x: -105, y: -15}
+  m_SizeDelta: {x: 180, y: 60}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1871309918
 MonoBehaviour:
@@ -35193,7 +35372,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
@@ -35202,15 +35381,16 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: .100000001
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 3e4dbabfa6ac01a48895601f7bdbcb54,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: df6bcf7883c7f854698f698d4c2e514d, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1871309919}
   m_OnClick:
     m_PersistentCalls:
@@ -35243,9 +35423,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .752941191}
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: 633832ad5a1ca1e4f9f51a58ff880e27, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -36154,7 +36334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1961357360
 RectTransform:
   m_ObjectHideFlags: 0

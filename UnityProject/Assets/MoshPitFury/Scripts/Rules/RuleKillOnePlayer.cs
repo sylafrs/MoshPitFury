@@ -16,20 +16,20 @@ public class RuleKillOnePlayer : Rule {
 		this.Killers.Remove(this.PlayerToKill);
 	}
 
-	public override Transform GetPlayerSpawnPoint(Player p)
-	{
-		if(p == PlayerToKill)
-		{
-			return this.SpawnPoints[0];
-		}
-
-		if(p.Id < PlayerToKill.Id)
-		{
-			return this.SpawnPoints[p.Id];
-		}
-
-		return this.SpawnPoints[p.Id - 1];
-	}
+	// public override Transform GetPlayerSpawnPoint(Player p)
+	// {
+	// 	if(p == PlayerToKill)
+	// 	{
+	// 		return this.SpawnPoints[0];
+	// 	}
+	// 
+	// 	if(p.Id < PlayerToKill.Id)
+	// 	{
+	// 		return this.SpawnPoints[p.Id];
+	// 	}
+	// 
+	// 	return this.SpawnPoints[p.Id - 1];
+	// }
 
     public override void GameOver()
     {
@@ -57,6 +57,13 @@ public class RuleKillOnePlayer : Rule {
 
 	public override string Description
 	{
-		get { return "ALL VS <color=" + PlayerToKill.MainColorHex + ">" + PlayerToKill.Name + "</color>"; }
+		get {
+			return "ALL VS <color=" + PlayerToKill.MainColorHex + ">" + PlayerToKill.Name + "</color>"; 
+		}
+	}
+
+	public override void OnRuleDisplayed()
+	{
+		HUDTarget.Targets(this.SpawnPoints[PlayerToKill.Id - 1].transform);
 	}
 }
