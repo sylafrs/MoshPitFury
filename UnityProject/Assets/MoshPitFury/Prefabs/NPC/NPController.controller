@@ -25,7 +25,7 @@ State:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: HeadBang1
+  m_Name: HeadBang00
   m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
@@ -40,13 +40,28 @@ State:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: HeadBang2
+  m_Name: HeadBang01
   m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 867a898ce47d4fb43a27de5b4b1d35c5, type: 3}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: 168, y: -84, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+--- !u!1102 &110280812
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Guitar00
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: ad70cb86e155b1843b922807e6219e86, type: 3}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: -84, y: -156, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
@@ -61,6 +76,7 @@ StateMachine:
   m_States:
   - {fileID: 110200000}
   - {fileID: 110202626}
+  - {fileID: 110280812}
   m_ChildStateMachine: []
   m_ChildStateMachinePosition: []
   m_OrderedTransitions: {}

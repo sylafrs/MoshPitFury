@@ -14,11 +14,11 @@ public class Crowd : MonoBehaviour {
         {
             if (isHeadBang)
             {
-                myAnimator.Play("HeadBang1");
+                myAnimator.Play("HeadBang00");
             }
             else
             {
-                myAnimator.Play("HeadBang2");
+                myAnimator.Play("HeadBang01");
             }
         }
         else myAnimator.Play(specificAnimation);
