@@ -9,21 +9,34 @@ using System.Collections.Generic;
   */
 public class HUDTarget : MonoBehaviour
 {
-
+	private static HUDTarget instance;
 	private Camera orthoCamera;
-	public Transform target;
+	private static Transform Target;
 
 	private Vector3 InitialPosition;
 	private Vector3 InitialScale;
+
+	public float multScale;
+	public float duration;
+	public float delay;
+	public iTween.EaseType easeType;
+
+	public static void Targets(Transform target)
+	{
+		Target = target;
+		instance.enabled = true;
+	}
 
 	public void Awake()
 	{
 		InitialPosition = this.transform.position;
 		InitialScale = this.transform.localScale;
+		instance = this;
 	}
 
 	public void OnEnable()
 	{
+		this.renderer.enabled = true;
 		this.transform.position = InitialPosition;
 		this.transform.localScale = InitialScale;
 
@@ -32,11 +45,11 @@ public class HUDTarget : MonoBehaviour
 			orthoCamera = GameObject.FindGameObjectWithTag("InterfaceCamera").camera;
 		}
 
-		if (target)
+		if (Target)
 		{
 			Vector3 pos = WorldToNormalizedViewportPoint(
 				Camera.main,
-				target.transform.position
+				Target.transform.position
 			);
 
 			pos = NormalizedViewportToWorldPoint(orthoCamera, pos);
@@ -44,18 +57,26 @@ public class HUDTarget : MonoBehaviour
 
 			iTween.MoveTo(gameObject, iTween.Hash(
 				"position", pos, 
-				"easeType", iTween.EaseType.easeInSine, 
-				"time", 0.5f, 
+				"easeType", easeType, 
+				"time", duration, 
 				"looptype", iTween.LoopType.none
 			));
 
 			iTween.ScaleTo(gameObject, iTween.Hash(
-				"scale", InitialScale * 0.3f,
-				"easeType", iTween.EaseType.easeInSine,
-				"time", 0.5f,
+				"scale", InitialScale * multScale,
+				"easeType", easeType,
+				"time", duration,
 				"looptype", iTween.LoopType.none
-			));			
+			));
+
+			Invoke("reset", duration + delay);
 		}
+	}
+
+	void reset()
+	{
+		this.renderer.enabled = false;
+		this.enabled = false;
 	}
 	
 	public static Vector3 WorldToNormalizedViewportPoint(Camera camera, Vector3 point)

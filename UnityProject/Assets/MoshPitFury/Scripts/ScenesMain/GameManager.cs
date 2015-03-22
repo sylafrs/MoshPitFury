@@ -90,6 +90,12 @@ public class GameManager : MonoBehaviour
 			if (r is RuleSurvival)
 				randomRule = r;
 #endif
+#if FORCE_KILL_ONE
+		foreach (Rule r in ExistingRules)
+			if (r is RuleKillOnePlayer)
+				randomRule = r;
+#endif
+
 		return StartGame(randomRule);
 	}
 
@@ -123,6 +129,7 @@ public class GameManager : MonoBehaviour
 
         ImageRuleName.enabled = true;
         ImageRuleName.sprite = UsedRule.ruleSprite;
+		UsedRule.OnRuleDisplayed();
 		yield return new WaitForSeconds(2);
 
         ImageRuleName.enabled = false;
