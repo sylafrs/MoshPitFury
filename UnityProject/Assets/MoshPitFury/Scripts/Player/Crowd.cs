@@ -5,16 +5,22 @@ public class Crowd : MonoBehaviour {
 	
 	public Animator myAnimator;
 
-	public bool isHeadBang;
+    public bool isHeadBang;
+    public string specificAnimation;
 
 	
 	void Start () {
-		
-		if(isHeadBang){
-			myAnimator.Play ("HeadBang1");	
-		}
-		else{
-			myAnimator.Play ("HeadBang2");	
-		}
+        if (specificAnimation == "")
+        {
+            if (isHeadBang)
+            {
+                myAnimator.Play("HeadBang1");
+            }
+            else
+            {
+                myAnimator.Play("HeadBang2");
+            }
+        }
+        else myAnimator.Play(specificAnimation);
 	}
 }
