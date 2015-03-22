@@ -85,10 +85,11 @@ public class GameManager : MonoBehaviour
 		Rule randomRule = NotPlayedRules[Random.Range(0, NotPlayedRules.Count)];
 		
 		// CHEAT!!!
-		// foreach (Rule r in ExistingRules)
-		// 	if (r is RuleSurvival)
-		// 		randomRule = r;
-
+#if FORCE_SURVIVAL
+		foreach (Rule r in ExistingRules)
+			if (r is RuleSurvival)
+				randomRule = r;
+#endif
 		return StartGame(randomRule);
 	}
 

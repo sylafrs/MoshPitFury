@@ -3,17 +3,26 @@ using System.Collections;
 
 public class BeerParticles : MonoBehaviour {
 	
-	public ParticleSystem destructionFX;
+	public ParticleSystem [] destructionFX;
+	public float groundPos;
 
 	private void OnBeerDestroyed()
 	{
 		if (destructionFX != null)
 		{
-			destructionFX.enableEmission = true;
-			destructionFX.time = 0;
-			destructionFX.loop = false;
-			destructionFX.transform.parent = null;
-			GameObject.Destroy(destructionFX.gameObject, destructionFX.duration + 1);
+			foreach (ParticleSystem ps in destructionFX)
+			{
+				ps.transform.parent = null;
+
+				Vector3 pos = ps.transform.position;
+				pos.y = groundPos;
+				ps.transform.position = pos;
+
+				ps.enableEmission = true;
+				ps.time = 0;
+				ps.loop = false;
+				GameObject.Destroy(ps.gameObject, ps.duration + 1);
+			}
 		}
 	}
 }
