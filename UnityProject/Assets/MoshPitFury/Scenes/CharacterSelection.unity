@@ -87397,6 +87397,8 @@ MonoBehaviour:
   - {fileID: 1372129173}
   - {fileID: 1208468164}
   - {fileID: 110377833}
+  nbPlayersPanel: {fileID: 234994529}
+  nbPlayersText: {fileID: 952324347}
 --- !u!1 &1477163021
 GameObject:
   m_ObjectHideFlags: 0

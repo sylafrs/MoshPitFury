@@ -10,8 +10,8 @@ public class CharacterSelection : MonoBehaviour
 	int nbPlayersSelected = 0;
 	public Light[] spotlights;
 	int nbPlayers;
-	CanvasRenderer nbPlayersPanel;
-	Text nbPlayersText;
+	public Canvas nbPlayersPanel;
+	public Text nbPlayersText;
 	GameObject[] Players;
 
 	private bool[] LeftDown;
@@ -40,8 +40,6 @@ public class CharacterSelection : MonoBehaviour
 			Players[i] = players.FindChild("Player_" + (i + 1)).gameObject;
 		}
 
-		nbPlayersPanel = GameObject.Find("PanelNBJOUEURS").GetComponent<CanvasRenderer>();
-		nbPlayersText = GameObject.Find("TextNBJOUEURS").GetComponent<Text>();
 		nbPlayers = 4;
 		ShowPlayers();
 
