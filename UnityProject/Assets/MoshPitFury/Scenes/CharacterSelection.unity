@@ -63908,7 +63908,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: How many heads to bang?
+  m_Text: How many players?
 --- !u!222 &1133633903
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -87320,7 +87320,7 @@ TextMesh:
     type: 2}
   m_PrefabInternal: {fileID: 1507506554}
   m_GameObject: {fileID: 1469660588}
-  m_Text: 
+  m_Text: P1
   m_OffsetZ: 0
   m_CharacterSize: .200000003
   m_LineSpacing: 1
@@ -90187,6 +90187,14 @@ Prefab:
       propertyPath: m_FontSize
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 10200000, guid: 85f01cc087fb5824ab1fe983b86a5c07, type: 2}
+      propertyPath: m_Text
+      value: P1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 85f01cc087fb5824ab1fe983b86a5c07, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 61edbca730765ed448e0b7ca512d9a45, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85f01cc087fb5824ab1fe983b86a5c07, type: 2}
   m_RootGameObject: {fileID: 160082135}
