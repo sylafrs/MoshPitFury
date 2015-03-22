@@ -14,7 +14,8 @@ public class CharacterSelection : MonoBehaviour
 	public Text nbPlayersText;
 	GameObject[] Players;
 
-	private bool[] LeftDown;
+    private bool[] padIsConnected;
+    private bool[] LeftDown;
 	private bool[] RightDown;
 	private bool[] Left;
 	private bool[] Right;
@@ -24,7 +25,8 @@ public class CharacterSelection : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		LeftDown = new bool[4];
+        padIsConnected = new bool[4];
+        LeftDown = new bool[4];
 		RightDown = new bool[4];
 		Left = new bool[4];
 		Right = new bool[4];
@@ -70,63 +72,64 @@ public class CharacterSelection : MonoBehaviour
 		bool aButton;
 		for(int i = 0; i < 4; i++)
 		{
-			GamePadState padState = GamePad.GetState((PlayerIndex)i);
+            GamePadState padState = GamePad.GetState((PlayerIndex)i);
 
-			if (padState.IsConnected)
-			{
-				EPSILON = EPSILON_PAD;
-				axis = padState.ThumbSticks.Left.X;
-				aButton = padState.Buttons.A == ButtonState.Pressed;
-			}
-			else
-			{
-				axis = Input.GetAxis("P" + (i + 1) + "_Horizontal");
-				aButton = Input.GetButton("P" + (i + 1) + "_A");
-				//Debug.Log("" + i + ' ' + axis);
-			}
+            if (padState.IsConnected)
+            {
+                EPSILON = EPSILON_PAD;
+                axis = padState.ThumbSticks.Left.X;
+                aButton = padState.Buttons.A == ButtonState.Pressed;
+                padIsConnected[i] = true;
+            }
+            else
+            {
+                axis = Input.GetAxis("P" + (i + 1) + "_Horizontal");
+                aButton = Input.GetButton("P" + (i + 1) + "_A");
+                //Debug.Log("" + i + ' ' + axis);
+            }
 
-			RightDown[i] = false;
-			LeftDown[i] = false;
-			ADown[i] = false;
+            RightDown[i] = false;
+            LeftDown[i] = false;
+            ADown[i] = false;
 
-			if (axis > EPSILON)
-			{
-				if (!Right[i])
-				{
-					RightDown[i] = true;
-					Right[i] = true;
-				}
-			}
-			else
-			{
-				Right[i] = false;
-			}
+            if (axis > EPSILON)
+            {
+                if (!Right[i])
+                {
+                    RightDown[i] = true;
+                    Right[i] = true;
+                }
+            }
+            else
+            {
+                Right[i] = false;
+            }
 
-			if (axis < -EPSILON)
-			{
-				if (!Left[i])
-				{
-					LeftDown[i] = true;
-					Left[i] = true;
-				}
-			}
-			else
-			{
-				Left[i] = false;
-			}
+            if (axis < -EPSILON)
+            {
+                if (!Left[i])
+                {
+                    LeftDown[i] = true;
+                    Left[i] = true;
+                }
+            }
+            else
+            {
+                Left[i] = false;
+            }
 
-			if (aButton)
-			{
-				if (!A[i])
-				{
-					ADown[i] = true;
-					A[i] = true;
-				}
-			}
-			else
-			{
-				A[i] = false;
-			}
+            if (aButton)
+            {
+                if (!A[i])
+                {
+                    ADown[i] = true;
+                    A[i] = true;
+                }
+            }
+            else
+            {
+                A[i] = false;
+            }
 		}
 	}
 
@@ -134,8 +137,9 @@ public class CharacterSelection : MonoBehaviour
 	{
 		while (selectsNbPlayers)
 		{
-			for (int i = 0; i < 4; i++)
-			{
+            int i = 0;
+			//for (int i = 0; i < 4; i++)
+			//{
 				if(ADown[i])
 				{
 					this.NbPlayersSelected();
@@ -151,7 +155,7 @@ public class CharacterSelection : MonoBehaviour
 				{
 					this.MorePlayers();
 				}
-			}
+			//}
 
 			yield return null;
 		}
@@ -173,10 +177,12 @@ public class CharacterSelection : MonoBehaviour
 
 	void ShowPlayers()
 	{
+        /*
 		for (int i = 0; i < 4; i++)
 		{
 			Players[i].SetActive(i < nbPlayers);
 		}
+         */
 	}
 
 	public void NbPlayersSelected()
@@ -194,8 +200,10 @@ public class CharacterSelection : MonoBehaviour
 	{
 		while (nbPlayersSelected < nbPlayers)
 		{
-			for (int i = 0; i < 4; i++)
-				CheckPlayer(i);
+            for (int i = 0; i < 4; i++)
+            {
+                if (i == nbPlayersSelected) CheckPlayer(i);
+            }
 
 			yield return null;
 		}
@@ -217,7 +225,16 @@ public class CharacterSelection : MonoBehaviour
 
 			spotlights[nbPlayersSelected].enabled = true;
 
-			nbPlayersSelected++;
+            nbPlayersSelected++;
+            if (nbPlayersSelected < nbPlayers && !padIsConnected[nbPlayersSelected]) nbPlayersSelected++;
+            if (nbPlayersSelected < nbPlayers && !padIsConnected[nbPlayersSelected]) nbPlayersSelected++;
+            if (nbPlayersSelected < nbPlayers && !padIsConnected[nbPlayersSelected]) nbPlayersSelected++;
+            /*
+            while (nbPlayersSelected < nbPlayers && !padIsConnected[nbPlayersSelected])
+            {
+                nbPlayersSelected++;
+            }
+             */
 		}
 	}
 
