@@ -271,7 +271,7 @@ public class Player : MonoBehaviour
 	{
 		this.SetCursorActive(true);
 		Score++;
-		return StartCoroutine(ActiveProjector(3));
+		return StartCoroutine(ActiveProjector(GameManager.END_ROUND_DURATION));
 	}
 
 	private IEnumerator ActiveProjector(float duration)

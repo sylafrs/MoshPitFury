@@ -5,6 +5,8 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+    public const float END_ROUND_DURATION = 2f;
+
 	private bool DebugMode = false;
 	public static GameManager instance;
 	private GameObject Level;
@@ -24,9 +26,7 @@ public class GameManager : MonoBehaviour
 	public Player[] Players { get; private set; }
 	private Text LabelStartTimer;
 
-	[System.Obsolete("To delete")]
-    private Text LabelRuleName;
-
+    public Sprite gameOverSprite;
     private Image ImageRuleName;
 	private Text LabelRoundTimer;
 
@@ -45,9 +45,8 @@ public class GameManager : MonoBehaviour
 		Players = GameObject.FindObjectsOfType<Player>();
 		MainTheme = this.GetComponent<MainThemeSoundManager>();
 		LabelStartTimer = GetText("TXT_start_cooldown");
-        LabelRuleName = GetText("TXT_rule_name");
+        LabelRoundTimer = GetText("TXT_round_timer");
         ImageRuleName = GameObject.Find("IMG_rule_name").GetComponent<Image>();
-		LabelRoundTimer = GetText("TXT_round_timer");
 
 		if (Players.Length == 0)
 		{
@@ -118,15 +117,13 @@ public class GameManager : MonoBehaviour
 			p.JumpsTo(this.UsedRule.GetPlayerSpawnPoint(p), 2);
 		}
 
-		yield return StartCoroutine(CountDown(1.25f, 0.3f, 3));
+        //yield return StartCoroutine(CountDown(1.25f, 0.3f, 3));
+        yield return StartCoroutine(CountDown(1.5f, 1, 3));
 
-		LabelRuleName.enabled = false; // DEPRECATED
-        //LabelRuleName.enabled = true;
-        //LabelRuleName.text = UsedRule.Description;
         ImageRuleName.enabled = true;
         ImageRuleName.sprite = UsedRule.ruleSprite;
 		yield return new WaitForSeconds(2);
-        //LabelRuleName.enabled = false;
+
         ImageRuleName.enabled = false;
 		this.LabelRoundTimer.enabled = true;
 
@@ -279,6 +276,8 @@ public class GameManager : MonoBehaviour
 				}
 
 				GameObject.Destroy(GameObject.Find("Players"));
+                ImageRuleName.sprite = gameOverSprite;
+                ImageRuleName.enabled = true;
 				yield return MainTheme.StartCoroutine(MainTheme.EndOfMusic());
 
 				Application.LoadLevel((int)SCENE.Score);
@@ -310,8 +309,12 @@ public class GameManager : MonoBehaviour
 	private IEnumerator CountDown(float duration, float readyRatio, int compte)
 	{
 		LabelStartTimer.enabled = true;
-		LabelStartTimer.text = "Ready?";
-		yield return new WaitForSeconds(1.5f);
+
+        if (duration * readyRatio > 0)
+        {
+            LabelStartTimer.text = "Ready?";
+            yield return new WaitForSeconds(duration * readyRatio);
+        }
 
 		// On a duration * 0.7f pour seconds + 1 iteration.
 		// Donc une itération : duration * 0.7f * (1 / 1+iteration)
@@ -320,11 +323,19 @@ public class GameManager : MonoBehaviour
 
 		for (int seconds = compte; seconds > 0; seconds--)
 		{
-			LabelStartTimer.text = seconds.ToString();
-			yield return new WaitForSeconds(durationIteration);
+            if (durationIteration > 0) 
+            { 
+			    LabelStartTimer.text = seconds.ToString();
+                yield return new WaitForSeconds(durationIteration);
+            }
 		}
-		LabelStartTimer.text = "GO!";
-		yield return new WaitForSeconds(durationIteration);
-		LabelStartTimer.enabled = false;
+
+        if (durationIteration > 0)
+        {
+            LabelStartTimer.text = "GO!";
+            yield return new WaitForSeconds(durationIteration);
+        }
+     
+        LabelStartTimer.enabled = false;
 	}
 }

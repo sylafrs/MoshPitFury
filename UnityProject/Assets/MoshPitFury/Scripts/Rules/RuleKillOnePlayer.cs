@@ -10,7 +10,9 @@ public class RuleKillOnePlayer : Rule {
 	public override void Prepare(GameManager manager)
 	{
 		this.PlayerToKill = manager.Players[Random.Range(0, manager.Players.Length)];
-		this.Killers = new List<Player>(manager.Players);
+        this.PlayerToKill.Halo.color = Color.white;
+        this.PlayerToKill.Halo.enabled = true;
+        this.Killers = new List<Player>(manager.Players);
 		this.Killers.Remove(this.PlayerToKill);
 	}
 
@@ -28,6 +30,12 @@ public class RuleKillOnePlayer : Rule {
 
 		return this.SpawnPoints[p.Id - 1];
 	}
+
+    public override void GameOver()
+    {
+        base.GameOver();
+        this.PlayerToKill.Halo.enabled = false;
+    }
 
 	public override bool IsFinished
 	{
