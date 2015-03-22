@@ -61,10 +61,12 @@ public class PlayerParticles : MonoBehaviour {
 			deathFClone.transform.rotation = death_flame.transform.rotation;
 
 			deathFClone.particleSystem.enableEmission = true;
+			deathFClone.particleSystem.time = 0;
 			deathFClone.particleSystem.loop = false;
 
 			Transform deathFCloneFlames = deathFClone.transform.FindChild("FLAMES");
 			deathFCloneFlames.particleSystem.enableEmission = true;
+			deathFCloneFlames.particleSystem.time = 0;
 			deathFCloneFlames.particleSystem.loop = false;
 
 			GameObject.Destroy(deathFClone, deathFClone.particleSystem.duration + 1);
@@ -76,6 +78,7 @@ public class PlayerParticles : MonoBehaviour {
 			deathClone.transform.rotation = death.transform.rotation;
 
 			deathClone.particleSystem.enableEmission = true;
+			deathClone.particleSystem.time = 0;
 			deathClone.particleSystem.loop = false;
 
 			Transform deathCloneBone = deathClone.transform.FindChild("Bone");
@@ -106,10 +109,12 @@ public class PlayerParticles : MonoBehaviour {
 		yield return null;
 
 		chocClone.particleSystem.enableEmission = true;
+		chocClone.particleSystem.time = 0;
 		chocClone.particleSystem.loop = false;
 
 		Transform chocCloneSmoke = chocClone.transform.FindChild("Smoke");
 		chocCloneSmoke.particleSystem.enableEmission = true;
+		chocCloneSmoke.particleSystem.time = 0;
 		chocCloneSmoke.particleSystem.loop = false;
 
 		GameObject.Destroy(chocClone, chocClone.particleSystem.duration + 1);
