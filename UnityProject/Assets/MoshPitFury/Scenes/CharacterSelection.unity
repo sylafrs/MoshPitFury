@@ -36759,7 +36759,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.52590001e-05, y: 301}
+  m_AnchoredPosition: {x: 0, y: 266}
   m_SizeDelta: {x: -238, y: -437}
   m_Pivot: {x: .5, y: 0}
 --- !u!222 &661031428
@@ -53654,7 +53654,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 61edbca730765ed448e0b7ca512d9a45, type: 3}
+    m_Font: {fileID: 12800000, guid: 9e3255e7ab196ff488535097b5785996, type: 3}
     m_FontSize: 90
     m_FontStyle: 0
     m_BestFit: 1
@@ -53664,7 +53664,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: .699999988
   m_Text: 4
 --- !u!222 &952324348
 CanvasRenderer:
@@ -63897,18 +63897,18 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 61edbca730765ed448e0b7ca512d9a45, type: 3}
+    m_Font: {fileID: 12800000, guid: 9e3255e7ab196ff488535097b5785996, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 50
+    m_MaxSize: 70
     m_Alignment: 4
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: How many heads to bang?
+  m_Text: How many players?
 --- !u!222 &1133633903
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -111805,7 +111805,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 221}
+  m_AnchoredPosition: {x: 0, y: 186}
   m_SizeDelta: {x: -425, y: -432}
   m_Pivot: {x: .5, y: 0}
 --- !u!222 &2030416069
