@@ -5,13 +5,17 @@ using XInputDotNetPure;
 
 public class CharacterSelection : MonoBehaviour
 {
+	public float WaitBeforeLoading = 3;
 	bool selectsNbPlayers;
 	bool[] selectedCharacters = new bool[4];
 	int nbPlayersSelected = 0;
-	public Light[] spotlights;
 	int nbPlayers;
-	public Canvas nbPlayersPanel;
-	public Text nbPlayersText;
+
+	Light[] spotlights;
+	Text PanelText;
+	Text loadingText;
+	Text nbPlayersText;
+	GameObject PlayersPanels;
 	GameObject[] Players;
 
 	private bool[] LeftDown;
@@ -30,6 +34,15 @@ public class CharacterSelection : MonoBehaviour
 		Right = new bool[4];
 		A = new bool[4];
 		ADown = new bool[4];
+
+		spotlights = new Light[4];
+		for(int i = 0; i < 4; i++)
+			spotlights[i] = GameObject.Find("SpotlightP" + (i + 1)).light;
+
+		PanelText = GameObject.Find("PanelText/Text").GetComponent<Text>();
+		loadingText = GameObject.Find("TextLoading").GetComponent<Text>();
+		nbPlayersText = GameObject.Find("TextNBJOUEURS").GetComponent<Text>();
+		PlayersPanels = GameObject.Find("PlayersPanel");
 
 		Transform players = GameObject.Find("Players").transform;
 		GameObject.DontDestroyOnLoad(players.gameObject);
@@ -182,7 +195,8 @@ public class CharacterSelection : MonoBehaviour
 	public void NbPlayersSelected()
 	{
 		selectsNbPlayers = false;
-		nbPlayersPanel.gameObject.SetActive(false);
+		PanelText.enabled = false;
+		PlayersPanels.SetActive(false);
 
 		for (int i = 0; i < 4; i++)
 			ADown[i] = false;
@@ -252,7 +266,26 @@ public class CharacterSelection : MonoBehaviour
 
 		CreateCPUS();
 
-		yield return new WaitForSeconds(3.0f);
-		Application.LoadLevel((int)SCENE.Game);
+		yield return new WaitForSeconds(WaitBeforeLoading);
+		
+		bool unityPro = Application.HasProLicense();
+		Debug.Log("unity pro = " + unityPro);
+
+		PanelText.text = "Loading";
+		PanelText.enabled = true;
+		loadingText.enabled = true;
+		if (unityPro)
+		{
+			AsyncOperation loadScene = Application.LoadLevelAsync((int)SCENE.Game);
+			while(!loadScene.isDone)
+			{
+				loadingText.text = Mathf.FloorToInt(loadScene.progress * 100).ToString() + '%';
+				yield return null;
+			}
+		}
+		else
+		{
+			Application.LoadLevel((int)SCENE.Game);
+		}
 	}
 }

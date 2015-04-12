@@ -235,7 +235,7 @@ public class Player : MonoBehaviour
 		this.Death(false);
 	}
 
-	private void OnBeerRangeReached(PickageItemRange beer)
+	private void OnBeerRangeReached(PickableItemRangeTrigger beer)
 	{
 		this.Beer = (PickableBeer)beer;
 		this.PlaceBeer();

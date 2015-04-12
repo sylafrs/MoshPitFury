@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PickableBeer : PickageItemRange 
+public class PickableBeer : PickableItemRangeTrigger 
 {
 	[HideInInspector]
 	public Player Owner;

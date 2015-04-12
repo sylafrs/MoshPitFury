@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PickageItemRange : MonoBehaviour 
+public class PickableItemRangeTrigger : MonoBehaviour 
 {
 	public string message;
 
@@ -15,7 +15,7 @@ public class PickageItemRange : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		Debug.Log(other.name + " in range");
+		//Debug.Log(other.name + " in range");
 		if(CanTake)
 			other.gameObject.SendMessage(message, this, SendMessageOptions.DontRequireReceiver);
 	}

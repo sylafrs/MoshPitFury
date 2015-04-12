@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour
 	public bool ForceFirstExistingRule;
 	private List<Rule> NotPlayedRules;
 
-	public Transform[] SpawnPoints;
-	public Transform[] RuleStartPoints;
+	public Transform[] SpawnPoints { get; private set; }
+	public Transform[] RuleStartPoints { get; private set; }
 
 	public Rule UsedRule { get; private set; }
 	public float RoundTimer { get; private set; }
@@ -43,15 +43,27 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
 	{
-		Players = GameObject.FindObjectsOfType<Player>();
-		MainTheme = this.GetComponent<MainThemeSoundManager>();
-		LabelStartTimer = GetText("TXT_start_cooldown");
-        LabelRoundTimer = GetText("TXT_round_timer");
-        ImageRuleName = GameObject.Find("IMG_rule_name").GetComponent<Image>();
-
+		Players = GameObject.FindObjectsOfType<Player>();		
 		if (Players.Length == 0)
 		{
 			Application.LoadLevel((int)SCENE.CharacterSelection);
+			this.enabled = false;
+			return;
+		}
+
+		MainTheme = this.GetComponent<MainThemeSoundManager>();
+		LabelStartTimer = GetText("TXT_start_cooldown");
+		LabelRoundTimer = GetText("TXT_round_timer");
+		ImageRuleName = GameObject.Find("IMG_rule_name").GetComponent<Image>();
+
+		Transform spawnPoints = GameObject.Find("SpawnPoints").transform;
+		this.SpawnPoints = new Transform[Players.Length];
+		this.RuleStartPoints = new Transform[Players.Length];
+
+		for (int i = 0; i < Players.Length; i++)
+		{
+			this.SpawnPoints[i] = spawnPoints.FindChild("p" + (i + 1).ToString());
+			this.RuleStartPoints[i] = spawnPoints.FindChild("p" + (i + 1).ToString() + "_real");
 		}
 
 		foreach (Player p in Players)
