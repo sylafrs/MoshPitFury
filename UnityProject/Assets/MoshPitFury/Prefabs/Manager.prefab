@@ -81,15 +81,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScoreToReach: 5
   ExistingRules:
-  - {fileID: 11400000, guid: f35c58b5138f8f748999ece36baa28f1, type: 2}
+  - {fileID: 11400000, guid: a5ec10e80ccdcd94ca78b16167d07fba, type: 2}
   - {fileID: 11400000, guid: 7dd31590936caf44a831704f6a1b6366, type: 2}
   - {fileID: 11400000, guid: 5848349630e68584cbf02f4c65c04dc7, type: 2}
-  - {fileID: 11400000, guid: a5ec10e80ccdcd94ca78b16167d07fba, type: 2}
+  - {fileID: 11400000, guid: f35c58b5138f8f748999ece36baa28f1, type: 2}
   - {fileID: 11400000, guid: 3224ffac1fc101a488fb556ea8a29518, type: 2}
   - {fileID: 11400000, guid: 0b3af19db9f57b24cbedac13e99970e6, type: 2}
   - {fileID: 11439552, guid: 17b1058f15030314cab18ffa9179c6e2, type: 2}
   - {fileID: 11453198, guid: 548ebf11014c58c4ca1ecd89e2e541c2, type: 2}
-  ForceFirstExistingRule: 0
+  ForceFirstExistingRule: 1
   SpawnPoints:
   - {fileID: 0}
   - {fileID: 0}

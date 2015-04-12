@@ -3,30 +3,29 @@ guid: ad70cb86e155b1843b922807e6219e86
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: HB_04
-    100002: //RootNode
-    100004: RIG:body_jnt
-    100006: RIG:bodyRoot_jnt
-    100008: RIG:head_jnt
-    100010: RIG:L_arm_jnt
-    100012: RIG:L_leg_jnt
-    100014: RIG:R_arm_jnt
-    100016: RIG:R_leg_jnt
+    100000: body_jnt
+    100002: bodyRoot_jnt
+    100004: HB_04
+    100006: head_jnt
+    100008: L_arm_jnt
+    100010: L_leg_jnt
+    100012: //RootNode
+    100014: R_arm_jnt
+    100016: R_leg_jnt
     100018: root_jnt
-    400000: HB_04
-    400002: //RootNode
-    400004: RIG:body_jnt
-    400006: RIG:bodyRoot_jnt
-    400008: RIG:head_jnt
-    400010: RIG:L_arm_jnt
-    400012: RIG:L_leg_jnt
-    400014: RIG:R_arm_jnt
-    400016: RIG:R_leg_jnt
+    400000: body_jnt
+    400002: bodyRoot_jnt
+    400004: HB_04
+    400006: head_jnt
+    400008: L_arm_jnt
+    400010: L_leg_jnt
+    400012: //RootNode
+    400014: R_arm_jnt
+    400016: R_leg_jnt
     400018: root_jnt
     4300000: HB_04
     7400000: NPC_Guitar00
     9500000: //RootNode
-    11100000: //RootNode
     13700000: HB_04
   materials:
     importMaterials: 1
@@ -37,7 +36,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -74,19 +73,19 @@ ModelImporter:
         weight: 1
       - path: root_jnt
         weight: 1
-      - path: root_jnt/RIG:bodyRoot_jnt
+      - path: root_jnt/bodyRoot_jnt
         weight: 1
-      - path: root_jnt/RIG:bodyRoot_jnt/RIG:body_jnt
+      - path: root_jnt/bodyRoot_jnt/body_jnt
         weight: 1
-      - path: root_jnt/RIG:bodyRoot_jnt/RIG:body_jnt/RIG:head_jnt
+      - path: root_jnt/bodyRoot_jnt/body_jnt/head_jnt
         weight: 1
-      - path: root_jnt/RIG:bodyRoot_jnt/RIG:body_jnt/RIG:L_arm_jnt
+      - path: root_jnt/bodyRoot_jnt/body_jnt/L_arm_jnt
         weight: 1
-      - path: root_jnt/RIG:bodyRoot_jnt/RIG:body_jnt/RIG:R_arm_jnt
+      - path: root_jnt/bodyRoot_jnt/body_jnt/R_arm_jnt
         weight: 1
-      - path: root_jnt/RIG:bodyRoot_jnt/RIG:L_leg_jnt
+      - path: root_jnt/bodyRoot_jnt/L_leg_jnt
         weight: 1
-      - path: root_jnt/RIG:bodyRoot_jnt/RIG:R_leg_jnt
+      - path: root_jnt/bodyRoot_jnt/R_leg_jnt
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
