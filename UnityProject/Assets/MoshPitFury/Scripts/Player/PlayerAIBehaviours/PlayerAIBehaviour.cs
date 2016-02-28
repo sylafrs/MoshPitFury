@@ -17,14 +17,25 @@ public abstract class PlayerAIBehaviour : MonoBehaviour
 	public virtual void OnUpdate() { }
 }
 
+// Mode prédateur :
+// ==============
+// - Poursuivre et dasher autres persos dans le feu
 // 
-// Don't move : random to move or not
-// Suicide : chooses a fire, random to dash or not
-// Survival : chooses a place, goes there, random completely
-// Deathmatch : target the nearest; or flee
-// Snatch the beer : takes the beer then flee
-// King of the beer : tries to remove the others, stay on the center
+// Mode proie :
+// ===========
+// - Esquiver les autres joueurs
+// - Les dasher pour les repousser si c'est opportun
 // 
+// Règle suicide :
+// -------------------
+// - Avancer vers le feu le plus proche
+// - Dasher de façon random
 // 
+// Règle don't move :
+// -----------------------
+// - Random sur le fait de bouger ou non
+// - Une touche du clavier permet de le faire bouger ?
 // 
-// 
+// Règle survival :
+// -------------------
+// - Se déplace à un endroit random
