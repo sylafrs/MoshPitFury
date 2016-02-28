@@ -7,7 +7,12 @@ public class PlayerAI : PlayerBrain
 
 	public override bool WantToDash
 	{
-		get { return false; }
+		get
+		{
+			if (!behaviour)
+				return false;
+			return behaviour.WantToDash;
+		}
 	}
 
 	public override Vector3 WantedDirection

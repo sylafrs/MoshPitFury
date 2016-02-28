@@ -15,5 +15,7 @@ public abstract class PlayerAIBehaviour : MonoBehaviour
 	public abstract Vector3 WantedDirection { get; }
 
 	public virtual void OnUpdate() { }
+
+	public abstract bool WantToDash { get; }
 }
 

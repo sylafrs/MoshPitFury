@@ -7,5 +7,10 @@ public class PlayerAIBehaviourIdle : PlayerAIBehaviour
 	{
 		get { return Vector3.zero; }
 	}
+
+	public override bool WantToDash
+	{
+		get { return false; }
+	}
 }
 
