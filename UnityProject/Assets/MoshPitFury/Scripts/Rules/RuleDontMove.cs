@@ -17,4 +17,9 @@ public class RuleDontMove : Rule
 	{
 		return this.Manager.AlivePlayers.ToArray();
 	}
+
+	public override void SetAI(Player p, PlayerAI ai)
+	{
+		ai.SwitchBehaviour<PlayerAIBehaviourIdle>();
+	}
 }

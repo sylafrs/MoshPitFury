@@ -79,4 +79,9 @@ public class RuleKingOfTheBeer : Rule
 
 		return winners.ToArray();
 	}
+
+	public override void SetAI(Player p, PlayerAI ai)
+	{
+		ai.SwitchBehaviour<PlayerAIBehaviourIdle>();
+	}
 }

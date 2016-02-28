@@ -55,7 +55,9 @@ public class PlayerAIBehaviourTarget : PlayerAIBehaviour
 	public override void OnUpdate()
 	{
 		base.OnUpdate();
-		if (path != null)
+
+		NewPath();
+		if (path != null && path.corners.Length > 1)
 		{
 			this.direction = path.corners[1] - this.transform.position;
 			this.direction.Normalize();

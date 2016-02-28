@@ -69,6 +69,11 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	void OnPlayerPrepare()
+	{
+		this.OnPlayerPlaced();
+	}
+
 	void OnPlayerPlaced()
 	{
 		this.Speed = Vector3.zero;

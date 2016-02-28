@@ -35,4 +35,9 @@ public class RuleTheBeer : Rule {
 
 		return new Player[0];
 	}
+
+	public override void SetAI(Player p, PlayerAI ai)
+	{
+		ai.SwitchBehaviour<PlayerAIBehaviourIdle>();
+	}
 }

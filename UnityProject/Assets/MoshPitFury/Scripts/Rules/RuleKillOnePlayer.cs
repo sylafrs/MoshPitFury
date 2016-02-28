@@ -68,4 +68,17 @@ public class RuleKillOnePlayer : Rule {
 		HUDTarget.Targets(manager.RuleStartPoints[PlayerToKill.Id - 1].transform);
 		return new WaitForSeconds(1);
 	}
+
+	public override void SetAI(Player p, PlayerAI ai)
+	{
+		if(this.PlayerToKill == p)
+		{
+			ai.SwitchBehaviour<PlayerAIBehaviourIdle>();
+		}
+		else
+		{
+			var aiBehaviour = ai.SwitchBehaviour<PlayerAIBehaviourTarget>();
+			aiBehaviour.target = this.PlayerToKill.transform;
+		}
+	}
 }

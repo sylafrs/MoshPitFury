@@ -108,4 +108,9 @@ public class RuleDeathMatchTeam : Rule
 
 		return true;
 	}
+
+	public override void SetAI(Player p, PlayerAI ai)
+	{
+		ai.SwitchBehaviour<PlayerAIBehaviourIdle>();
+	}
 }

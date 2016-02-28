@@ -64,4 +64,6 @@ public abstract class Rule : MonoBehaviour
 		this.StartGame(manager);
 		return null;
 	}
+
+	public abstract void SetAI(Player p, PlayerAI ai);
 }
