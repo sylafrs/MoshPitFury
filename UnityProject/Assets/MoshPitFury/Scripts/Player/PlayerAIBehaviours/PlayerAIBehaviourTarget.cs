@@ -1,11 +1,42 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerAIBehaviourTarget : PlayerAIBehaviour
 {
-	public Transform target;
+	public List<Transform> targets;
+	private Transform target;
 	private Vector3 direction;
 	private NavMeshPath path;
+
+	public void NewTarget()
+	{
+		this.target = null;
+
+		if(targets == null || targets.Count == 0)
+		{
+			return;
+		}
+		
+		this.target = this.targets[0];
+
+		if(targets.Count == 1)
+		{
+			return;
+		}
+
+		float nearestDistance = Vector3.Distance(this.transform.position, this.targets[0].position);
+		float distance;
+		for(int i = 1; i < this.targets.Count; i++)
+		{
+			distance = Vector3.Distance(this.transform.position, this.targets[i].position);
+			if(distance < nearestDistance)
+			{
+				nearestDistance = distance;
+				this.target = this.targets[i];
+			}
+		}
+	}
 
 	public void NewPath()
 	{
@@ -49,7 +80,9 @@ public class PlayerAIBehaviourTarget : PlayerAIBehaviour
 	{
 		base.OnUpdate();
 
+		NewTarget();
 		NewPath();
+
 		if (path != null && path.corners.Length > 1)
 		{
 			this.direction = path.corners[1] - this.transform.position;

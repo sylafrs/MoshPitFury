@@ -78,7 +78,9 @@ public class RuleKillOnePlayer : Rule {
 		else
 		{
 			var aiBehaviour = ai.SwitchBehaviour<PlayerAIBehaviourTarget>();
-			aiBehaviour.target = this.PlayerToKill.transform;
+
+			aiBehaviour.targets = new List<Transform>();
+			aiBehaviour.targets.Add(PlayerToKill.transform);
 		}
 	}
 }
