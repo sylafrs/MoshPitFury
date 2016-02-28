@@ -10,6 +10,12 @@ public class Crowd : MonoBehaviour {
 
 	
 	void Start () {
+        if(!myAnimator)
+        {
+            Debug.Log("missing animator for crowd", this.gameObject);
+            return;
+        }
+
         if (string.IsNullOrEmpty(specificAnimation))
         {
             if (isHeadBang)
@@ -21,6 +27,7 @@ public class Crowd : MonoBehaviour {
                 myAnimator.Play("HeadBang01");
             }
         }
+
         else myAnimator.Play(specificAnimation);
 	}
 }

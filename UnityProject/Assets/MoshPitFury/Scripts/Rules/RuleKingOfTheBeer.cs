@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class RuleKingOfTheBeer : Rule
 {
 
+    public Sprite beerCrown;
+
 	public override string Description
 	{
 		get { return "KEEP THE BEERS"; }

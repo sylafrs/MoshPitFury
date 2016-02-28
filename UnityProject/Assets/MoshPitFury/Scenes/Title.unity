@@ -14179,7 +14179,6 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -31290,7 +31289,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400016, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
       propertyPath: m_Interactable
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400016, guid: fb5f33d55e9acb84698d8c308fca4295, type: 2}
       propertyPath: m_Transition
@@ -35390,7 +35389,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1871309919}
   m_OnClick:
     m_PersistentCalls:
