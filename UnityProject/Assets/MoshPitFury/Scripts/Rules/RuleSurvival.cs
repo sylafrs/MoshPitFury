@@ -272,4 +272,9 @@ public class RuleSurvival : Rule
 
 		return random;
 	}
+
+	public override void SetAI(Player p, PlayerAI ai)
+	{
+		ai.SwitchBehaviour<PlayerAIBehaviourIdle>();
+	}
 }

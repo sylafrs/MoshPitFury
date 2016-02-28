@@ -129,36 +129,6 @@ public class Player : MonoBehaviour
 	private IEnumerator JumpsToCoroutine(Transform to, float duration, float height)
 	{
 		return LaunchedItem.Launches(this.transform, to, duration, height);
-		// const float ratioJump = 0.3f;
-		// const float up = 3;
-		// 
-		// Vector3 from = this.transform.position;
-		// float maxY = this.transform.position.y + up;
-		// Vector3 v = this.transform.position;
-		// Vector3 fromFwd = this.transform.forward;
-		// 
-		// float t = 0;
-		// while (t < duration * ratioJump)
-		// {
-		// 	v = Vector3.Lerp(from, to.position, t / duration);
-		// 	v.y = Mathf.Lerp(from.y, maxY, t / (duration * ratioJump));
-		// 	this.transform.position = v;
-		// 	this.transform.forward = Vector3.Slerp(fromFwd, to.forward, t / duration);
-		// 
-		// 	yield return null;
-		// 	t += Time.deltaTime;
-		// }
-		// 
-		// while (t < duration)
-		// {
-		// 	v = Vector3.Lerp(from, to.position, t / duration);
-		// 	v.y = Mathf.Lerp(maxY, to.position.y, (t - (duration * ratioJump)) / (duration * (1 - ratioJump)));
-		// 	this.transform.position = v;
-		// 	this.transform.forward = Vector3.Slerp(fromFwd, to.forward, t / duration);
-		// 
-		// 	yield return null;
-		// 	t += Time.deltaTime;
-		// }
 	}
 
 	public Coroutine JumpsTo(Transform to, float duration, float height)
@@ -174,6 +144,8 @@ public class Player : MonoBehaviour
 			Model.SetActive(true);
 		this.CanMove = false;
 		this.SetCursorActive(true);
+
+		this.gameObject.SendMessage("OnPlayerPrepare", SendMessageOptions.DontRequireReceiver);
 	}
 
 	public void StartGame()

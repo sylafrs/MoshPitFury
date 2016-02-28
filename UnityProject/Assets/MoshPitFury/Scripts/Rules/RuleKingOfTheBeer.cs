@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class RuleKingOfTheBeer : Rule
 {
 
-    public Sprite beerCrown;
+    //public Sprite beerCrown;
 
 	public override string Description
 	{
@@ -78,5 +78,10 @@ public class RuleKingOfTheBeer : Rule
 		}
 
 		return winners.ToArray();
+	}
+
+	public override void SetAI(Player p, PlayerAI ai)
+	{
+		ai.SwitchBehaviour<PlayerAIBehaviourIdle>();
 	}
 }

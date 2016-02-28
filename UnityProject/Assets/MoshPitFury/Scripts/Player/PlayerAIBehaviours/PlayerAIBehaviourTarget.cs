@@ -29,25 +29,18 @@ public class PlayerAIBehaviourTarget : PlayerAIBehaviour
 	{
 		if (path != null && path.corners != null)
 		{
-			GUIStyle style = new GUIStyle();
-			style.normal.textColor = Color.yellow;
-			style.fontSize = 50;
-
 			Vector3 previous = this.transform.position;
-			int i = 0;
 			foreach (Vector3 p in this.path.corners)
 			{
-				UnityEditor.Handles.Label(p + Vector3.up * 10, i.ToString(), style);
-				i++;
 				Gizmos.color = Color.red;
 				Gizmos.DrawSphere(previous, 0.2f);
 				Gizmos.color = Color.blue;
 				Gizmos.DrawLine(previous, p);
 				previous = p;
 			}
+
 			Gizmos.color = Color.red;
 			Gizmos.DrawSphere(previous, 0.2f);
-
 		}
 	}
 #endif
@@ -55,7 +48,9 @@ public class PlayerAIBehaviourTarget : PlayerAIBehaviour
 	public override void OnUpdate()
 	{
 		base.OnUpdate();
-		if (path != null)
+
+		NewPath();
+		if (path != null && path.corners.Length > 1)
 		{
 			this.direction = path.corners[1] - this.transform.position;
 			this.direction.Normalize();
@@ -69,5 +64,10 @@ public class PlayerAIBehaviourTarget : PlayerAIBehaviour
 	public override Vector3 WantedDirection
 	{
 		get { return direction; }
+	}
+
+	public override bool WantToDash
+	{
+		get { return false; }
 	}
 }

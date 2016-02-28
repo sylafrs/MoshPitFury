@@ -96,19 +96,6 @@ public class GameManager : MonoBehaviour
 			NotPlayedRules = new List<Rule>(this.ExistingRules);
 
 		Rule randomRule = NotPlayedRules[Random.Range(0, NotPlayedRules.Count)];
-		
-		// CHEAT!!!
-#if FORCE_SURVIVAL
-		foreach (Rule r in ExistingRules)
-			if (r is RuleSurvival)
-				randomRule = r;
-#endif
-#if FORCE_KILL_ONE
-		foreach (Rule r in ExistingRules)
-			if (r is RuleKillOnePlayer)
-				randomRule = r;
-#endif
-
 		return StartGame(randomRule);
 	}
 
@@ -120,8 +107,24 @@ public class GameManager : MonoBehaviour
 		return this.RuleStartPoints[p.Id - 1];
 	}
 
+	private void CheatRule(ref Rule rule)
+	{		
+#if FORCE_SURVIVAL
+		foreach (Rule r in ExistingRules)
+			if (r is RuleSurvival)
+				rule = r;
+#endif
+#if FORCE_KILL_ONE
+		foreach (Rule r in ExistingRules)
+			if (r is RuleKillOnePlayer)
+				rule = r;
+#endif
+	}
+
 	public IEnumerator StartGame(Rule usedRule)
 	{
+		CheatRule(ref usedRule);
+
 		if (usedRule == null)
 			throw new System.ArgumentNullException("usedRule must not be null");
 
@@ -135,13 +138,14 @@ public class GameManager : MonoBehaviour
 		UsedRule.Prepare(this);
 
 		AlivePlayers = new List<Player>(Players);
+
 		foreach (Player p in Players)
 		{
 			p.transform.position = this.SpawnPoints[p.Id - 1].position;
 			p.transform.forward = this.SpawnPoints[p.Id - 1].forward;
 
 			p.Prepare();
-			p.gameObject.SendMessage("OnPlayerPlaced");
+
 			p.JumpsTo(GetStartPoint(this.UsedRule, p), 0.8f, 3);
 		}
 
@@ -158,6 +162,13 @@ public class GameManager : MonoBehaviour
 
 		RoundTimer = 0;
 		yield return UsedRule.StartingGame(this);
+
+		PlayerAI ai;
+		foreach (Player p in this.Players)
+		{
+			if(ai = p.GetComponent<PlayerAI>())
+				UsedRule.SetAI(p, ai);
+		}
 		
 		SpawnPlayers();
 	}

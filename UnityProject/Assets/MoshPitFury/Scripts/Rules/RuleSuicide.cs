@@ -32,4 +32,9 @@ public class RuleSuicide : Rule
 	{
 		Winner = p;
 	}
+
+	public override void SetAI(Player p, PlayerAI ai)
+	{
+		ai.SwitchBehaviour<PlayerAIBehaviourIdle>();
+	}
 }
