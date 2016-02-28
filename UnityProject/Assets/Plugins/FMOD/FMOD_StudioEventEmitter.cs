@@ -102,8 +102,10 @@ public class FMOD_StudioEventEmitter : MonoBehaviour
 
 	void OnDestroy() 
 	{
+#if !UNITY_EDITOR
 		if (isShuttingDown)
 			return;
+#endif
 
 		FMOD.Studio.UnityUtil.Log("Destroy called");
 		if (evt != null && evt.isValid()) 
