@@ -32,9 +32,14 @@ public class TableauDesScores : MonoBehaviour
             }
 		}
         Text winnerText = GameObject.Find("TXT_winner_name").GetComponent<Text>();
-        winnerText.text = "player " + winner + " wins";
-        if (winner.Length > 1) winnerText.color = Color.white;
-        else winnerText.color = Color.white;
+        if (winner.Length > 1)
+        {
+            winnerText.transform.localScale = new Vector3(0.75f, 0.75f, 1);
+            winnerText.verticalOverflow = VerticalWrapMode.Overflow;
+            //winnerText.resizeTextMaxSize = 100;
+            winnerText.text = "players\n " + winner + " win";
+        }
+        else winnerText.text = "player " + winner + " wins";
 	}
 
 	void Looser(int id)
