@@ -10,8 +10,8 @@ public class ProjectorLookAt : MonoBehaviour
 
 	public void Awake()
 	{
-		this.spot = this.transform.FindChild("Spotlight").light;
-		this.volume = this.transform.FindChild("Volume").renderer;
+		this.spot = this.transform.FindChild("Spotlight").GetComponent<Light>();
+		this.volume = this.transform.FindChild("Volume").GetComponent<Renderer>();
 	}
 
 	public void OnEnable()

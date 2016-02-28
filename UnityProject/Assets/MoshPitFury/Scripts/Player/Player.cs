@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
 	{
 		Transform t = this.transform.FindChild("Halo");
 		if (t)
-			this.Halo = t.light;
+			this.Halo = t.GetComponent<Light>();
 	}
 
 	private void InitProjector()
@@ -112,8 +112,8 @@ public class Player : MonoBehaviour
 		cursor = this.transform.FindChild("Circle");
 		if(cursor)
 		{
-			cursor.renderer.material.color = this.MainColor;
-			cursor.renderer.enabled = true;
+			cursor.GetComponent<Renderer>().material.color = this.MainColor;
+			cursor.GetComponent<Renderer>().enabled = true;
 			this.Cursor.Add(cursor.gameObject);
 		}
 	}
@@ -235,7 +235,7 @@ public class Player : MonoBehaviour
 		this.Death(false);
 	}
 
-	private void OnBeerRangeReached(PickageItemRange beer)
+	private void OnBeerRangeReached(PickableItemRangeTrigger beer)
 	{
 		this.Beer = (PickableBeer)beer;
 		this.PlaceBeer();

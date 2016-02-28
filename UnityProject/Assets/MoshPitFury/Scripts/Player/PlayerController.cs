@@ -72,10 +72,10 @@ public class PlayerController : MonoBehaviour
 	void OnPlayerPlaced()
 	{
 		this.Speed = Vector3.zero;
-		if (!this.rigidbody.isKinematic)
+		if (!this.GetComponent<Rigidbody>().isKinematic)
 		{
-			this.rigidbody.velocity = Vector3.zero;
-			this.rigidbody.angularVelocity = Vector3.zero;
+			this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+			this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 		}
 	}
 
@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		this.Speed = Vector3.Lerp(this.Speed, perfectSpeed, Time.deltaTime * (this.player.IsDashing ? AccelerationDash : Acceleration));
-		this.Speed.y = this.rigidbody.velocity.y;
+		this.Speed.y = this.GetComponent<Rigidbody>().velocity.y;
 
 		if (this.Speed.sqrMagnitude < 0.01f)
 		{
@@ -116,8 +116,8 @@ public class PlayerController : MonoBehaviour
 			this.transform.forward = this.Speed.normalized;
 		}
 
-		this.rigidbody.velocity = this.Speed;
-		this.rigidbody.angularVelocity = Vector3.zero;
+		this.GetComponent<Rigidbody>().velocity = this.Speed;
+		this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 	}
 
 	void UpdateBrain()

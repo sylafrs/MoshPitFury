@@ -128,7 +128,7 @@ public class RuleSurvival : Rule
 
 		BeerClone.SendMessage("OnSetCallback", this.Manager);		
 
-		BeerClone.rigidbody.angularVelocity = Random.insideUnitSphere.normalized * Random.Range(5f, 20f);		
+		BeerClone.GetComponent<Rigidbody>().angularVelocity = Random.insideUnitSphere.normalized * Random.Range(5f, 20f);		
 		BeerClone.transform.parent = Beers;
 
 		return BeerClone;
@@ -164,7 +164,7 @@ public class RuleSurvival : Rule
 		position.y = 0;
 
 		LaunchedItem launched = BeerClone.AddComponent<LaunchedItem>();
-		BeerClone.rigidbody.useGravity = false;
+		BeerClone.GetComponent<Rigidbody>().useGravity = false;
 
 		BeerClone.transform.position = GetRandomPublicPosition();
 
@@ -191,7 +191,7 @@ public class RuleSurvival : Rule
 		position.y = 0;
 
 		LaunchedItem launched = BeerClone.AddComponent<LaunchedItem>();
-		BeerClone.rigidbody.useGravity = false;
+		BeerClone.GetComponent<Rigidbody>().useGravity = false;
 
 		BeerClone.transform.position = GetRandomPublicPosition();
 

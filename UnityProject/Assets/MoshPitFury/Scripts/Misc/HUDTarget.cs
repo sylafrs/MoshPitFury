@@ -41,14 +41,14 @@ public class HUDTarget : MonoBehaviour
 
 	public void OnEnable()
 	{
-		this.renderer.enabled = true;
+		this.GetComponent<Renderer>().enabled = true;
 		this.transform.position = InitialPosition;
         this.transform.localScale = InitialScale;
         this.transform.rotation = InitialRotation;
 
 		if (orthoCamera == null)
 		{
-			orthoCamera = GameObject.FindGameObjectWithTag("InterfaceCamera").camera;
+			orthoCamera = GameObject.FindGameObjectWithTag("InterfaceCamera").GetComponent<Camera>();
 		}
 
 		if (Target)
@@ -88,7 +88,7 @@ public class HUDTarget : MonoBehaviour
 
 	void reset()
 	{
-		this.renderer.enabled = false;
+		this.GetComponent<Renderer>().enabled = false;
 		this.enabled = false;
 	}
 	
@@ -96,7 +96,7 @@ public class HUDTarget : MonoBehaviour
 	{
 		point = camera.WorldToViewportPoint(point);
 
-		if (camera.isOrthoGraphic)
+		if (camera.orthographic)
 		{
 			point.z = (2 * (point.z - camera.nearClipPlane) / (camera.farClipPlane - camera.nearClipPlane)) - 1f;
 		}
@@ -111,7 +111,7 @@ public class HUDTarget : MonoBehaviour
 
 	public static Vector3 NormalizedViewportToWorldPoint(Camera camera, Vector3 point)
 	{
-		if (camera.isOrthoGraphic)
+		if (camera.orthographic)
 		{
 			point.z = (point.z + 1f) * (camera.farClipPlane - camera.nearClipPlane) * 0.5f + camera.nearClipPlane;
 		}
