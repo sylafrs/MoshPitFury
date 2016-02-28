@@ -18,14 +18,14 @@ public class PlayerParticles : MonoBehaviour {
 	{
 		player = this.GetComponent<Player>();
 
-		walk		= this.transform.FindChild("Particles/Walk")		.particleSystem;
-		dash		= this.transform.FindChild("Particles/Dash")		.particleSystem;
-		death		= this.transform.FindChild("Particles/Death")		.particleSystem;
-		death_bone	= this.transform.FindChild("Particles/Death/Bone")	.particleSystem;
-		choc		= this.transform.FindChild("Particles/Choc")		.particleSystem;
-		choc_smoke	= this.transform.FindChild("Particles/Choc/Smoke")	.particleSystem;
-		death_flame = this.transform.FindChild("Particles/FlameDeath").particleSystem;
-		death_flame_flames = this.transform.FindChild("Particles/FlameDeath/FLAMES").particleSystem;
+		walk		= this.transform.FindChild("Particles/Walk")		.GetComponent<ParticleSystem>();
+		dash		= this.transform.FindChild("Particles/Dash")		.GetComponent<ParticleSystem>();
+		death		= this.transform.FindChild("Particles/Death")		.GetComponent<ParticleSystem>();
+		death_bone	= this.transform.FindChild("Particles/Death/Bone")	.GetComponent<ParticleSystem>();
+		choc		= this.transform.FindChild("Particles/Choc")		.GetComponent<ParticleSystem>();
+		choc_smoke	= this.transform.FindChild("Particles/Choc/Smoke")	.GetComponent<ParticleSystem>();
+		death_flame = this.transform.FindChild("Particles/FlameDeath").GetComponent<ParticleSystem>();
+		death_flame_flames = this.transform.FindChild("Particles/FlameDeath/FLAMES").GetComponent<ParticleSystem>();
 	}
 
 	void Start()
@@ -60,16 +60,16 @@ public class PlayerParticles : MonoBehaviour {
 			deathFClone.transform.position = death_flame.transform.position;
 			deathFClone.transform.rotation = death_flame.transform.rotation;
 
-			deathFClone.particleSystem.enableEmission = true;
-			deathFClone.particleSystem.time = 0;
-			deathFClone.particleSystem.loop = false;
+			deathFClone.GetComponent<ParticleSystem>().enableEmission = true;
+			deathFClone.GetComponent<ParticleSystem>().time = 0;
+			deathFClone.GetComponent<ParticleSystem>().loop = false;
 
 			Transform deathFCloneFlames = deathFClone.transform.FindChild("FLAMES");
-			deathFCloneFlames.particleSystem.enableEmission = true;
-			deathFCloneFlames.particleSystem.time = 0;
-			deathFCloneFlames.particleSystem.loop = false;
+			deathFCloneFlames.GetComponent<ParticleSystem>().enableEmission = true;
+			deathFCloneFlames.GetComponent<ParticleSystem>().time = 0;
+			deathFCloneFlames.GetComponent<ParticleSystem>().loop = false;
 
-			GameObject.Destroy(deathFClone, deathFClone.particleSystem.duration + 1);
+			GameObject.Destroy(deathFClone, deathFClone.GetComponent<ParticleSystem>().duration + 1);
 		}
 		else
 		{
@@ -77,15 +77,15 @@ public class PlayerParticles : MonoBehaviour {
 			deathClone.transform.position = death.transform.position;
 			deathClone.transform.rotation = death.transform.rotation;
 
-			deathClone.particleSystem.enableEmission = true;
-			deathClone.particleSystem.time = 0;
-			deathClone.particleSystem.loop = false;
+			deathClone.GetComponent<ParticleSystem>().enableEmission = true;
+			deathClone.GetComponent<ParticleSystem>().time = 0;
+			deathClone.GetComponent<ParticleSystem>().loop = false;
 
 			Transform deathCloneBone = deathClone.transform.FindChild("Bone");
-			deathCloneBone.particleSystem.enableEmission = true;
-			deathCloneBone.particleSystem.loop = false;
+			deathCloneBone.GetComponent<ParticleSystem>().enableEmission = true;
+			deathCloneBone.GetComponent<ParticleSystem>().loop = false;
 
-			GameObject.Destroy(deathClone, deathClone.particleSystem.duration + 1);
+			GameObject.Destroy(deathClone, deathClone.GetComponent<ParticleSystem>().duration + 1);
 		}
 	}
 
@@ -108,15 +108,15 @@ public class PlayerParticles : MonoBehaviour {
 
 		yield return null;
 
-		chocClone.particleSystem.enableEmission = true;
-		chocClone.particleSystem.time = 0;
-		chocClone.particleSystem.loop = false;
+		chocClone.GetComponent<ParticleSystem>().enableEmission = true;
+		chocClone.GetComponent<ParticleSystem>().time = 0;
+		chocClone.GetComponent<ParticleSystem>().loop = false;
 
 		Transform chocCloneSmoke = chocClone.transform.FindChild("Smoke");
-		chocCloneSmoke.particleSystem.enableEmission = true;
-		chocCloneSmoke.particleSystem.time = 0;
-		chocCloneSmoke.particleSystem.loop = false;
+		chocCloneSmoke.GetComponent<ParticleSystem>().enableEmission = true;
+		chocCloneSmoke.GetComponent<ParticleSystem>().time = 0;
+		chocCloneSmoke.GetComponent<ParticleSystem>().loop = false;
 
-		GameObject.Destroy(chocClone, chocClone.particleSystem.duration + 1);
+		GameObject.Destroy(chocClone, chocClone.GetComponent<ParticleSystem>().duration + 1);
 	}
 }

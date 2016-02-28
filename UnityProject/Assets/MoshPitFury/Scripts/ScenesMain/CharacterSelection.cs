@@ -37,7 +37,7 @@ public class CharacterSelection : MonoBehaviour
 
 		spotlights = new Light[4];
 		for(int i = 0; i < 4; i++)
-			spotlights[i] = GameObject.Find("SpotlightP" + (i + 1)).light;
+			spotlights[i] = GameObject.Find("SpotlightP" + (i + 1)).GetComponent<Light>();
 
 		PanelText = GameObject.Find("PanelText/Text").GetComponent<Text>();
 		loadingText = GameObject.Find("TextLoading").GetComponent<Text>();

@@ -17,7 +17,7 @@ public class FollowAtOrtho : MonoBehaviour
 	{
 		if (orthoCamera == null)
 		{
-			orthoCamera = GameObject.FindGameObjectWithTag("InterfaceCamera").camera;
+			orthoCamera = GameObject.FindGameObjectWithTag("InterfaceCamera").GetComponent<Camera>();
 		}
 
 		if (target)
@@ -35,7 +35,7 @@ public class FollowAtOrtho : MonoBehaviour
 	{
 		point = camera.WorldToViewportPoint(point);
 
-		if (camera.isOrthoGraphic)
+		if (camera.orthographic)
 		{
 			point.z = (2 * (point.z - camera.nearClipPlane) / (camera.farClipPlane - camera.nearClipPlane)) - 1f;
 		}
@@ -50,7 +50,7 @@ public class FollowAtOrtho : MonoBehaviour
 
 	public static Vector3 NormalizedViewportToWorldPoint(Camera camera, Vector3 point)
 	{
-		if (camera.isOrthoGraphic)
+		if (camera.orthographic)
 		{
 			point.z = (point.z + 1f) * (camera.farClipPlane - camera.nearClipPlane) * 0.5f + camera.nearClipPlane;
 		}
