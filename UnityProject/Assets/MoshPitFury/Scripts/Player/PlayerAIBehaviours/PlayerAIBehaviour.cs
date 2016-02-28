@@ -19,11 +19,11 @@ public abstract class PlayerAIBehaviour : MonoBehaviour
 
 // 
 // Don't move : random to move or not
-// 
-// 
-// 
-// 
-// 
+// Suicide : chooses a fire, random to dash or not
+// Survival : chooses a place, goes there, random completely
+// Deathmatch : target the nearest; or flee
+// Snatch the beer : takes the beer then flee
+// King of the beer : tries to remove the others, stay on the center
 // 
 // 
 // 
