@@ -3,7 +3,6 @@ using System.Collections;
 
 public abstract class PlayerAIBehaviour : MonoBehaviour
 {
-
 	protected Player player;
 	protected PlayerAI brain;
 
@@ -17,3 +16,15 @@ public abstract class PlayerAIBehaviour : MonoBehaviour
 
 	public virtual void OnUpdate() { }
 }
+
+// 
+// Don't move : random to move or not
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
