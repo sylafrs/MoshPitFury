@@ -62,8 +62,8 @@ public class GameManager : MonoBehaviour
 
 		for (int i = 0; i < Players.Length; i++)
 		{
-			this.SpawnPoints[i] = spawnPoints.FindChild("p" + (i + 1).ToString());
-			this.RuleStartPoints[i] = spawnPoints.FindChild("p" + (i + 1).ToString() + "_real");
+			this.SpawnPoints[i] = spawnPoints.FindChild("p" + (i + 1).ToString() + "a");
+			this.RuleStartPoints[i] = spawnPoints.FindChild("P" + (i + 1).ToString());
 		}
 
 		foreach (Player p in Players)
